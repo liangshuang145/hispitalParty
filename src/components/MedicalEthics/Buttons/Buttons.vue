@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="12">
           <el-button type="info" icon="el-icon-document" @click="look" >查看</el-button>
-          <el-button type="success" icon="el-icon-delete" @click="delUser" >导入表格</el-button>
+          <el-button type="success" icon="el-icon-delete" @click="ImportExcel" >导入表格</el-button>
         </el-col>
         <el-col :span="12" style="text-align: right">
           <el-button type="primary" icon="el-icon-s-data" @click="rankingOfDay" >本日排行</el-button>
@@ -13,12 +13,14 @@
           <el-button type="primary" icon="el-icon-s-data" @click="rankingOfYear">本年排行</el-button>
         </el-col>
       </el-row>
+      <import-dialog v-model="isImportDialogShow"></import-dialog>
       <userDialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"></userDialog>
     </div>
 </template>
 
 <script>
   import userDialog from '../UserDialog/UserDialog.vue'
+  import importDialog from '../ImportDialog/ImportDialog.vue'
   import userService from '../../../services/UserService.js'
   import ElCol from "element-ui/packages/col/src/col";
   import ElRow from "element-ui/packages/row/src/row";
@@ -29,6 +31,7 @@
         data () {
             return {
               isUserDialogShow:false,
+              isImportDialogShow:false,
               dialogType:0,// 类型: 0-查看(默认),1-新增,2-修改
               tableData:'',
               userData:{}
@@ -49,6 +52,11 @@
             this.dialogType = 0;
             this.isUserDialogShow = true;
             this.userData = this.tableData
+          },
+          // 导入表格
+          ImportExcel(){
+              console.log('导入表格')
+              this.isImportDialogShow = true
           },
           // 本日排行
           rankingOfDay(){
@@ -78,6 +86,7 @@
           ElRow,
           ElCol,
           userDialog,
+        importDialog
         }
     }
 </script>

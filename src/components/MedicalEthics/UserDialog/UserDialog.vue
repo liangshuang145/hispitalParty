@@ -2,35 +2,19 @@
   <el-dialog :value="value" name="UserDialog" :visible="isShow" :before-close="handleClose" :title="title" width="750px" center>
     <el-form ref="form" :model="form" :rules="rule" label-width="100px" label-position="right">
       <tr>
-        <td><el-form-item label="上传头像" prop="imgUrl">
-            <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess">
-              <img v-if="form.imageUrl" :src="form.imageUrl" class="avatar">
-              <i v-else class="el-icon-plus uploader-icon"></i>
-            </el-upload>
-          </el-form-item></td>
-      </tr>
-      <tr>
-        <td><el-form-item label="登录名" prop="account">
-            <el-input v-model="form.account" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入账号"/>
-          </el-form-item></td>
-        <td><el-form-item label="用户名" prop="nickname">
+        <td><el-form-item label="姓名" prop="nickname">
           <el-input v-model="form.nickname" size="medium" :maxlength="30" placeholder="请输入昵称"/>
+        </el-form-item></td>
+        <td><el-form-item label="性别" prop="gender">
+          <el-radio v-model="form.gender" :label="0">女</el-radio>
+          <el-radio v-model="form.gender" :label="1">男</el-radio>
+          <el-radio v-model="form.gender" :label="-1">未知</el-radio>
         </el-form-item></td>
       </tr>
       <tr>
-        <td v-if="type == 0 || type == 1"><el-form-item v-if="type == 0 || type == 1" label="密码" prop="password">
-            <el-input type="password" v-model="form.password" size="medium" :maxlength="30" auto-complete="new-password" placeholder="请输入密码"/>
-          </el-form-item></td>
-        <td><el-form-item label="性别" prop="gender">
-            <el-radio v-model="form.gender" :label="0">女</el-radio>
-            <el-radio v-model="form.gender" :label="1">男</el-radio>
-          <el-radio v-model="form.gender" :label="-1">未知</el-radio>
-          </el-form-item></td>
-      </tr>
-      <tr>
         <td><el-form-item label="民族" prop="nation ">
-            <el-input v-model="form.nation" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入民族"/>
-          </el-form-item></td>
+          <el-input v-model="form.nation" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入民族"/>
+        </el-form-item></td>
         <td><el-form-item label="籍贯" prop="nativePlace">
           <el-input v-model="form.nativePlace" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入民族"/>
         </el-form-item></td>
@@ -40,14 +24,6 @@
           <el-date-picker
             v-model="form.dateOfBirth" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
           </el-date-picker>
-        </el-form-item></td>
-        <td><el-form-item label="身份证号" prop="idCard">
-          <el-input v-model="form.idCard" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入身份证号" type="number"/>
-        </el-form-item></td>
-      </tr>
-      <tr>
-        <td><el-form-item label="行政编号" prop="number ">
-          <el-input v-model="form.number" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入行政编号"/>
         </el-form-item></td>
         <td><el-form-item label="学历" prop="education">
           <el-select v-model="form.education" placeholder="请选择学历">
@@ -61,37 +37,58 @@
         </el-form-item></td>
       </tr>
       <tr>
-        <td><el-form-item label="行政职务" prop="administrative ">
-          <el-input v-model="form.administrative" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入行政职务"/>
+        <td><el-form-item label="身份证号" prop="idCard">
+          <el-input v-model="form.idCard" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入身份证号" type="number"/>
         </el-form-item></td>
-        <td><el-form-item label="政治面貌" prop="politicsStatus ">
-          <el-select v-model="form.education" placeholder="请选择政治面貌">
-            <el-option
-              v-for="item in politicsStatus"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-          <!--<el-input v-model="form.politicsStatus" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入邮箱" />-->
+        <td><el-form-item label="手机号" prop="weChat ">
+          <el-input v-model="form.mobilePhone" size="medium" :maxlength="11" auto-complete="new-account" placeholder="请输入手机号" type="number"/>
         </el-form-item></td>
       </tr>
       <tr>
+        <td><el-form-item label="行政编号" prop="number ">
+          <el-input v-model="form.number" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入行政编号"/>
+        </el-form-item></td>
         <td><el-form-item label="微信" prop="weChat ">
           <el-input v-model="form.weChat" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入微信号"/>
+        </el-form-item></td>
+      </tr>
+      <tr>
+        <td><el-form-item label="行政职务" prop="administrative ">
+          <el-input v-model="form.administrative" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入行政职务"/>
         </el-form-item></td>
         <td><el-form-item label="邮箱" prop="email">
           <el-input v-model="form.email" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入邮箱" />
         </el-form-item></td>
       </tr>
       <tr>
-        <td><el-form-item label="手机" prop="weChat ">
-          <el-input v-model="form.mobilePhone" size="medium" :maxlength="11" auto-complete="new-account" placeholder="请输入手机号" type="number"/>
-        </el-form-item></td>
         <td><el-form-item label="办公室电话" prop="email">
           <el-input v-model="form.telephone" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入办公室电话号码"/>
         </el-form-item></td>
+        <td><el-form-item label="人员类型" prop="peopleType">
+          <el-select v-model="form.peopleType" placeholder="请选择人员类型">
+            <el-option
+              v-for="item in peopleType"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item></td>
       </tr>
+      <tr>
+        <td><el-form-item label="党支部" prop="partyBranch">
+          <el-input v-model="form.partyBranch" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入党支部"/>
+        </el-form-item></td>
+        <td><el-form-item label="党内职务" prop="partyPosts">
+          <el-input v-model="form.partyPosts" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入党内职务"/>
+        </el-form-item></td>
+        <!--<td><el-form-item label="出生日期" prop="dateOfBirth ">-->
+          <!--<el-date-picker-->
+            <!--v-model="form.dateOfBirth" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">-->
+          <!--</el-date-picker>-->
+        <!--</el-form-item></td>-->
+      </tr>
+
       <tr>
         <td colspan="2"><el-form-item label="家庭住址" prop="description">
             <el-input type="textarea" v-model="form.address" :rows="2" :maxlength="100" placeholder="请输入家庭住址" show-word-limit/>
@@ -102,27 +99,6 @@
             <el-input type="textarea" v-model="form.description" :rows="5" :maxlength="255" placeholder="请输入一句话的承诺" show-word-limit/>
           </el-form-item></td>
       </tr>
-
-      <!--<el-form-item label="类型" prop="type">-->
-        <!--<el-radio v-model="form.type" :label="0">超级管理员</el-radio>-->
-        <!--<el-radio v-model="form.type" :label="1">管理员</el-radio>-->
-        <!--<el-radio v-model="form.type" :label="2">成员</el-radio>-->
-      <!--</el-form-item>-->
-      <!--<el-form-item label="机构" prop="subject">-->
-        <!--<el-select v-model="form.subject" size="medium" placeholder="请选择机构" @change="selectSubject">-->
-          <!--<el-option v-for="item in subjectList" :key="item.id" :label="item.name" :value="item.id"/>-->
-        <!--</el-select>-->
-      <!--</el-form-item>-->
-      <!--<el-form-item label="组织(部门)" prop="depart">-->
-        <!--<el-select v-model="form.depart" size="medium" placeholder="请选择组织(部门)" @change="selectDepart">-->
-          <!--<el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id"/>-->
-        <!--</el-select>-->
-      <!--</el-form-item>-->
-      <!--<el-form-item label="行政(小组)" prop="group">-->
-        <!--<el-select v-model="form.group" size="medium" placeholder="请选择行政(小组)" @change="selectGroup">-->
-          <!--<el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"/>-->
-        <!--</el-select>-->
-      <!--</el-form-item>-->
 
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -208,6 +184,9 @@ export default {
       this.form.number = data.number;
       this.form.administrative = data.administrative;
       this.form.politicsStatus = data.politicsStatus;
+      this.form.peopleType = data.peopleType;
+      this.form.partyBranch = data.partyBranch;
+      this.form.partyPosts = data.partyPosts
     }
   },
   data() {
@@ -236,7 +215,11 @@ export default {
         email:'',
         address:'',
         administrative:'',
-        politicsStatus:''
+        politicsStatus:'',
+        idCard:'',
+        peopleType:'',
+        partyBranch:'',
+        partyPosts:''
       },
       rule: {
         name: [{
@@ -257,6 +240,13 @@ export default {
         {label:'群众',value:1},
         {label:'团员',value:2},
         {label:'党员',value:3},
+      ],
+      peopleType:[
+        {label:'正式党员',value:1},
+        {label:'预备党员',value:2},
+        {label:'入党积极分子',value:3},
+        {label:'入党申请人',value:4},
+        {label:'位置',value:5},
       ]
     }
   },
