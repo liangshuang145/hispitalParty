@@ -19,7 +19,6 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
-  import Bus from '../../bus/bus01.js'
 
   export default {
     name: 'Tree',
@@ -29,9 +28,7 @@
         defaultProps: {
           children: 'child',
           label: 'name'
-        },
-        currentNode:[],
-        treename:''
+        }
       }
     },
     watch: {
@@ -56,33 +53,9 @@
         return data.name.indexOf(value) !== -1
       },
       nodeClick(data, node) {
-          //获取点击id
-        console.log(data);
-        this.treename=data.id;
-        console.log(this.treename);
-
-        //发送接口请求
-
         data['parentData'] = node.parent.data;
-        this.$emit('nodeDept', data);
-
-        //发送请求
-        this.$http.post("localhost:8080/"+""+this.treename)
-          .then((res)=>{
-            //数据传递成功
-            if(res.data.code==200){
-              //执行下面方法
-              this.currentNode=res;
-              console.log(this.currentNode, "111");
-              Bus.$emit('txt',this.currentNode);
-            }
-          },(res)=>{
-            alert("接口测试失败");
-        });
-
-
-      },
-
+        this.$emit('nodeDept', data)
+      }
     }
   }
 </script>
