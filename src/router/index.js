@@ -25,6 +25,10 @@ import MenuManageDemo from '../views/MenuManageDemo.vue'
 // --------组织人事--------
 //人事管理
 import PersonnelArchives from '../views/PersonnelArchives.vue'
+//党员档案
+import MemberArchives from  '../views/MemberArchives.vue'
+//党员发展
+import MemberDevelopment from  '../views/MemberDevelopment.vue'
 
 // -------统战群团老干部-----
 // 民主党派
@@ -58,8 +62,11 @@ export default new Router({
       {path: 'UEditorDemo', name: 'UEditorDemo', component: UEditorDemo},
       {path: 'ActivityManage',name: 'ActivityManage', component: ActivityManage},// 活动管理
       {path: 'PersonnelArchives',name: 'PersonnelArchives',component: PersonnelArchives},// 人事档案
+      {path: 'MemberArchives',name: 'MemberArchives',component: MemberArchives},// 党员管理
+      {path: 'MemberDevelopment',name: 'MemberDevelopment',component: MemberDevelopment},// 党员管理
       {path: 'DemocraticParties',name: 'DemocraticParties',component: DemocraticParties},// 民主档案
       {path: 'MedicalEthics',name: 'MedicalEthics',component: MedicalEthics},// 医德档案
+
       ]
   }]
 })

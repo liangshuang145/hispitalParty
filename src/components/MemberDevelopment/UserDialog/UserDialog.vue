@@ -226,7 +226,6 @@ export default {
       this.form.politicsStatus = data.politicsStatus;
       this.form.peopletype = data.peopletype;
       this.form.dangtype = data.dangtype;
-
     }
   },
   data() {

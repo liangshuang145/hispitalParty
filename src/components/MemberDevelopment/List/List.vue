@@ -9,6 +9,7 @@
       <el-table-column prop="iphone" label="手机号" width="210"/>
       <el-table-column prop="manysto" label="身份证号码" width="210"/>
     </el-table>
+    </el-table>
     <el-pagination background layout="prev, pager, next" :total="1000"/>
     <!--<user-dialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"/>-->
   </div>
@@ -16,7 +17,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import Bus from '../../bus/bus01.js'
 
 export default {
   name: 'List',
@@ -36,12 +36,7 @@ export default {
     ])
   },
   mounted() {
-    this.getUserList();
-    //Tree传递数据
-    Bus.$on('txt',(data)=> {
-      this.setUserList(state,data)
-      this.getUserList();
-    })
+    this.getUserList()
   },
   methods: {
     ...mapActions([
