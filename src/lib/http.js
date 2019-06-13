@@ -51,7 +51,7 @@ http.interceptors.request.use((option) => {
   //   option.headers.Authorization = Cookies.get('GroukAuth')
   // }
 
-  let data = option.data
+  let data = option.data;
   data = Object.keys(data).map(item => `${item}=${encodeURI(data[item])}`).join('&')
   option.data = data
 
@@ -89,7 +89,7 @@ http.interceptors.response.use((response) => {
     // throw {}
   }
 }, (err) => {
-  console.log('interceptors.response =error= ', err)
+  console.error('interceptors.response =error= ', err)
 
   if (err && err.response) {
     switch (err.response.status) {

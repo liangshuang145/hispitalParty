@@ -453,31 +453,4 @@ export default {
       }]
     }
   ],
-  activityList:[
-    {
-      id:1,
-      title:'活动名称',
-      startTime:'2019-06-05',
-      endTime:'2019-06-09',
-      status:'待审核',
-      flag:1,
-      number:20,
-      integral:2,
-      type:'主题党日',
-      summary:'描述',
-      dept:'所属组织'
-    },{
-      id:2,
-      title:'活动名称',
-      startTime:'2019-06-05',
-      endTime:'2019-06-09',
-      status:'待审核',
-      flag:1,
-      number:20,
-      integral:2,
-      type:'主题党日',
-      summary:'描述',
-      dept:'所属组织'
-    }
-  ]
 }

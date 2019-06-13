@@ -221,12 +221,13 @@ export default {
 
     },
     outLogin() {
-      this.$http({
-        url: this.$BASE_URL + 'api/user/outLogin',
-        headers: {
-          token: sessionStorage.getItem('token')
-        }
-      })
+//      this.$http({
+//        url: this.$BASE_URL + 'api/user/outLogin',
+//        headers: {
+//          token: sessionStorage.getItem('token')
+//        }
+//      })
+      this.$router.push('/Login')
     }
   }
 }

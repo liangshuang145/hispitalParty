@@ -13,7 +13,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 // 百度地图
 import BaiduMap from 'vue-baidu-map'
 // echarts 统计使用组件引入
-// import echarts from 'echarts'
+import echarts from 'echarts'
 
 // 其他Js文件引入
 // import global_ from './GlobalData.js'
@@ -24,15 +24,16 @@ import BaiduMap from 'vue-baidu-map'
 // Vue.prototype.$echarts = echarts
 // Vue.prototype.$BASE_URL = global_.BASE_URL
 // Vue.prototype.store = store_
+Vue.prototype.$echarts = echarts;
 
 // 使用
-Vue.use(ElementUI)
+Vue.use(ElementUI);
 Vue.use(BaiduMap, {
   // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
   ak: 'pkWX8eWsquKgIrHnDvYwVGVW9lg501yD'
-})
+});
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({

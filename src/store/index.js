@@ -11,7 +11,7 @@ import DepartService from '@/services/DepartService'
 import GroupService from '@/services/GroupService'
 import MenuService from '@/services/MenuService'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {

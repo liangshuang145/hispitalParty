@@ -6,7 +6,7 @@
 const api = {
   // 聊天机器人
   robot: 'http://robottest.uneedzf.com/api/talk@Robot'
-}
+};
 
 const env = {
   local: {

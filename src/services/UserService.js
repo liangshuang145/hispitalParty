@@ -30,7 +30,7 @@ const getUserInfo = (param = {}) => {
   param = {
     account: param.username,
     password: param.password
-  }
+  };
 
   // return axios({
   //   method: 'post',
@@ -52,7 +52,7 @@ const getUserInfo = (param = {}) => {
 const getUserList = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    let data = mock.userList
+    let data = mock.userList;
     resolve(data)
   })
 

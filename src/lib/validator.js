@@ -91,6 +91,5 @@ export default {
   checkPassword,
   checkEmail,
   checkAnswer,
-
   checkName
 }

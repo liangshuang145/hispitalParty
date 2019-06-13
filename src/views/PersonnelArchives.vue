@@ -24,7 +24,7 @@
   import Tree from '@/components/PersonnelArchives/Tree/Tree.vue'
 
   export default {
-    name: 'UserManageDemo',
+    name: 'PersonnelArchives',
     components: {
       Manage,
       Tree
@@ -33,7 +33,6 @@
       return {
         pageTitle: '人事档案',
         currentNode: null,
-        currentNode:null
       }
     },
     computed: {},

@@ -26,6 +26,14 @@ import MenuManageDemo from '../views/MenuManageDemo.vue'
 //人事管理
 import PersonnelArchives from '../views/PersonnelArchives.vue'
 
+// -------统战群团老干部-----
+// 民主党派
+import DemocraticParties from '../views/DemocraticParties.vue'
+
+
+// ---------清廉医院-------
+import MedicalEthics from '../views/MedicalEthics.vue'
+
 
 // ------------活动管理
 import ActivityManage from '../views/ActivityManage.vue'
@@ -33,7 +41,7 @@ import ActivityManage from '../views/ActivityManage.vue'
 // 百度编辑器
 import UEditorDemo from '../views/UEditorDemo.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -49,7 +57,9 @@ export default new Router({
       {path: 'MenuManageDemo', name: 'MenuManageDemo', component: MenuManageDemo},
       {path: 'UEditorDemo', name: 'UEditorDemo', component: UEditorDemo},
       {path: 'ActivityManage',name: 'ActivityManage', component: ActivityManage},// 活动管理
-      {path: 'PersonnelArchives',name: 'PersonnelArchives',component: PersonnelArchives}// 人事档案
+      {path: 'PersonnelArchives',name: 'PersonnelArchives',component: PersonnelArchives},// 人事档案
+      {path: 'DemocraticParties',name: 'DemocraticParties',component: DemocraticParties},// 民主档案
+      {path: 'MedicalEthics',name: 'MedicalEthics',component: MedicalEthics},// 医德档案
       ]
   }]
 })
