@@ -9,7 +9,7 @@
       <el-table-column prop="iphone" label="手机号" width="210"/>
       <el-table-column prop="manysto" label="身份证号码" width="210"/>
     </el-table>
-    </el-table>
+
     <el-pagination background layout="prev, pager, next" :total="1000"/>
     <!--<user-dialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"/>-->
   </div>

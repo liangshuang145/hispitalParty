@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-bind="http://www.w3.org/1999/xhtml">
   <el-dialog :value="value" name="UserDialog" :visible="isShow" :before-close="handleClose" :title="title" width="750px" center>
     <el-form ref="form" :model="form" :rules="rule" label-width="100px" label-position="right">
       <tr>
@@ -47,7 +47,7 @@
       </tr>
       <tr>
         <td><el-form-item label="人员类型" prop="peopletype">
-          <el-select v-model="form.peopletype" placeholder="请选择类型">
+          <el-select v-model="form.peopletype" placeholder="请选择类型" @click="btnClick()">
             <el-option
               v-for="item in optionss"
               :key="item.value"
@@ -106,6 +106,25 @@
         </el-form-item></td>
         <td><el-form-item label="办公室电话" prop="email">
           <el-input v-model="form.telephone" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入办公室电话号码"/>
+        </el-form-item></td>
+      </tr>
+      <tr>
+        <td v-if="this.form.peopletype == 1||this.form.peopletype == 2||this.form.peopletype == 3||this.form.peopletype == 4 "><el-form-item label="入党申请日期" prop="dateOfgo">
+          <el-date-picker
+            v-model="form.dateOfgo" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
+          </el-date-picker>
+        </el-form-item></td>
+        <td v-if="this.form.peopletype == 1||this.form.peopletype == 2||this.form.peopletype == 3"><el-form-item label="入党积极日期" prop="dataofshor">
+          <el-date-picker
+            v-model="form.dataofshor" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
+          </el-date-picker>
+        </el-form-item></td>
+      </tr>
+      <tr>
+        <td v-if="this.form.peopletype == 1"><el-form-item label="入党日期" prop="dangdate">
+          <el-date-picker
+            v-model="form.dangdate" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
+          </el-date-picker>
         </el-form-item></td>
       </tr>
       <tr>
@@ -177,6 +196,9 @@ export default {
     }
   },
   watch: {
+      'form.peopletype'(val){
+        console.log("form.peopletype",val)
+      },
     type(val) {
       let title = '';
       if(!val){
@@ -226,6 +248,9 @@ export default {
       this.form.politicsStatus = data.politicsStatus;
       this.form.peopletype = data.peopletype;
       this.form.dangtype = data.dangtype;
+      this.form.dateOfgo = data.dateOfgo;
+      this.form.dataofshor = data.dataofshor;
+      this.form.dangdate = data.dangdate;
 
     }
   },
@@ -257,7 +282,12 @@ export default {
         administrative:'',
         politicsStatus:'',
         peopletype:'',
-        dangtype: ''
+        dangtype: '',
+
+        dateOfgo:'',
+        dataofshor:'',
+        dangdate:'',
+
       },
       rule: {
         name: [{
@@ -278,7 +308,7 @@ export default {
         {label:'正式党员',value:1},
         {label:'预备党员',value:2},
         {label:'入党积极分子',value:3},
-        {label:'入党申请树',value:4},
+        {label:'入党申请人',value:4},
         {label:'未知',value:5},
       ],
       politicsStatus:[
@@ -307,6 +337,7 @@ export default {
       'getGroupList',
       'getUserList'
     ]),
+
     selectSubject(val) {
       this.form.subject = val
     },
