@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div name="List" class="list-panel">
     <!--<buttons></buttons>-->
     <el-table ref="multipleTable" :data="userList"   highlight-current-row @current-change="handleTableChange" height="520">

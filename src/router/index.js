@@ -33,8 +33,16 @@ import MemberDevelopment from  '../views/MemberDevelopment.vue'
 // -------统战群团老干部-----
 // 民主党派
 import DemocraticParties from '../views/DemocraticParties.vue'
-
-
+//高知群体
+import Intellectual from  '../views/Intellectual.vue'
+//工会
+import LaborUnion from '../views/LaborUnion.vue'
+//团委
+import CommunistYouthLeague from '../views/CommunistYouthLeague.vue'
+//妇代会
+import Conference from '../views/Conference.vue'
+//离退休老干部
+import RetiredVeteranCadre from '../views/RetiredVeteranCadre.vue'
 // ---------清廉医院-------
 import MedicalEthics from '../views/MedicalEthics.vue'
 
@@ -64,7 +72,13 @@ export default new Router({
       {path: 'PersonnelArchives',name: 'PersonnelArchives',component: PersonnelArchives},// 人事档案
       {path: 'MemberArchives',name: 'MemberArchives',component: MemberArchives},// 党员管理
       {path: 'MemberDevelopment',name: 'MemberDevelopment',component: MemberDevelopment},// 党员管理
-      {path: 'DemocraticParties',name: 'DemocraticParties',component: DemocraticParties},// 民主档案
+      {path: 'DemocraticParties',name: 'DemocraticParties',component: DemocraticParties},// 民主党派
+      {path: 'Intellectual',name: 'Intellectual',component: Intellectual},// 高知群体
+      {path: 'LaborUnion',name: 'LaborUnion',component: LaborUnion},// 工会
+      {path: 'CommunistYouthLeague',name: 'CommunistYouthLeague',component: CommunistYouthLeague},// 团委
+      {path: 'Conference',name: 'Conference',component: Conference},// 妇代会
+      {path: 'RetiredVeteranCadre',name: 'RetiredVeteranCadre',component: RetiredVeteranCadre},// 离退休老干部
+
       {path: 'MedicalEthics',name: 'MedicalEthics',component: MedicalEthics},// 医德档案
 
       ]

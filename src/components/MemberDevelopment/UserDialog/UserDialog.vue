@@ -109,6 +109,25 @@
         </el-form-item></td>
       </tr>
       <tr>
+        <td v-if="this.form.peopletype == 1||this.form.peopletype == 2||this.form.peopletype == 3||this.form.peopletype == 4 "><el-form-item label="入党申请日期" prop="dateOfgo">
+          <el-date-picker
+            v-model="form.dateOfgo" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
+          </el-date-picker>
+        </el-form-item></td>
+        <td v-if="this.form.peopletype == 1||this.form.peopletype == 2||this.form.peopletype == 3"><el-form-item label="入党积极日期" prop="dataofshor">
+          <el-date-picker
+            v-model="form.dataofshor" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
+          </el-date-picker>
+        </el-form-item></td>
+      </tr>
+      <tr>
+        <td v-if="this.form.peopletype == 1"><el-form-item label="入党日期" prop="dangdate">
+          <el-date-picker
+            v-model="form.dangdate" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
+          </el-date-picker>
+        </el-form-item></td>
+      </tr>
+      <tr>
         <td colspan="2"><el-form-item label="家庭住址" prop="description">
             <el-input type="textarea" v-model="form.address" :rows="2" :maxlength="100" placeholder="请输入家庭住址" show-word-limit/>
           </el-form-item></td>
@@ -226,6 +245,10 @@ export default {
       this.form.politicsStatus = data.politicsStatus;
       this.form.peopletype = data.peopletype;
       this.form.dangtype = data.dangtype;
+      this.form.dateOfgo = data.dateOfgo;
+      this.form.dataofshor = data.dataofshor;
+      this.form.dangdate = data.dangdate;
+
     }
   },
   data() {
@@ -256,7 +279,10 @@ export default {
         administrative:'',
         politicsStatus:'',
         peopletype:'',
-        dangtype: ''
+        dangtype: '',
+        dateOfgo:'',
+        dataofshor:'',
+        dangdate:''
       },
       rule: {
         name: [{
@@ -277,7 +303,7 @@ export default {
         {label:'正式党员',value:1},
         {label:'预备党员',value:2},
         {label:'入党积极分子',value:3},
-        {label:'入党申请树',value:4},
+        {label:'入党申请人',value:4},
         {label:'未知',value:5},
       ],
       politicsStatus:[
