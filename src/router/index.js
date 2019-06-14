@@ -116,7 +116,7 @@ export default new Router({
       {path: 'UnitedFrontStrength',name: 'UnitedFrontStrength',component:UnitedFrontStrength}, //统战力量图谱
       {path: 'VeteranCadreStrength',name: 'VeteranCadreStrength',component:VeteranCadreStrength}, //老干部力量图谱
       {path: 'PioneerIndex',name: 'PioneerIndex',component:PioneerIndex},//先锋指数
-      {path: 'DemocraticAppraisal',name: 'DemocraticAppraisal',component:DemocraticAppraisal},//民主评议
+      {path: 'DemocraticAppraisal',name: 'DemocraticAppraisal',component:DemocraticAppraisal},//民主评议1
 
     ]
   }]
