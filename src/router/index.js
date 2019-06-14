@@ -47,6 +47,16 @@ import RetiredVeteranCadre from '../views/RetiredVeteranCadre.vue'
 import MedicalEthics from '../views/MedicalEthics.vue'
 
 
+// 行风效能
+import Efficiency from '../views/Efficiency.vue'
+// 党内精神
+import PartySpirit from '../views/PartySpirit.vue'
+// 学习强国
+import LearningPower from  '../views/LearningPower.vue'
+// 先锋人物
+import Pioneer from '../views/Pioneer.vue'
+
+
 // ------------活动管理
 import ActivityManage from '../views/ActivityManage.vue'
 
@@ -78,9 +88,11 @@ export default new Router({
       {path: 'CommunistYouthLeague',name: 'CommunistYouthLeague',component: CommunistYouthLeague},// 团委
       {path: 'Conference',name: 'Conference',component: Conference},// 妇代会
       {path: 'RetiredVeteranCadre',name: 'RetiredVeteranCadre',component: RetiredVeteranCadre},// 离退休老干部
-
       {path: 'MedicalEthics',name: 'MedicalEthics',component: MedicalEthics},// 医德档案
-
+      {path: 'Efficiency',name: 'Efficiency', component: Efficiency},// 行风效能
+      {path: 'PartySpirit',name: 'PartySpirit',component:PartySpirit},//党内精神
+      {path: 'LearningPower',name: 'PartySpirit',component:LearningPower},//学习强国
+      {path: 'Pioneer',name: 'Pioneer',component:Pioneer},//先锋人物
       ]
   }]
 })

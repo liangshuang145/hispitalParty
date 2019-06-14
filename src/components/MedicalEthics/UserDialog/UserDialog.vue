@@ -88,7 +88,31 @@
           <!--</el-date-picker>-->
         <!--</el-form-item></td>-->
       </tr>
-
+      <tr>
+        <td><el-form-item label="党籍状态" prop="dangType">
+          <el-radio v-model="form.dangType" :label="0">正常</el-radio>
+          <el-radio v-model="form.dangType" :label="1">停止党籍</el-radio>
+        </el-form-item></td>
+      </tr>
+      <tr>
+        <td v-if="this.form.peopleType == 1||this.form.peopleType == 2||this.form.peopleType == 3||this.form.peopleType == 4 "><el-form-item label="入党申请日期" prop="dateOfGo">
+          <el-date-picker
+            v-model="form.dateOfGo" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
+          </el-date-picker>
+        </el-form-item></td>
+        <td v-if="this.form.peopleType == 1||this.form.peopleType == 2||this.form.peopleType == 3"><el-form-item label="入党积极日期" prop="dataOfShor">
+          <el-date-picker
+            v-model="form.dataOfShor" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
+          </el-date-picker>
+        </el-form-item></td>
+      </tr>
+      <tr>
+        <td v-if="this.form.peopleType == 1"><el-form-item label="入党日期" prop="dangDate">
+          <el-date-picker
+            v-model="form.dangDate" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
+          </el-date-picker>
+        </el-form-item></td>
+      </tr>
       <tr>
         <td colspan="2"><el-form-item label="家庭住址" prop="description">
             <el-input type="textarea" v-model="form.address" :rows="2" :maxlength="100" placeholder="请输入家庭住址" show-word-limit/>
@@ -143,6 +167,9 @@ export default {
           val = 0
       }
       switch (val) {
+        case 0:
+          title = '查看信息';
+          break;
         case 1:
           title = '新增用户';
           break;
@@ -186,7 +213,11 @@ export default {
       this.form.politicsStatus = data.politicsStatus;
       this.form.peopleType = data.peopleType;
       this.form.partyBranch = data.partyBranch;
-      this.form.partyPosts = data.partyPosts
+      this.form.partyPosts = data.partyPosts;
+      this.form.dateOfGo = data.dateOfGo;
+      this.form.dataOfShor = data.dataOfShor;
+      this.form.dangDate = data.dangDate;
+      this.form.dangType = data.dangType;
     }
   },
   data() {
@@ -219,7 +250,11 @@ export default {
         idCard:'',
         peopleType:'',
         partyBranch:'',
-        partyPosts:''
+        partyPosts:'',
+        dateOfGo:'',
+        dataOfShor:'',
+        dangDate:'',
+        dangType:''
       },
       rule: {
         name: [{
@@ -250,34 +285,9 @@ export default {
       ]
     }
   },
-  computed: {
-//    ...mapState([
-//      'subjectList',
-//      'departList',
-//      'groupList'
-//    ]),
-  },
-//  async mounted() {
-//    await this.getSubjectList()
-//    await this.getDepartList()
-//    await this.getGroupList()
-//  },
+  computed: {},
+
   methods: {
-    ...mapActions([
-      'getSubjectList',
-      'getDepartList',
-      'getGroupList',
-      'getUserList'
-    ]),
-    selectSubject(val) {
-      this.form.subject = val
-    },
-    selectDepart(val) {
-      this.form.depart = val
-    },
-    selectGroup(val) {
-      this.form.group = val
-    },
     // 确定按钮
     sureClick() {
       switch (this.type) {

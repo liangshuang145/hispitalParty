@@ -2,17 +2,13 @@
   <div name="List" class="list-panel">
     <!--<buttons></buttons>-->
     <el-table ref="multipleTable" :data="userList"   highlight-current-row @current-change="handleTableChange" height="520">
-      <el-table-column prop="account" label="账号" width="110"/>
-      <el-table-column prop="nickname" label="昵称" width="100"/>
-      <el-table-column prop="gender" label="性别" width="50"/>
-      <el-table-column prop="type" label="类型" width="90"/>
-      <el-table-column prop="status" label="状态" width="50"/>
-      <el-table-column prop="date" label="创建日期" width="110"/>
-      <el-table-column prop="work" label="岗位信息" width="240"/>
-      <el-table-column prop="description" label="描述"/>
+      <el-table-column prop="account" label="排名顺序" />
+      <el-table-column prop="nickname" label="员工编号" />
+      <el-table-column prop="gender" label="员工姓名" />
+      <el-table-column prop="type" label="所属部门" />
+      <el-table-column prop="status" label="联系电话" />
     </el-table>
     <el-pagination background layout="prev, pager, next" :total="1000"/>
-    <!--<user-dialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"/>-->
   </div>
 </template>
 
@@ -28,7 +24,9 @@ export default {
       isUserDialogShow: false,
       dialogType: 0,
       userData: {},
-      changeTableData: null
+      changeTableData: null,
+      currentPage:1,
+      pageSize:20,
     }
   },
   computed: {
