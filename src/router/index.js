@@ -60,8 +60,18 @@ import PartySpirit from '../views/PartySpirit.vue'
 import LearningPower from  '../views/LearningPower.vue'
 // 先锋人物
 import Pioneer from '../views/Pioneer.vue'
-
-
+//党组织力量图谱
+import  PartyOrganizationalStrength from '../views/PartyOrganizationalStrength.vue'
+//群团力量图谱
+import  PeopleStrength from '../views/PeopleStrength.vue'
+//统战力量图谱
+import  UnitedFrontStrength from '../views/UnitedFrontStrength.vue'
+//老干部力量图谱
+import VeteranCadreStrength from '../views/VeteranCadreStrength.vue'
+//先锋指数
+import PioneerIndex from '../views/PioneerIndex.vue'
+//民主评议
+import DemocraticAppraisal from '../views/DemocraticAppraisal.vue'
 // ------------活动管理
 import ActivityManage from '../views/ActivityManage.vue'
 
@@ -101,6 +111,12 @@ export default new Router({
       {path: 'PartySpirit',name: 'PartySpirit',component:PartySpirit},//党内精神
       {path: 'LearningPower',name: 'PartySpirit',component:LearningPower},//学习强国
       {path: 'Pioneer',name: 'Pioneer',component:Pioneer},//先锋人物
+      {path: 'PartyOrganizationalStrength',name: 'PartyOrganizationalStrength',component:PartyOrganizationalStrength}, //党组织力量图谱
+      {path: 'PeopleStrength',name: 'PeopleStrength',component:PeopleStrength}, //群团力量图谱
+      {path: 'UnitedFrontStrength',name: 'UnitedFrontStrength',component:UnitedFrontStrength}, //统战力量图谱
+      {path: 'VeteranCadreStrength',name: 'VeteranCadreStrength',component:VeteranCadreStrength}, //老干部力量图谱
+      {path: 'PioneerIndex',name: 'PioneerIndex',component:PioneerIndex},//先锋指数
+      {path: 'DemocraticAppraisal',name: 'DemocraticAppraisal',component:DemocraticAppraisal},//民主评议
 
     ]
   }]

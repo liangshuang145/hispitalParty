@@ -110,7 +110,7 @@ export default {
               {'name': '党组织力量图谱', 'icon': 'el-icon-location', 'index':  '/Index/partyOrganizationalStrength'},
               {'name': '群团力量图谱', 'icon': 'el-icon-location', 'index':  '/Index/peopleStrength'},
               {'name': '统战力量图谱', 'icon': 'el-icon-location', 'index':  '/Index/unitedFrontStrength'},
-              {'name': '老干部量图谱', 'icon': 'el-icon-location', 'index':  '/Index/veteranCadreStrength'},
+              {'name': '老干部力量图谱', 'icon': 'el-icon-location', 'index':  '/Index/veteranCadreStrength'},
               ]
             },
             {'name': '党务公开', 'icon': 'el-icon-location','index': '3-4', 'child': [
@@ -162,7 +162,7 @@ export default {
             {'name': '考核年报', 'icon': 'el-icon-location', 'index': '/Index/assessAnnualReport'},
             ]
           },
-          {'name': '支部考核', 'icon': 'el-icon-location', 'index': '5-2', 'child': [
+          {'name': '党员考核', 'icon': 'el-icon-location', 'index': '5-2', 'child': [
             {'name': '先锋指数', 'icon': 'el-icon-location', 'index': '/Index/pioneerIndex'},
             {'name': '民主评议', 'icon': 'el-icon-location', 'index': '/Index/democraticAppraisal'},
             {'name': '党员年报', 'icon': 'el-icon-location', 'index': '/Index/partyMembersAnnualReports'},
