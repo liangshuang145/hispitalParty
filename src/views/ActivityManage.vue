@@ -4,7 +4,7 @@
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item to="/">首页</el-breadcrumb-item>
       <el-breadcrumb-item to="/Index">基础管理</el-breadcrumb-item>
-      <el-breadcrumb-item to="/Index/UserManageDemo">{{ pageTitle }}</el-breadcrumb-item>
+      <el-breadcrumb-item to="/Index/ActivityManage">{{ pageTitle }}</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="content-panel">
       <search/>

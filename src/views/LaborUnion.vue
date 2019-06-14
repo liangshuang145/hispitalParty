@@ -5,7 +5,7 @@
       <el-breadcrumb-item to="/Index">首页</el-breadcrumb-item>
       <el-breadcrumb-item to="/Index">人员管理</el-breadcrumb-item>
       <el-breadcrumb-item to="/Index">统战群团老干部</el-breadcrumb-item>
-      <el-breadcrumb-item to="/Index/DemocraticParties">{{ pageTitle }}</el-breadcrumb-item>
+      <el-breadcrumb-item to="/Index/LaborUnion">{{ pageTitle }}</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="content-panel">
       <el-row>

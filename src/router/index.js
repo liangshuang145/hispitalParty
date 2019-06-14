@@ -45,7 +45,12 @@ import Conference from '../views/Conference.vue'
 import RetiredVeteranCadre from '../views/RetiredVeteranCadre.vue'
 // ---------清廉医院-------
 import MedicalEthics from '../views/MedicalEthics.vue'
-
+//药品预警
+import DrugWarning from '../views/DrugWarning.vue'
+//耗材预警
+import ConsumableWarning from '../views/ConsumableWarning.vue'
+//廉政教育
+import EducationOfCleanPolitic from '../views/EducationOfCleanPolitic.vue'
 
 // ------------活动管理
 import ActivityManage from '../views/ActivityManage.vue'
@@ -80,7 +85,11 @@ export default new Router({
       {path: 'RetiredVeteranCadre',name: 'RetiredVeteranCadre',component: RetiredVeteranCadre},// 离退休老干部
 
       {path: 'MedicalEthics',name: 'MedicalEthics',component: MedicalEthics},// 医德档案
+      {path: 'DrugWarning',name: 'DrugWarning',component: DrugWarning},// 药品预警
+      {path: 'ConsumableWarning',name: 'ConsumableWarning',component: ConsumableWarning},// 耗材预警
+      {path: 'EducationOfCleanPolitic',name: 'EducationOfCleanPolitic',component: EducationOfCleanPolitic},// 廉政教育
 
-      ]
+
+    ]
   }]
 })
