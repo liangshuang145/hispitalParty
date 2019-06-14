@@ -45,7 +45,12 @@ import Conference from '../views/Conference.vue'
 import RetiredVeteranCadre from '../views/RetiredVeteranCadre.vue'
 // ---------清廉医院-------
 import MedicalEthics from '../views/MedicalEthics.vue'
-
+//药品预警
+import DrugWarning from '../views/DrugWarning.vue'
+//耗材预警
+import ConsumableWarning from '../views/ConsumableWarning.vue'
+//廉政教育
+import EducationOfCleanPolitic from '../views/EducationOfCleanPolitic.vue'
 
 // 行风效能
 import Efficiency from '../views/Efficiency.vue'
@@ -89,10 +94,14 @@ export default new Router({
       {path: 'Conference',name: 'Conference',component: Conference},// 妇代会
       {path: 'RetiredVeteranCadre',name: 'RetiredVeteranCadre',component: RetiredVeteranCadre},// 离退休老干部
       {path: 'MedicalEthics',name: 'MedicalEthics',component: MedicalEthics},// 医德档案
+      {path: 'DrugWarning',name: 'DrugWarning',component: DrugWarning},// 药品预警
+      {path: 'ConsumableWarning',name: 'ConsumableWarning',component: ConsumableWarning},// 耗材预警
+      {path: 'EducationOfCleanPolitic',name: 'EducationOfCleanPolitic',component: EducationOfCleanPolitic},// 廉政教育
       {path: 'Efficiency',name: 'Efficiency', component: Efficiency},// 行风效能
       {path: 'PartySpirit',name: 'PartySpirit',component:PartySpirit},//党内精神
       {path: 'LearningPower',name: 'PartySpirit',component:LearningPower},//学习强国
       {path: 'Pioneer',name: 'Pioneer',component:Pioneer},//先锋人物
-      ]
+
+    ]
   }]
 })

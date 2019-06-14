@@ -1,0 +1,96 @@
+<template>
+  <div name="List" class="list-panel">
+    <!--<buttons></buttons>-->
+    <el-table ref="multipleTable" :data="userList"   highlight-current-row @current-change="handleTableChange" height="520">
+      <el-table-column prop="text01" label="发布支部" width="160"/>
+      <el-table-column prop="text02" label="标题" width="160"/>
+      <el-table-column prop="text03" label="状态" width="160"/>
+      <el-table-column prop="text04" label="发布时间" width="160"/>
+      <el-table-column prop="text05" label="作者" width="160"/>
+      <el-table-column prop="text06" label="专题类型" width="160"/>
+      <el-table-column prop="text07" label="评论（条）" width="160"/>
+      <el-table-column prop="text08" label="签到数" width="160"/>
+    </el-table>
+    <el-pagination background layout="prev, pager, next" :total="1000"/>
+    <!--<user-dialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"/>-->
+  </div>
+</template>
+
+<script>
+import { mapState, mapActions } from 'vuex'
+import Bus from '../../bus/bus01.js'
+
+export default {
+  name: 'List',
+  components: {
+  },
+  data() {
+    return {
+      isUserDialogShow: false,
+      dialogType: 0,
+      userData: {},
+      changeTableData: null
+    }
+  },
+  computed: {
+    ...mapState([
+      'userList'
+    ])
+  },
+  mounted() {
+    this.getUserList();
+    //Tree传递数据
+    Bus.$on('txt',(data)=> {
+      this.setUserList(state,data)
+      this.getUserList();
+    })
+  },
+  methods: {
+    ...mapActions([
+      'getUserList'
+    ]),
+    // 列表选中
+    handleTableChange(val) {
+      this.changeTableData = val;
+      this.$emit('tableDataChange',val)
+    },
+//    // 查看用户
+//    viewUser(data) {
+//      console.log('data =viewUser= ', data)
+//
+//      this.dialogType = 0
+//      this.isUserDialogShow = true
+//      this.userData = data
+//    },
+//    // 修改用户
+//    updateUser(data) {
+//      console.log('data =updateUser= ', data)
+//
+//      this.dialogType = 2
+//      this.isUserDialogShow = true
+//      this.userData = data
+//    },
+//    // 删除用户
+//    deleteUser(data) {
+//      console.log('data =deleteUser= ', data)
+//
+//      this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+//        confirmButtonText: '确定',
+//        cancelButtonText: '取消',
+//        type: 'warning'
+//      }).then(() => {
+//        this.$message.success('已删除')
+//      }).catch(() => {
+//        this.$message.info('已取消')
+//      })
+//    }
+  }
+}
+</script>
+
+<style scoped>
+.el-pagination {
+  margin: 10px 0;
+  float: right;
+}
+</style>

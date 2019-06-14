@@ -1,10 +1,11 @@
 #@Author: bjy @Date: 2019/6/11 14:49 #
 <template>
-  <el-main name="PersonnelArchives">
+  <el-main name="ConsumableWarning">
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item to="/">首页</el-breadcrumb-item>
-      <el-breadcrumb-item to="/Index">人员管理</el-breadcrumb-item>
-      <el-breadcrumb-item to="/Index/MemberDevelopment">{{ pageTitle }}</el-breadcrumb-item>
+      <el-breadcrumb-item to="/Index">党务管理</el-breadcrumb-item>
+      <el-breadcrumb-item to="/Index">清廉医院</el-breadcrumb-item>
+      <el-breadcrumb-item to="/Index/ConsumableWarning">{{ pageTitle }}</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="content-panel">
       <el-row>
@@ -20,20 +21,19 @@
 </template>
 
 <script>
-  import Manage from '@/components/MemberDevelopment/Manage/Manage.vue'
-  import Tree from '@/components/MemberDevelopment/Tree/Tree.vue'
+  import Manage from '@/components/ConsumableWarning/Manage/Manage.vue'
+  import Tree from '@/components/ConsumableWarning/Tree/Tree.vue'
 
   export default {
-    name: 'UserManageDemo',
+    name: 'ConsumableWarning',
     components: {
       Manage,
       Tree
     },
     data() {
       return {
-        pageTitle: '党员发展',
+        pageTitle: '耗材预警',
         currentNode: null,
-        currentNode:null
       }
     },
     computed: {},
