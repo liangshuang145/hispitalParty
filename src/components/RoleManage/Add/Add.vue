@@ -4,21 +4,26 @@
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name" size="medium" :maxlength="50"/>
       </el-form-item>
-      <!--<el-form-item label="操作" prop="operation">-->
-        <!--<el-checkbox-group v-model="form.operation">-->
-          <!--<el-checkbox :label="0">查看</el-checkbox>-->
-          <!--<el-checkbox :label="1">新增</el-checkbox>-->
-          <!--<el-checkbox :label="2">修改</el-checkbox>-->
-          <!--<el-checkbox :label="3">删除</el-checkbox>-->
-        <!--</el-checkbox-group>-->
-      <!--</el-form-item>-->
+      <el-form-item label="等级" prop="grade">
+        <el-select v-model="form.grade" placeholder="请选择等级">
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="描述" prop="description">
-        <el-input type="textarea" v-model="form.description" :rows="5" :maxlength="255"/>
+        <el-input type="textarea" v-model="form.description" :rows="3" :maxlength="255"  show-word-limit/>
       </el-form-item>
       <el-form-item>
         <el-button type="success" size="medium" @click="submitForm">新增</el-button>
       </el-form-item>
     </el-form>
+    <el-row>
+      <el-col :span="12">
+        <fields></fields>
+      </el-col>
+      <el-col :span="12">
+        <button-check-box></button-check-box>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -26,6 +31,9 @@
 import { mapActions } from 'vuex'
 import Validator from '@/lib/validator'
 import RoleService from '@/services/RoleService'
+import Fields from '../Fields/Fields.vue'
+import ElCol from "element-ui/packages/col/src/col";
+import ButtonCheckBox from '../ButtonCheckBox/ButtonCheckBox.vue'
 
 export default {
   name: 'Add',
@@ -36,9 +44,21 @@ export default {
     return {
       form: {
         name: '',
-        operation: [],
+        grade:'',
         description: ''
       },
+      options: [
+        {value: 0, label: '0级'},
+        {value: 1, label: '1级'},
+        {value: 2, label: '2级'},
+        {value: 3, label: '3级'},
+        {value: 4, label: '4级'},
+        {value: 5, label: '5级'},
+        {value: 6, label: '6级'},
+        {value: 7, label: '7级'},
+        {value: 8, label: '8级'},
+        {value: 9, label: '9级'}
+        ],
       rule: {
         name: [{
           validator: Validator.checkName,
@@ -49,8 +69,9 @@ export default {
   },
   watch: {
     pNode(pNode) {
+        console.log(pNode)
       this.form.name = pNode.name
-      this.form.operation = pNode.operation
+      this.form.grade = pNode.grade
       this.form.description = pNode.description
     }
   },
@@ -73,6 +94,11 @@ export default {
         })
       })
     }
+  },
+  components:{
+    ElCol,
+    Fields,
+    ButtonCheckBox
   }
 }
 </script>
@@ -82,4 +108,7 @@ export default {
   min-height: 520px;
   overflow-y: auto;
 }
+  .el-row{
+    margin: 5px;
+  }
 </style>

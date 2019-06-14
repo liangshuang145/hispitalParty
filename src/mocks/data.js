@@ -297,22 +297,22 @@ export default {
   roleList: [{
     id: 1,
     name: '超级管理员',
-    operation: [0, 1, 2, 3],
+    grade:9,
     description: '超级管理员的描述'
   }, {
     id: 2,
     name: '管理员',
-    operation: [0, 1, 2],
+    grade:8,
     description: '管理员的描述'
   }, {
     id: 3,
     name: '运营',
-    operation: [0, 1, 2],
+    grade:7,
     description: '运营的描述'
   }, {
     id: 4,
     name: '普通用户',
-    operation: [],
+    grade:0,
     description: '普通用户的描述'
   }],
   // 机构列表

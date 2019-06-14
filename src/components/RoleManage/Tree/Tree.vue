@@ -2,7 +2,6 @@
 <template>
   <div class="tree">
     <el-tabs type="border-card">
-      <el-tab-pane label="列表">
         <el-input size="medium" placeholder="输入关键字进行过滤" v-model="filterText"/>
         <el-tree
           :data="roleList"
@@ -14,7 +13,6 @@
           :filter-node-method="filterNode"
           ref="tree"
         ></el-tree>
-      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -69,7 +67,7 @@ export default {
 
 .el-tree {
   overflow: auto;
-  height: 475px;
+  height: 625px;
   margin-top: 10px;
 }
 </style>
