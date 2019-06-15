@@ -26,7 +26,7 @@
 
 <script>
 import LoginForm from '@/components/LoginForm/LoginForm'
-import UserService from '@/services/UserService'
+import LoginService from '@/services/LoginService'
 
 export default {
   name: 'Login',
@@ -47,106 +47,24 @@ export default {
   methods: {
     keyupSubmit() {
       document.onkeydown = e => {
-        let _key = window.event.keyCode
+        let _key = window.event.keyCode;
         if (_key === 13) {
           this.openFullScreen()
         }
       }
     },
     openFullScreen() {
-      this.fullscreenLoading = true
+      this.fullscreenLoading = true;
       this.login()
     },
-    login(userName, userPwd) {
-      // UserService.getUserInfo({
-      //   userName, userPwd
-      // }).then((res) => {
-      //   console.log()
-      // })
-      //  if(!this.userName){
-      //    this.$notify.error({
-      //      title: '错误',
-      //      message: '请输入账号'
-      //    });
-      //    this.fullscreenLoading = false;
-      //    return;
-      //  }
-      //  if(!this.userPwd){
-      //    this.$notify.error({
-      //      title: '错误',
-      //      message: '请输入密码'
-      //    });
-      //    this.fullscreenLoading = false;
-      //    return;
-      //  }
-      //  var params = {
-      //    loginName:this.userName,
-      //    loginPwd:this.userPwd
-      //  };
-
-      this.$router.push('/Index')
-
-      // 发送 post 请求
-      //  this.$http({
-      //    url: this.$BASE_URL+'api/user/searchUserInfo',
-      //    method: 'post',
-      //    data: params
-      //  }).then((res)=>{
-      //    this.fullscreenLoading = false;
-      //    if(res.data.code == 200){
-      //      sessionStorage.setItem("token",res.data.token);
-      //      this.$router.push('/Index');
-      //    } else {
-      //      this.$notify.error({
-      //        title: "错误码："+res.data.code,
-      //        message: res.data.resMessage,
-      //        duration: 5000
-      //      });
-      //    }
-      //  },(res)=>{
-      //    this.fullscreenLoading = false;
-      //    this.$notify.error({
-      //      title: '错误',
-      //      message: "服务器连接故障！",
-      //      duration: 5000
-      //    });
-      //    console.log(res);
-      //  });
-    },
     doLogin({ username, password }) {
-      UserService.getUserInfo({
+      LoginService.userLogin({
         username,
         password
       }).then((res) => {
-        console.log('res == ', res)
+          sessionStorage.setItem('userInfo',JSON.stringify(res));
+          this.$router.push('Index');
       })
-      this.$router.push('/Index')
-      // 跳转
-      // this.$router.push({
-      //   path: '/Index'
-      // })
-
-      // UserService.getUserInfo({
-      //   account: username,
-      //   password
-      // }).then((res) => {
-      //   if (res === '') {
-      //     this.$message.error('提交失败')
-      //     return false
-      //   }
-      //   // 记录
-      //   // this.$store.commit('userLogin', res)
-      //   // 提示
-      //   this.$message.success('提交成功')
-      //   // 跳转
-      //   this.$router.push({
-      //     path: '/Index'
-      //   })
-      //   // 跳转
-      //   // this.$router.push('/Index');
-      // }).catch((err) => {
-      //   console.log('err == ', err)
-      // })
     }
   }
 }

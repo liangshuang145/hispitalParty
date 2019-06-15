@@ -11,15 +11,15 @@ const http = axios.create({
   // 设置默认请求头，使post请求发送的是formdata格式数据
   // axios的header默认的Content-Type好像是'application/json;charset=UTF-8'
   // 我的项目都是用json格式传输，如果需要更改的话，可以用这种方式修改
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-  }
+  // headers: {
+  //   'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+  // }
   // withCredentials: true // 允许携带cookie
 })
 
 // http request 拦截器
 http.interceptors.request.use((option) => {
-  // let reqUrl = config.base + option.url
+  let reqUrl = option.baseURL + option.url.url;
 
   // let reqUrl = option.url
 
@@ -27,7 +27,6 @@ http.interceptors.request.use((option) => {
   //   reqUrl = option.url
   // }
 
-  // option.url = reqUrl
 
   // if (!window.ENV.app) {
   //   option.headers['Closer-Agent'] = 'Closer-Download'
@@ -51,25 +50,26 @@ http.interceptors.request.use((option) => {
   //   option.headers.Authorization = Cookies.get('GroukAuth')
   // }
 
-  let data = option.data;
-  data = Object.keys(data).map(item => `${item}=${encodeURI(data[item])}`).join('&')
-  option.data = data
-
-  console.log(`${option.url} == request ==> `, option)
-
+  // let data = option.data;
+  let data = option.url.data;
+  data = Object.keys(data).map(item => `${item}=${encodeURI(data[item])}`).join('&');
+  option.data = data;
+  option.url = reqUrl;
+  console.log(`${option.url} == request ==> `, option);
+  //
   return option
 }, (err) => {
-  console.log('interceptors.request =error= ', err)
+  console.log('interceptors.request == error ==> ', err);
 
   return Promise.reject(err).catch(err)
 })
 
 // http response 拦截器
 http.interceptors.response.use((response) => {
+  console.log(`${response.config.url} == response ==> `, response);
   try {
-    let code = response.data.code
-    let message = response.data.message
-
+    let code = response.data.code;
+    let message = response.data.message;
     // if (code !== 200) {
     //   throw {
     //     response: {
@@ -79,17 +79,17 @@ http.interceptors.response.use((response) => {
     //   }
     // }
 
-    let data = response.data.data
+    let data = response.data.data;
 
     // console.log('data == ', data)
 
-    data = JSON.parse(data)
+    data = JSON.parse(data);
     return data
   } catch (e) {
     // throw {}
   }
 }, (err) => {
-  console.error('interceptors.response =error= ', err)
+  console.log('interceptors.response == error ==> ', err)
 
   if (err && err.response) {
     switch (err.response.status) {

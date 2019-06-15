@@ -5,13 +5,13 @@
 // 接口地址
 const api = {
   // 聊天机器人
-  robot: 'http://robottest.uneedzf.com/api/talk@Robot'
+  // robot: 'http://robottest.uneedzf.com/api/talk@Robot'
 };
 
 const env = {
   local: {
     name: 'local',
-    base: 'http://192.168.1.17/index'
+    base: 'http://192.168.1.17/'
   },
   dev: {
     name: 'dev',

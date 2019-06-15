@@ -9,7 +9,7 @@ import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // axios请求
-// import axios from 'axios'
+import axios from 'axios'
 // 百度地图
 import BaiduMap from 'vue-baidu-map'
 // echarts 统计使用组件引入
@@ -20,7 +20,7 @@ import echarts from 'echarts'
 // import store_ from './lib/localStorage.js'
 
 // 全局变量
-// Vue.prototype.$http = axios
+Vue.prototype.$http = axios;
 // Vue.prototype.$echarts = echarts
 // Vue.prototype.$BASE_URL = global_.BASE_URL
 // Vue.prototype.store = store_

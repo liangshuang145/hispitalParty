@@ -51,6 +51,7 @@
 
 <script>
 import NavMenu from '@/components/NavMenu/NavMenu.vue'
+import LoginService from '../services/LoginService'
 
 export default {
   name: 'Home',
@@ -174,51 +175,16 @@ export default {
     }
   },
   created() {
-    //      this.$http({
-    //        url: this.$BASE_URL+'api/user/searchCurrentUserUserInfo',
-    //        headers:{
-    //          token:sessionStorage.getItem("token")
-    //        },
-    //      }).then((res)=>{
-    //        console.log(res);
-    //        if(res.data.code == 200){
-    //          this.userName = res.data.output.showName;
-    //        }else {
-    //          this.$notify.error({
-    //            title: "错误码："+res.data.code,
-    //            message: res.data.resMessage,
-    //            duration: 5000
-    //          });
-    //        }
-    //      },(res)=>{
-    //        this.$notify.error({
-    //          title: '错误',
-    //          message: "服务器连接故障！",
-    //          duration: 5000
-    //        });
-    //        console.log(res);
-    //      });
-    //
-    //      this.$http({
-    //        url: this.$BASE_URL+'api/menu/findMenuByRoleId',
-    //        headers:{
-    //          token:sessionStorage.getItem("token")
-    //        },
-    //      }).then((res)=>{
-    //        if(res.data.code == 200){
-    //          this.menus = res.data.output;
-    //        }
-    //      },(res) => {
-    //        this.$notify.error({
-    //          title: '错误',
-    //          message: "服务器连接故障！",
-    //          duration: 5000
-    //        });
-    //      });
+      this.getUserInfoByStorage()
   },
   methods: {
     handleSelect(key, keyPath) {
 
+    },
+    // 通过缓存
+    getUserInfoByStorage(){
+        let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+        this.userName = userInfo.name;
     },
     outLogin() {
 //      this.$http({
