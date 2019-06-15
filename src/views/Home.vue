@@ -77,6 +77,7 @@ export default {
             {'name': '组织人事', 'icon': 'el-icon-location', 'index': '2-1', 'child': [
               {'name': '人事档案', 'icon': 'el-icon-location', 'index': '/Index/personnelArchives'},
               {'name': '党员档案', 'icon': 'el-icon-location', 'index': '/Index/memberArchives'},
+              {'name': '建党对象', 'icon': 'el-icon-location', 'index': '/Index/memberBuilding'},
               {'name': '党员发展', 'icon': 'el-icon-location', 'index': '/Index/memberDevelopment'},
 //              {'name': 'UEditorDemo', 'icon': 'el-icon-location', 'index': '/Index/UEditorDemo'}
               ]
@@ -94,7 +95,7 @@ export default {
         {'name': '党务管理', 'icon': 'el-icon-setting', 'index': '3', 'child': [
           {'name': '清廉医院', 'icon': 'el-icon-location', 'index': '3-1', 'child': [
             {'name': '医德档案', 'icon': 'el-icon-location', 'index':  '/Index/medicalEthics'},
-            {'name': '药品预警', 'icon': 'el-icon-location', 'index':  '/Index/drugWarning'},
+            {'name': '处方点评', 'icon': 'el-icon-location', 'index':  '/Index/drugWarning'},
             {'name': '耗材预警', 'icon': 'el-icon-location', 'index':  '/Index/consumableWarning'},
             {'name': '行风效能', 'icon': 'el-icon-location', 'index':  '/Index/efficiency'},
             {'name': '廉政教育', 'icon': 'el-icon-location', 'index':  '/Index/educationOfCleanPolitic'},
@@ -113,10 +114,10 @@ export default {
               {'name': '老干部力量图谱', 'icon': 'el-icon-location', 'index':  '/Index/veteranCadreStrength'},
               ]
             },
-            {'name': '党务公开', 'icon': 'el-icon-location','index': '3-4', 'child': [
-              {'name': '党务公开', 'icon': 'el-icon-location', 'index':  '/Index/partyAffairs '},
-              ]
-            }
+//            {'name': '党务公开', 'icon': 'el-icon-location','index': '3-4', 'child': [
+//              {'name': '党务公开', 'icon': 'el-icon-location', 'index':  '/Index/partyAffairs '},
+//              ]
+//            }
           ]
         },
         {'name': '工作管理', 'icon': 'el-icon-setting', 'index': '4', 'child': [
