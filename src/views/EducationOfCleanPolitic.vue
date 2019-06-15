@@ -25,7 +25,7 @@
   import Tree from '@/components/EducationOfCleanPolitic/Tree/Tree.vue'
 
   export default {
-    name: 'ConsumableWarning',
+    name: 'EducationOfCleanPolitic',
     components: {
       Manage,
       Tree

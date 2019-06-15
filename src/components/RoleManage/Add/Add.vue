@@ -18,10 +18,11 @@
     </el-form>
     <el-row>
       <el-col :span="12">
-        <fields></fields>
+        <!--<fields></fields>-->
       </el-col>
       <el-col :span="12">
-        <button-check-box></button-check-box>
+        <!--type 0查看,1新增,2修改 -->
+        <!--<button-check-box :type="1" @checkedOptions="checkedOptions"></button-check-box>-->
       </el-col>
     </el-row>
   </div>
@@ -64,7 +65,8 @@ export default {
           validator: Validator.checkName,
           trigger: 'blur'
         }]
-      }
+      },
+      checkedOptionsByButtons:null,
     }
   },
   watch: {
@@ -93,6 +95,10 @@ export default {
           this.getRoleList()
         })
       })
+    },
+    // 按钮管理 用户选择的数据
+    checkedOptions(data){
+        this.checkedOptionsByButtons = data
     }
   },
   components:{

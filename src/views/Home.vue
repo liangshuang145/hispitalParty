@@ -51,6 +51,7 @@
 
 <script>
 import NavMenu from '@/components/NavMenu/NavMenu.vue'
+import LoginService from '../services/LoginService'
 
 export default {
   name: 'Home',
@@ -77,9 +78,8 @@ export default {
             {'name': '组织人事', 'icon': 'el-icon-location', 'index': '2-1', 'child': [
               {'name': '人事档案', 'icon': 'el-icon-location', 'index': '/Index/personnelArchives'},
               {'name': '党员档案', 'icon': 'el-icon-location', 'index': '/Index/memberArchives'},
-              {'name': '建党对象', 'icon': 'el-icon-location', 'index': '/Index/cpcFoundingpeople'},
+              {'name': '建党对象', 'icon': 'el-icon-location', 'index': '/Index/memberBuilding'},
               {'name': '党员发展', 'icon': 'el-icon-location', 'index': '/Index/memberDevelopment'},
-//              {'name': 'UEditorDemo', 'icon': 'el-icon-location', 'index': '/Index/UEditorDemo'}
               ]
             },
             {'name': '统战群团老干部', 'icon': 'el-icon-location', 'index': '2-2', 'child': [
@@ -95,7 +95,7 @@ export default {
         {'name': '党务管理', 'icon': 'el-icon-setting', 'index': '3', 'child': [
           {'name': '清廉医院', 'icon': 'el-icon-location', 'index': '3-1', 'child': [
             {'name': '医德档案', 'icon': 'el-icon-location', 'index':  '/Index/medicalEthics'},
-            {'name': '药品预警', 'icon': 'el-icon-location', 'index':  '/Index/drugWarning'},
+            {'name': '处方点评', 'icon': 'el-icon-location', 'index':  '/Index/drugWarning'},
             {'name': '耗材预警', 'icon': 'el-icon-location', 'index':  '/Index/consumableWarning'},
             {'name': '行风效能', 'icon': 'el-icon-location', 'index':  '/Index/efficiency'},
             {'name': '廉政教育', 'icon': 'el-icon-location', 'index':  '/Index/educationOfCleanPolitic'},
@@ -114,10 +114,10 @@ export default {
               {'name': '老干部力量图谱', 'icon': 'el-icon-location', 'index':  '/Index/veteranCadreStrength'},
               ]
             },
-            {'name': '党务公开', 'icon': 'el-icon-location','index': '3-4', 'child': [
-              {'name': '党务公开', 'icon': 'el-icon-location', 'index':  '/Index/partyAffairs '},
-              ]
-            }
+//            {'name': '党务公开', 'icon': 'el-icon-location','index': '3-4', 'child': [
+//              {'name': '党务公开', 'icon': 'el-icon-location', 'index':  '/Index/partyAffairs '},
+//              ]
+//            }
           ]
         },
         {'name': '工作管理', 'icon': 'el-icon-setting', 'index': '4', 'child': [
@@ -175,51 +175,16 @@ export default {
     }
   },
   created() {
-    //      this.$http({
-    //        url: this.$BASE_URL+'api/user/searchCurrentUserUserInfo',
-    //        headers:{
-    //          token:sessionStorage.getItem("token")
-    //        },
-    //      }).then((res)=>{
-    //        console.log(res);
-    //        if(res.data.code == 200){
-    //          this.userName = res.data.output.showName;
-    //        }else {
-    //          this.$notify.error({
-    //            title: "错误码："+res.data.code,
-    //            message: res.data.resMessage,
-    //            duration: 5000
-    //          });
-    //        }
-    //      },(res)=>{
-    //        this.$notify.error({
-    //          title: '错误',
-    //          message: "服务器连接故障！",
-    //          duration: 5000
-    //        });
-    //        console.log(res);
-    //      });
-    //
-    //      this.$http({
-    //        url: this.$BASE_URL+'api/menu/findMenuByRoleId',
-    //        headers:{
-    //          token:sessionStorage.getItem("token")
-    //        },
-    //      }).then((res)=>{
-    //        if(res.data.code == 200){
-    //          this.menus = res.data.output;
-    //        }
-    //      },(res) => {
-    //        this.$notify.error({
-    //          title: '错误',
-    //          message: "服务器连接故障！",
-    //          duration: 5000
-    //        });
-    //      });
+      this.getUserInfoByStorage()
   },
   methods: {
     handleSelect(key, keyPath) {
 
+    },
+    // 通过缓存
+    getUserInfoByStorage(){
+        let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+        this.userName = userInfo.name;
     },
     outLogin() {
 //      this.$http({

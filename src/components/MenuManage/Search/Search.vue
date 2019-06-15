@@ -12,21 +12,20 @@
       </el-select>
     </el-row>
     <el-row>
-      <el-select v-model="subject" size="medium" placeholder="请选择角色" @change="selectSubject">
-        <el-option v-for="item in subjectList" :key="item.id" :label="item.name" :value="item.id"/>
-      </el-select>
-      <el-select v-model="subject" size="medium" placeholder="请选择等级" @change="selectSubject">
-        <el-option v-for="item in subjectList" :key="item.id" :label="item.name" :value="item.id"/>
-      </el-select>
+      <el-button type="primary" icon="el-icon-menu">确定菜单</el-button>
     </el-row>
   </div>
 </template>
 
 <script>
   import { mapState, mapActions } from 'vuex'
+  import ElRow from "element-ui/packages/row/src/row";
+  import ElButton from "../../../../node_modules/element-ui/packages/button/src/button";
   export default {
     name: 'Search',
     components: {
+      ElButton,
+      ElRow
     },
     props: [
       'currentNode'

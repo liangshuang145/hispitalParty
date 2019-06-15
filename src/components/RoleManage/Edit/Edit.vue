@@ -28,6 +28,7 @@
 import { mapActions } from 'vuex'
 import Validator from '@/lib/validator'
 import RoleService from '@/services/RoleService'
+import ButtonCheckBox from '../ButtonCheckBox/ButtonCheckBox.vue'
 
 export default {
   name: 'Edit',
@@ -91,6 +92,9 @@ export default {
         })
       })
     }
+  },
+  components:{
+    ButtonCheckBox
   }
 }
 </script>

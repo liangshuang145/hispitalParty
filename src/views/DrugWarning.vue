@@ -1,6 +1,6 @@
 #@Author: bjy @Date: 2019/6/11 14:49 #
 <template>
-  <el-main name="PersonnelArchives">
+  <el-main name="DrugWarning">
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item to="/">首页</el-breadcrumb-item>
       <el-breadcrumb-item to="/Index">党务管理</el-breadcrumb-item>
@@ -25,7 +25,7 @@
   import Tree from '@/components/DrugWarning/Tree/Tree.vue'
 
   export default {
-    name: 'PersonnelArchives',
+    name: 'DrugWarning',
     components: {
       Manage,
       Tree

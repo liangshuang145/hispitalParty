@@ -37,11 +37,17 @@ const getUserInfo = (param = {}) => {
   //   url: 'http://192.168.1.17/login',
   //   data: param
   // })
+  // http.post({
+  //     method: 'post',
+  //     url: 'index/login',
+  //     data:param
+  // })
+
 
   // return axios.post('http://192.168.1.17/login', param)
   // return http.post('/login', param)
 
-  return http.post('/login', param)
+  // return http.post('/login', param)
 }
 
 /**

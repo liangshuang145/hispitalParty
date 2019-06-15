@@ -1,6 +1,5 @@
 <template>
-    <div>
-
+    <div class="i-div">
         <div style="float: left">
           <div id="people" :style="{width: '550px', height: '270px'}"></div>
           <div id="education" :style="{width: '550px', height: '270px'}"></div>
@@ -16,10 +15,6 @@
           <div id="activity" :style="{width: '550px', height: '270px'}"></div>
           <div id="financial" :style="{width: '550px', height: '270px'}"></div>
         </div>
-
-
-
-
 
     </div>
 </template>
@@ -140,6 +135,11 @@
 <style lang="postcss" scoped>
     body {
         background-color: #ff0000;
+    }
+    .i-div{
+      display: flex;
+      justify-content:center;
+      align-content: center;
     }
     /*#01div{*/
       /*width: 100%;*/

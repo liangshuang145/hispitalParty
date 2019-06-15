@@ -1,6 +1,6 @@
 #@Author: bjy @Date: 2019/6/12 10:42 #
 <template>
-  <el-main name="DemocraticParties">
+  <el-main name="Conference">
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item to="/Index">首页</el-breadcrumb-item>
       <el-breadcrumb-item to="/Index">人员管理</el-breadcrumb-item>
@@ -26,7 +26,7 @@
 
   export default{
     // 这里是name,记得填写
-    name: 'democraticParties',
+    name: 'Conference',
     //  数据定义
     data () {
       return {

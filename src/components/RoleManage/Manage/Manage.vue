@@ -17,20 +17,22 @@
 import Info from '../Info/Info.vue'
 import Edit from '../Edit/Edit.vue'
 import Add from '../Add/Add.vue'
+import TreeTable from '../TreeTable/TreeTable.vue'
 
 export default {
   name: 'Manage',
   components: {
     Info,
     Edit,
-    Add
+    Add,
+    TreeTable
   },
   props: [
     'currentNode'
   ],
   data() {
     return {
-      pNode: null
+      pNode: null,
     }
   },
   watch: {

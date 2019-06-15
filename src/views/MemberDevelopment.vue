@@ -24,7 +24,7 @@
   import Tree from '@/components/MemberDevelopment/Tree/Tree.vue'
 
   export default {
-    name: 'UserManageDemo',
+    name: 'MemberDevelopment',
     components: {
       Manage,
       Tree

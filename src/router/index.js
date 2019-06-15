@@ -28,7 +28,7 @@ import PersonnelArchives from '../views/PersonnelArchives.vue'
 //党员档案
 import MemberArchives from  '../views/MemberArchives.vue'
 //建党对象
-import CpcFoundingpeople from '../views/CpcFoundingpeople.vue'
+import MemberBuilding from '../views/MemberBuilding.vue'
 //党员发展
 import MemberDevelopment from  '../views/MemberDevelopment.vue'
 
@@ -98,7 +98,7 @@ export default new Router({
       {path: 'ActivityManage',name: 'ActivityManage', component: ActivityManage},// 活动管理
       {path: 'PersonnelArchives',name: 'PersonnelArchives',component: PersonnelArchives},// 人事档案
       {path: 'MemberArchives',name: 'MemberArchives',component: MemberArchives},// 党员管理
-      {path: 'CpcFoundingpeople',name: 'CpcFoundingpeople', component: CpcFoundingpeople},// 建党对象
+      {path: 'MemberBuilding',name: 'MemberBuilding', component: MemberBuilding},// 建党对象
       {path: 'MemberDevelopment',name: 'MemberDevelopment',component: MemberDevelopment},// 党员管理
       {path: 'DemocraticParties',name: 'DemocraticParties',component: DemocraticParties},// 民主党派
       {path: 'Intellectual',name: 'Intellectual',component: Intellectual},// 高知群体

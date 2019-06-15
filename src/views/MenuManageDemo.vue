@@ -11,10 +11,10 @@
     <!--</div>-->
     <div class="content-panel">
       <el-row>
-        <el-col :span="4">
-          <tree @nodeDept="thisDept"/>
-        </el-col>
-        <el-col :span="20">
+        <!--<el-col :span="4">-->
+          <!--<tree @nodeDept="thisDept"/>-->
+        <!--</el-col>-->
+        <el-col :span="24">
           <manage :currentNode="currentNode"/>
         </el-col>
       </el-row>
