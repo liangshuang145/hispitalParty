@@ -79,7 +79,6 @@ export default {
               {'name': '党员档案', 'icon': 'el-icon-location', 'index': '/Index/memberArchives'},
               {'name': '建党对象', 'icon': 'el-icon-location', 'index': '/Index/memberBuilding'},
               {'name': '党员发展', 'icon': 'el-icon-location', 'index': '/Index/memberDevelopment'},
-//              {'name': 'UEditorDemo', 'icon': 'el-icon-location', 'index': '/Index/UEditorDemo'}
               ]
             },
             {'name': '统战群团老干部', 'icon': 'el-icon-location', 'index': '2-2', 'child': [
