@@ -8,6 +8,9 @@
       <el-table-column prop="status" label="发布者" />
       <el-table-column prop="status" label="类别" />
       <el-table-column prop="type" label="状态" />
+      <el-table-column prop="nickname" label="姓名" />
+      <el-table-column prop="text010" label="科室" />
+      <el-table-column prop="text08" label="工号" />
     </el-table>
     <el-pagination background layout="prev, pager, next" :total="1000" @current-change="handleCurrentChange"/>
   </div>
