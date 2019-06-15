@@ -44,7 +44,7 @@
         props:['changeData'],
         data () {
             return {
-                value2:'',
+              value2:'',
               value3: '',
               isUserDialogShow:false,
               isImportDialogShow:false,
