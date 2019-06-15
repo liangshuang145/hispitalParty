@@ -2,18 +2,35 @@
 <template>
     <div name="buttons" class="buttons">
       <el-row>
-        <el-col :span="12">
+        <el-col :span="5">
           <el-button type="success" icon="el-icon-delete" @click="ImportExcel" >导入表格</el-button>
+          <el-button type="primary" icon="el-icon-s-data" @click="manylook1" >扣分明细</el-button>
         </el-col>
-        <el-col :span="12" style="text-align: right">
-          <el-button type="primary" icon="el-icon-s-data" @click="rankingOfDay" >本日效能排行</el-button>
-          <el-button type="primary" icon="el-icon-s-data" @click="rankingOfWeek">本周效能排行</el-button>
-          <el-button type="primary" icon="el-icon-s-data" @click="rankingOfMonth">本月效能排行</el-button>
-          <el-button type="primary" icon="el-icon-s-data" @click="rankingOfYear">本年效能排行</el-button>
+        <el-col :span="18" style="text-align: right">
+          <el-date-picker
+            v-model="value3"
+            type="year"
+            placeholder="选择年">
+          </el-date-picker>
+          <el-date-picker
+            v-model="value2"
+            type="month"
+            placeholder="选择月">
+          </el-date-picker>
+          <el-button type="primary" icon="el-icon-s-data" @click="rankingOfMonth">百分比排名</el-button>
+
         </el-col>
       </el-row>
       <import-dialog v-model="isImportDialogShow"></import-dialog>
+      <el-dialog title="扣分明细" :visible.sync="dialogTableVisible">
+        <el-table :data="gridData">
+          <el-table-column property="date" label="扣分项" width="150"></el-table-column>
+          <el-table-column property="name" label="扣分详情" width="200"></el-table-column>
+          <el-table-column property="address" label="扣除分数"></el-table-column>
+        </el-table>
+      </el-dialog>
     </div>
+
 </template>
 
 <script>
@@ -27,11 +44,20 @@
         props:['changeData'],
         data () {
             return {
+                value2:'',
+              value3: '',
               isUserDialogShow:false,
               isImportDialogShow:false,
               dialogType:0,// 类型: 0-查看(默认),1-新增,2-修改
               tableData:'',
-              userData:{}
+              userData:{},
+              gridData: [{
+                date: '扣分项1',
+                name: '扣分详情1',
+                address: '扣除分数1'
+              }],
+              dialogTableVisible: false,
+
             }
         },
         // 页面初始化(生命周期)
@@ -39,6 +65,17 @@
         },
         // 页面方法
         methods: {
+            //查看扣分明细
+          manylook1(){
+            if(!this.tableData){
+              this.$message.error('操作错误,请先选择数据');
+              return
+            }
+            console.log('查看');
+            this.dialogType = 0;
+            this.dialogTableVisible = true;
+//            this.gridData = this.tableData
+          },
           // 导入表格
           ImportExcel(){
               console.log('导入表格');
@@ -72,6 +109,7 @@
           ElRow,
           ElCol,
         importDialog
+
         }
     }
 </script>
