@@ -26,7 +26,7 @@
 
   export default{
     // 这里是name,记得填写
-    name: 'democraticParties',
+    name: 'LaborUnion',
     //  数据定义
     data () {
       return {

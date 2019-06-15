@@ -37,8 +37,9 @@ export default {
     text05: '张三',
     text06: '专题教育',
     text07: '1条',
-    text08: '4',
-    text09: '优秀党员'
+    text08: '1',
+    text09: '优秀党员',
+    text010: '202'
 
   }, {
     id: 2,
@@ -61,8 +62,9 @@ export default {
     text05: '张三',
     text06: '专题教育',
     text07: '1条',
-    text08: '4',
-    text09: '优秀党员'
+    text08: '1',
+    text09: '优秀党员',
+    text010: '202'
 
   }, {
     id: 3,
@@ -85,8 +87,9 @@ export default {
     text05: '张三',
     text06: '专题教育',
     text07: '1条',
-    text08: '4',
-    text09: '优秀党员'
+    text08: '1',
+    text09: '优秀党员',
+    text010: '202'
   }, {
     id: 4,
     nickname: '王小虎',
@@ -108,8 +111,9 @@ export default {
     text05: '张三',
     text06: '专题教育',
     text07: '1条',
-    text08: '4',
-    text09: '优秀党员'
+    text08: '1',
+    text09: '优秀党员',
+    text010: '202'
   }, {
     id: 5,
     nickname: '王小虎',
@@ -131,8 +135,9 @@ export default {
     text05: '张三',
     text06: '专题教育',
     text07: '1条',
-    text08: '4',
-    text09: '优秀党员'
+    text08: '1',
+    text09: '优秀党员',
+    text010: '202'
   }, {
     id: 6,
     nickname: '王小虎',
@@ -154,8 +159,9 @@ export default {
     text05: '张三',
     text06: '专题教育',
     text07: '1条',
-    text08: '4',
-    text09: '优秀党员'
+    text08: '1',
+    text09: '优秀党员',
+    text010: '202'
   }, {
     id: 7,
     nickname: '王小虎',
@@ -177,8 +183,9 @@ export default {
     text05: '张三',
     text06: '专题教育',
     text07: '1条',
-    text08: '4',
-    text09: '优秀党员'
+    text08: '1',
+    text09: '优秀党员',
+    text010: '202'
   }, {
     id: 8,
     nickname: '王小虎',
@@ -200,8 +207,9 @@ export default {
     text05: '张三',
     text06: '专题教育',
     text07: '1条',
-    text08: '4',
-    text09: '优秀党员'
+    text08: '1',
+    text09: '优秀党员',
+    text010: '202'
   }, {
     id: 9,
     nickname: '王小虎',
@@ -223,8 +231,9 @@ export default {
     text05: '张三',
     text06: '专题教育',
     text07: '1条',
-    text08: '4',
-    text09: '优秀党员'
+    text08: '1',
+    text09: '优秀党员',
+    text010: '202'
   }, {
     id: 10,
     nickname: '王小虎',
@@ -246,8 +255,9 @@ export default {
     text05: '张三',
     text06: '专题教育',
     text07: '1条',
-    text08: '4',
-    text09: '优秀党员'
+    text08: '1',
+    text09: '优秀党员',
+    text010: '202'
   }],
   // 用户组列表
   userGroupList: [{

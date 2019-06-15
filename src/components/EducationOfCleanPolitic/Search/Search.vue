@@ -31,8 +31,9 @@
     data() {
       return {
         radioGroupArr:[
-          {label:1,name:'姓名搜索'},
-          {label:2,name:'身份证号搜索'}
+          {label:1,name:'根据姓名搜索'},
+          {label:2,name:'根据科室搜索'},
+          {label:3,name:'根据工号搜索'}
         ],
         radio:1,
         search: '',
@@ -46,7 +47,10 @@
                 this.inputPlaceholder = '根据姓名搜索';
                 break;
               case 2:
-                this.inputPlaceholder = '根据身份证号搜索';
+                this.inputPlaceholder = '根据科室搜索';
+                break;
+              case 3:
+                this.inputPlaceholder = '根据工号搜索';
                 break;
             }
         }
@@ -56,10 +60,13 @@
       selectSearch(){
         switch (this.radio){
           case 1:
-              // 根据姓名搜索
+            // 根据姓名搜索
             break;
           case 2:
-              // 根据身份证号搜索
+            // 根据科室搜索
+            break;
+          case 3:
+            // 根据工号搜索
             break;
         }
       }

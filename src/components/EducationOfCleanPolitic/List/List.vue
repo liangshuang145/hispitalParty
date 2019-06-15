@@ -2,14 +2,17 @@
   <div name="List" class="list-panel">
     <!--<buttons></buttons>-->
     <el-table ref="multipleTable" :data="userList"   highlight-current-row @current-change="handleTableChange" height="520">
-      <el-table-column prop="text01" label="发布支部" width="160"/>
-      <el-table-column prop="text02" label="标题" width="160"/>
-      <el-table-column prop="text03" label="状态" width="160"/>
-      <el-table-column prop="text04" label="发布时间" width="160"/>
-      <el-table-column prop="text05" label="作者" width="160"/>
-      <el-table-column prop="text06" label="专题类型" width="160"/>
-      <el-table-column prop="text07" label="评论（条）" width="160"/>
-      <el-table-column prop="text08" label="签到数" width="160"/>
+      <el-table-column prop="text01" label="发布支部" width="110"/>
+      <el-table-column prop="text02" label="标题" width="110"/>
+      <el-table-column prop="text03" label="状态" width="110"/>
+      <el-table-column prop="text04" label="发布时间" width="110"/>
+      <el-table-column prop="text05" label="作者" width="110"/>
+      <el-table-column prop="text06" label="专题类型" width="110"/>
+      <el-table-column prop="text07" label="评论（条）" width="110"/>
+      <el-table-column prop="text08" label="签到数" width="110"/>
+      <el-table-column prop="nickname" label="姓名" width="110"/>
+      <el-table-column prop="text010" label="科室" width="110"/>
+      <el-table-column prop="text08" label="工号" width="110"/>
     </el-table>
     <el-pagination background layout="prev, pager, next" :total="1000"/>
     <!--<user-dialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"/>-->

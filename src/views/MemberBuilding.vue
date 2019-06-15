@@ -1,11 +1,10 @@
 #@Author: bjy @Date: 2019/6/11 14:49 #
 <template>
-  <el-main name="DrugWarning">
+  <el-main name="MemberBuilding">
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item to="/">首页</el-breadcrumb-item>
-      <el-breadcrumb-item to="/Index">党务管理</el-breadcrumb-item>
-      <el-breadcrumb-item to="/Index">清廉医院</el-breadcrumb-item>
-      <el-breadcrumb-item to="/Index/DrugWarning">{{ pageTitle }}</el-breadcrumb-item>
+      <el-breadcrumb-item to="/Index">人员管理</el-breadcrumb-item>
+      <el-breadcrumb-item to="/Index/MemberBuilding">{{ pageTitle }}</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="content-panel">
       <el-row>
@@ -21,19 +20,20 @@
 </template>
 
 <script>
-  import Manage from '@/components/DrugWarning/Manage/Manage.vue'
-  import Tree from '@/components/DrugWarning/Tree/Tree.vue'
+  import Manage from '@/components/MemberBuilding/Manage/Manage.vue'
+  import Tree from '@/components/MemberBuilding/Tree/Tree.vue'
 
   export default {
-    name: 'DrugWarning',
+    name: 'MemberBuilding',
     components: {
       Manage,
       Tree
     },
     data() {
       return {
-        pageTitle: '药品预警',
+        pageTitle: '党建对象',
         currentNode: null,
+        currentNode:null
       }
     },
     computed: {},

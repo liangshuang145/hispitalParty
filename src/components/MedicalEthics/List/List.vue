@@ -3,10 +3,12 @@
     <!--<buttons></buttons>-->
     <el-table ref="multipleTable" :data="userList"   highlight-current-row @current-change="handleTableChange" height="520">
       <el-table-column prop="account" label="排名顺序" />
-      <el-table-column prop="nickname" label="员工编号" />
-      <el-table-column prop="gender" label="员工姓名" />
+      <el-table-column prop="accountid" label="员工编号" />
+      <el-table-column prop="nickname" label="员工姓名" />
       <el-table-column prop="type" label="所属部门" />
       <el-table-column prop="status" label="联系电话" />
+      <el-table-column prop="text010" label="科室" />
+      <el-table-column prop="text08" label="工号"/>
     </el-table>
     <el-pagination background layout="prev, pager, next" :total="1000"/>
   </div>
