@@ -12,31 +12,35 @@ import http from '@/lib/http'
  * @returns {Promise}
  */
 const userLogin = (param={})=>{
-  return new Promise((resolve) => {
+  return new Promise((resolve,reject) => {
     param = {
       account: param.username,
       password: param.password
     };
 
     http.post({
-      method: 'post',
+      method: 'POST',
       url: 'index/login',
       data: param
     }).then((res) => {
       resolve(res)
+    },err =>{
+      reject(err)
     })
   })
 };
 
 const outLogin = () =>{
-  return new Promise((resolve) => {
-    // http.post({
-    //   method: 'post',
-    //   url: 'index/login',
-    //   data: param
-    // }).then((res) => {
-    //   resolve(res)
-    // })
+  return new Promise((resolve, reject) => {
+    http.post({
+      method: 'post',
+      url: 'index/out',
+      data:''
+    }).then((res) => {
+      resolve(res)
+    },err =>{
+      reject(err)
+    })
   })
 };
 

@@ -67,7 +67,7 @@ export default {
         }
 
         DepartService.addDepart(this.form).then((res) => {
-          this.$message.success('已添加')
+          this.$message.success('已添加');
 
           // 重载 tree
           this.getDepartList()

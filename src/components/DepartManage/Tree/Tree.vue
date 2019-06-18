@@ -21,6 +21,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import DepartService from '../../../services/DepartService'
 
 export default {
   name: 'Tree',
@@ -51,11 +52,21 @@ export default {
       'getDepartList'
     ]),
     filterNode(value, data) {
-      if (!value) return true
+      if (!value) return true;
       return data.name.indexOf(value) !== -1
     },
     nodeClick(data, node) {
-      data['parentData'] = node.parent.data
+      data['parentData'] = node.parent.data;
+      DepartService.getDepartListBySubjectId({subjectId:data.id}).then((res) => {
+          console.log(res)
+          if(res.code === 200){
+
+          }else{
+              this.$message.error(res.message)
+          }
+      },(err) => {
+
+      });
       this.$emit('nodeDept', data)
     }
   }

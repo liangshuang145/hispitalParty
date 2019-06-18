@@ -4,7 +4,7 @@
  * @author jillyandkai@qq.com
  * @date 2019-05-21
  */
-// import http from '@/lib/http'
+import http from '@/lib/http'
 import mock from '@/mocks/data'
 
 /**
@@ -13,11 +13,19 @@ import mock from '@/mocks/data'
  * @param {*} param
  * @return axios
  */
-const getSubject = (param = {}) => {
-  // 测试
-  return new Promise((resolve) => {
-    let data = mock.subjectList
-    resolve(data)
+const getSubject = () => {
+  return new Promise((resolve,reject) => {
+    http.get({
+      method: 'get',
+      url: 'subject/list',
+      data: ''
+    }).then((res) => {
+      // res.data = JSON.parse(res.data)
+      console.log('获取机构',res);
+      resolve(res)
+    },err =>{
+      reject(err)
+    })
   })
 
   // 正式
@@ -26,7 +34,7 @@ const getSubject = (param = {}) => {
   //   data: param,
   //   method: 'post'
   // })
-}
+};
 
 /**
  * 添加机构
@@ -92,5 +100,5 @@ export default {
   getSubject,
   addSubject,
   updateSubject,
-  deleteSubject
+  deleteSubject,
 }

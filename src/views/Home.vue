@@ -10,7 +10,7 @@
         <div class="headerDiv-right">
           <el-dropdown>
             <span class="el-dropdown-link">
-              你好，{{ userName }}，欢迎回来
+              您好，{{ userName }}，欢迎回来
               <i class="el-icon-arrow-down"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
@@ -71,7 +71,9 @@ export default {
           {'name': '机构管理', 'icon': 'el-icon-location', 'index': '/Index/SubjectManageDemo'},
           {'name': '组织(部门)管理', 'icon': 'el-icon-location', 'index': '/Index/DepartManageDemo'},
           {'name': '行政(小组)管理', 'icon': 'el-icon-location', 'index': '/Index/GroupManageDemo'},
-          {'name': '菜单管理', 'icon': 'el-icon-location', 'index': '/Index/MenuManageDemo'}
+          {'name': '菜单管理', 'icon': 'el-icon-location', 'index': '/Index/MenuManageDemo'},
+          {'name': '按钮管理', 'icon': 'el-icon-location', 'index': '/Index/ButtonManage'},
+          {'name': '字段管理', 'icon': 'el-icon-location', 'index': '/Index/FieldManage'},
           ]
         },
         {'name': '人员管理', 'icon': 'el-icon-setting', 'index': '2', 'child': [
@@ -122,11 +124,12 @@ export default {
         },
         {'name': '工作管理', 'icon': 'el-icon-setting', 'index': '4', 'child': [
           {'name': '中心工作', 'icon': 'el-icon-location',  'index': '4-1', 'child':[
-            {'name': '医共体建设', 'icon': 'el-icon-location', 'index':  '/Index/construction'},
-            {'name': '等级医院评审', 'icon': 'el-icon-location', 'index':  '/Index/hospitalReview'},
-            {'name': '最多跑一次', 'icon': 'el-icon-location', 'index':  '/Index/runA'},
-            {'name': '优质服务专项行动', 'icon': 'el-icon-location', 'index':  '/Index/firstRateService'},
-            {'name': '核心业务指标', 'icon': 'el-icon-location', 'index':  '/Index/operationalIndicator'},
+            {'name': '年度工作', 'icon': 'el-icon-location', 'index':  '/Index/annualWork'}
+//            {'name': '医共体建设', 'icon': 'el-icon-location', 'index':  '/Index/construction'},
+//            {'name': '等级医院评审', 'icon': 'el-icon-location', 'index':  '/Index/hospitalReview'},
+//            {'name': '最多跑一次', 'icon': 'el-icon-location', 'index':  '/Index/runA'},
+//            {'name': '优质服务专项行动', 'icon': 'el-icon-location', 'index':  '/Index/firstRateService'},
+//            {'name': '核心业务指标', 'icon': 'el-icon-location', 'index':  '/Index/operationalIndicator'},
             ]
           },
           {'name': '网上办事', 'icon': 'el-icon-location',  'index': '4-2', 'child':[
@@ -155,12 +158,13 @@ export default {
         },
         {'name': '考核管理', 'icon': 'el-icon-setting', 'index': '5', 'child': [
           {'name': '支部考核', 'icon': 'el-icon-location', 'index': '5-1', 'child': [
-            {'name': '常规工作', 'icon': 'el-icon-location', 'index': '/Index/routineWork'},
-            {'name': '党建品牌', 'icon': 'el-icon-location', 'index': '/Index/partyBuildBrand'},
-            {'name': '加分项目', 'icon': 'el-icon-location', 'index': '/Index/plusProject'},
-            {'name': '堡垒指数', 'icon': 'el-icon-location', 'index': '/Index/fortIndex'},
-            {'name': '动态排名', 'icon': 'el-icon-location', 'index': '/Index/dynamicRanking'},
-            {'name': '考核年报', 'icon': 'el-icon-location', 'index': '/Index/assessAnnualReport'},
+            {'name': '标准考核', 'icon': 'el-icon-location', 'index': '/Index/standardInspection'},
+//            {'name': '常规工作', 'icon': 'el-icon-location', 'index': '/Index/routineWork'},
+//            {'name': '党建品牌', 'icon': 'el-icon-location', 'index': '/Index/partyBuildBrand'},
+//            {'name': '加分项目', 'icon': 'el-icon-location', 'index': '/Index/plusProject'},
+//            {'name': '堡垒指数', 'icon': 'el-icon-location', 'index': '/Index/fortIndex'},
+//            {'name': '动态排名', 'icon': 'el-icon-location', 'index': '/Index/dynamicRanking'},
+//            {'name': '考核年报', 'icon': 'el-icon-location', 'index': '/Index/assessAnnualReport'},
             ]
           },
           {'name': '党员考核', 'icon': 'el-icon-location', 'index': '5-2', 'child': [
@@ -187,13 +191,29 @@ export default {
         this.userName = userInfo.name;
     },
     outLogin() {
+        LoginService.outLogin().then( (res) => {
+          if(res.code === 200){
+            this.$router.push('/Login');
+            this.$notify.success({
+              title: res.message,
+              duration: 5000
+            });
+          }else {
+            this.$notify.error({
+              title: "错误码："+res.code,
+              message: res.message,
+              duration: 5000
+            });
+          }
+        },err => {
+            console.error(err)
+        });
 //      this.$http({
 //        url: this.$BASE_URL + 'api/user/outLogin',
 //        headers: {
 //          token: sessionStorage.getItem('token')
 //        }
 //      })
-      this.$router.push('/Login')
     }
   }
 }

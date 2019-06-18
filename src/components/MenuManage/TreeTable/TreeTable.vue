@@ -177,7 +177,7 @@
       //某个复选框被点击时
       toselect(row) {
         console.log(row);
-        this.userCheckArr.push(rew);
+        this.userCheckArr.push(row);
         let forStartCheckVal = this.userCheckArr,forEndCheckVal = [];
         for(let i = 0; i < forStartCheckVal.length;i++){
             if(forStartCheckVal[i].checks){// 改值为true选中状态

@@ -4,7 +4,7 @@
  * @author jillyandkai@qq.com
  * @date 2019-05-21
  */
-// import http from '@/lib/http'
+import http from '@/lib/http'
 import mock from '@/mocks/data'
 
 /**
@@ -16,8 +16,17 @@ import mock from '@/mocks/data'
 const getGroup = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    let data = mock.groupList
-    resolve(data)
+    http.get({
+      url:'groups/view',
+      method:'get',
+      data:param
+    }).then((res) => {
+      console.log('获取小组',res)
+    },(err) => {
+      console.log(err)
+    })
+    // let data = mock.groupList
+    // resolve(data)
   })
 
   // 正式

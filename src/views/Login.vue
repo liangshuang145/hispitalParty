@@ -62,8 +62,23 @@ export default {
         username,
         password
       }).then((res) => {
-          sessionStorage.setItem('userInfo',JSON.stringify(res));
-          this.$router.push('Index');
+          console.log('用户登录信息',res);
+          if(res.code === 200){
+              let userInfo = JSON.parse(res.data);
+            sessionStorage.setItem('userInfo',res.data);
+            this.$router.push('Index');
+            this.$notify.success({
+              title: res.message,
+              message: userInfo.name+ ' ,您好,欢迎回来',
+              duration: 5000
+            });
+          }else {
+            this.$notify.error({
+              title: "错误码："+res.code,
+              message: res.message,
+              duration: 5000
+            });
+          }
       })
     }
   }
