@@ -155,16 +155,11 @@ export default {
         },
         {'name': '考核管理', 'icon': 'el-icon-setting', 'index': '5', 'child': [
           {'name': '支部考核', 'icon': 'el-icon-location', 'index': '5-1', 'child': [
-            {'name': '常规工作', 'icon': 'el-icon-location', 'index': '/Index/routineWork'},
-            {'name': '党建品牌', 'icon': 'el-icon-location', 'index': '/Index/partyBuildBrand'},
-            {'name': '加分项目', 'icon': 'el-icon-location', 'index': '/Index/plusProject'},
-            {'name': '堡垒指数', 'icon': 'el-icon-location', 'index': '/Index/fortIndex'},
-            {'name': '动态排名', 'icon': 'el-icon-location', 'index': '/Index/dynamicRanking'},
-            {'name': '考核年报', 'icon': 'el-icon-location', 'index': '/Index/assessAnnualReport'},
+            {'name': '标准考核', 'icon': 'el-icon-location', 'index': '/Index/Standardinspection'},
             ]
           },
           {'name': '党员考核', 'icon': 'el-icon-location', 'index': '5-2', 'child': [
-            {'name': '先锋指数', 'icon': 'el-icon-location', 'index': '/Index/pioneerIndex'},
+            {'name': '先锋指数', 'icon': 'el-icon-location', 'index': '/Index/z'},
             {'name': '民主评议', 'icon': 'el-icon-location', 'index': '/Index/democraticAppraisal'},
             {'name': '党员年报', 'icon': 'el-icon-location', 'index': '/Index/partyMembersAnnualReports'},
             ]

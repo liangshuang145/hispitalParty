@@ -70,10 +70,16 @@ import  PeopleStrength from '../views/PeopleStrength.vue'
 import  UnitedFrontStrength from '../views/UnitedFrontStrength.vue'
 //老干部力量图谱
 import VeteranCadreStrength from '../views/VeteranCadreStrength.vue'
+//标准考核
+import Standardinspection from '../views/Standardinspection.vue'
+
 //先锋指数
 import PioneerIndex from '../views/PioneerIndex.vue'
+
 //民主评议
 import DemocraticAppraisal from '../views/DemocraticAppraisal.vue'
+//党员年报
+import PartyMembersAnnualReports from '../views/PartyMembersAnnualReports.vue'
 // ------------活动管理
 import ActivityManage from '../views/ActivityManage.vue'
 
@@ -118,9 +124,10 @@ export default new Router({
       {path: 'PeopleStrength',name: 'PeopleStrength',component:PeopleStrength}, //群团力量图谱
       {path: 'UnitedFrontStrength',name: 'UnitedFrontStrength',component:UnitedFrontStrength}, //统战力量图谱
       {path: 'VeteranCadreStrength',name: 'VeteranCadreStrength',component:VeteranCadreStrength}, //老干部力量图谱
+      {path: 'Standardinspection',name: 'Standardinspection',component:Standardinspection},//先锋指数
       {path: 'PioneerIndex',name: 'PioneerIndex',component:PioneerIndex},//先锋指数
       {path: 'DemocraticAppraisal',name: 'DemocraticAppraisal',component:DemocraticAppraisal},//民主评议1
-
+      {path: 'PartyMembersAnnualReports',name: 'PartyMembersAnnualReports',component:PartyMembersAnnualReports},//党员年报
     ]
   }]
 })

@@ -14,6 +14,7 @@ import axios from 'axios'
 import BaiduMap from 'vue-baidu-map'
 // echarts 统计使用组件引入
 import echarts from 'echarts'
+import global_ from  './GlobalData.js'
 
 // 其他Js文件引入
 // import global_ from './GlobalData.js'
@@ -22,7 +23,7 @@ import echarts from 'echarts'
 // 全局变量
 Vue.prototype.$http = axios;
 // Vue.prototype.$echarts = echarts
-// Vue.prototype.$BASE_URL = global_.BASE_URL
+Vue.prototype.$BASE_URL = global_.BASE_URL
 // Vue.prototype.store = store_
 Vue.prototype.$echarts = echarts;
 
