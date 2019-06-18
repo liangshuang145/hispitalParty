@@ -10,6 +10,9 @@ import SubjectService from '@/services/SubjectService'
 import DepartService from '@/services/DepartService'
 import GroupService from '@/services/GroupService'
 import MenuService from '@/services/MenuService'
+import ButtonService from '@/services/ButtonService'
+import FieldService from '@/services/FieldService'
+import PageService from  '@/services/PageService'
 
 Vue.use(Vuex);
 
@@ -23,7 +26,10 @@ export default new Vuex.Store({
     subjectList: [], // 机构列表
     departList: [], // 组织(部门)列表
     groupList: [], // 行政(小组)列表
-    menuList:[] // 菜单列表
+    menuList:[], // 菜单列表
+    buttonList: [], // 按钮列表
+    fieldList: [], // 字段列表
+    pageList:[], // 页面列表
   },
   mutations: {
     // 登录
@@ -63,6 +69,18 @@ export default new Vuex.Store({
     // 菜单列表
     setMenuList(state, data) {
       state.menuList = data
+    },
+    // 菜单列表
+    setButtonList(state, data) {
+      state.buttonList = data
+    },
+    // 字段列表
+    setFieldList(state, data){
+      state.fieldList = data
+    },
+    // 页面列表
+    setPageList(state, data){
+      state.pageList = data
     }
   },
   actions: {
@@ -76,7 +94,7 @@ export default new Vuex.Store({
     },
     // 获取用户组列表
     getUserGroupList({ commit }) {
-      UserGroupService.getUserGroup().then((res) => {
+      UserGroupService.getUserGroupList().then((res) => {
         console.log('this is getUserGroupList work ...')
 
         commit('setUserGroupList', res)
@@ -117,10 +135,32 @@ export default new Vuex.Store({
     // 获取菜单列表
     getMenuList({ commit }) {
       MenuService.getMenuList().then((res) => {
-        console.log('this is getMenuList work ...')
+        console.log('this is getMenuList work ...');
 
         commit('setMenuList', res)
       })
     },
+    // 获取按钮列表
+    getButtonList({ commit }){
+      ButtonService.getButtonList().then((res) => {
+        console.log('this is getButtonList work ...');
+
+        commit('setButtonList', res)
+      })
+    },
+    // 获取字段列表
+    getFieldList({ commit }){
+      FieldService.getFieldList().then((res) => {
+        console.log('this is getFieldList work ...')
+        commit('setFieldList', res)
+      })
+    },
+    // 获取页面列表
+    getPageList({ commit }){
+      PageService.getPageList().then((res) => {
+        console.log('this is getPageList work ...')
+        commit('setPageList', res)
+      })
+    }
   }
 })

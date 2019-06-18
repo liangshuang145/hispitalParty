@@ -2,10 +2,10 @@
 <template>
   <div class="tree">
     <el-tabs type="border-card">
-      <el-tab-pane label="用户组">
+      <el-tab-pane label="列表">
         <el-input size="medium" placeholder="输入关键字进行过滤" v-model="filterText"/>
         <el-tree
-          :data="userGroupList"
+          :data="buttonList.buttonTree"
           :props="defaultProps"
           @node-click="nodeClick"
           current-node-key
@@ -36,26 +36,29 @@ export default {
   watch: {
     filterText(val) {
       this.$refs.tree.filter(val)
+    },
+    buttonList(data){
+        console.log('buttonList',data)
     }
   },
   computed: {
     ...mapState([
-      'userGroupList'
+      'buttonList'
     ])
   },
   mounted() {
-    this.getUserGroupList()
+    this.getButtonList()
   },
   methods: {
     ...mapActions([
-      'getUserGroupList'
+      'getButtonList'
     ]),
     filterNode(value, data) {
-      if (!value) return true
+      if (!value) return true;
       return data.name.indexOf(value) !== -1
     },
     nodeClick(data, node) {
-      data['parentData'] = node.parent.data
+      data['parentData'] = node.parent.data;
       this.$emit('nodeDept', data)
     }
   }

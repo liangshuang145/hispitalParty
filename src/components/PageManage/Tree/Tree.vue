@@ -2,10 +2,9 @@
 <template>
   <div class="tree">
     <el-tabs type="border-card">
-      <el-tab-pane label="用户组">
         <el-input size="medium" placeholder="输入关键字进行过滤" v-model="filterText"/>
         <el-tree
-          :data="userGroupList"
+          :data="pageList"
           :props="defaultProps"
           @node-click="nodeClick"
           current-node-key
@@ -13,8 +12,7 @@
           highlight-current
           :filter-node-method="filterNode"
           ref="tree"
-        />
-      </el-tab-pane>
+        ></el-tree>
     </el-tabs>
   </div>
 </template>
@@ -40,15 +38,15 @@ export default {
   },
   computed: {
     ...mapState([
-      'userGroupList'
+      'pageList'
     ])
   },
   mounted() {
-    this.getUserGroupList()
+    this.getPageList()
   },
   methods: {
     ...mapActions([
-      'getUserGroupList'
+      'getPageList'
     ]),
     filterNode(value, data) {
       if (!value) return true
@@ -69,7 +67,7 @@ export default {
 
 .el-tree {
   overflow: auto;
-  height: 475px;
+  height: 625px;
   margin-top: 10px;
 }
 </style>

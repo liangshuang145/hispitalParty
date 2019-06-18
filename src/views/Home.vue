@@ -72,6 +72,7 @@ export default {
           {'name': '组织(部门)管理', 'icon': 'el-icon-location', 'index': '/Index/DepartManageDemo'},
           {'name': '行政(小组)管理', 'icon': 'el-icon-location', 'index': '/Index/GroupManageDemo'},
           {'name': '菜单管理', 'icon': 'el-icon-location', 'index': '/Index/MenuManageDemo'},
+          {'name': '页面管理', 'icon': 'el-icon-location', 'index': '/Index/PageManage'},
           {'name': '按钮管理', 'icon': 'el-icon-location', 'index': '/Index/ButtonManage'},
           {'name': '字段管理', 'icon': 'el-icon-location', 'index': '/Index/FieldManage'},
           ]

@@ -13,9 +13,18 @@ import mock from '@/mocks/data'
 const getMenuList = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    let data = mock.menuList;
-    console.log(data)
-    resolve(data)
+    http.get({
+      url:'menu/list',
+      method:'get',
+      data:param
+    }).then((res) => {
+      let data = res.data;
+      for(let i in data){
+        data[i]['event'] = data[i].name
+      }
+      res.data = data
+      resolve(res)
+    })
   })
 
   // 正式

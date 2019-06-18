@@ -13,16 +13,17 @@ import mock from '@/mocks/data'
  * @param {*} param
  * @return axios
  */
-const getSubject = () => {
+const getSubject = (param = {}) => {
   return new Promise((resolve,reject) => {
     http.get({
       method: 'get',
       url: 'subject/list',
-      data: ''
+      data: param
     }).then((res) => {
+      // res = JSON.parse(res);
       // res.data = JSON.parse(res.data)
       console.log('获取机构',res);
-      resolve(res)
+      // resolve(res)
     },err =>{
       reject(err)
     })
@@ -43,18 +44,15 @@ const getSubject = () => {
  * @return axios
  */
 const addSubject = (param = {}) => {
-  // 测试
   return new Promise((resolve) => {
-    resolve(true)
+    http.post({
+      url:'subject/add',
+      data: param
+    }).then((res) => {
+      resolve(res)
+    })
   })
-
-  // 正式
-  // return http.request({
-  //   url: '/subject/add',
-  //   data: param,
-  //   method: 'post'
-  // })
-}
+};
 
 /**
  * 修改机构

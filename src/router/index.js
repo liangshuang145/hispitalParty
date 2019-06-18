@@ -21,6 +21,12 @@ import DepartManageDemo from '../views/DepartManageDemo.vue'
 import GroupManageDemo from '../views/GroupManageDemo.vue'
 // 菜单管理
 import MenuManageDemo from '../views/MenuManageDemo.vue'
+// 按钮管理
+import ButtonManage from '../views/ButtonManage.vue'
+// 字段管理
+import FieldManage from '../views/FieldManage.vue'
+// 页面管理
+import PageManage from '../views/PageManage.vue'
 
 // --------组织人事--------
 //人事管理
@@ -94,6 +100,9 @@ export default new Router({
       {path: 'DepartManageDemo', name: 'DepartManageDemo', component: DepartManageDemo},
       {path: 'GroupManageDemo', name: 'GroupManageDemo', component: GroupManageDemo},
       {path: 'MenuManageDemo', name: 'MenuManageDemo', component: MenuManageDemo},
+      {path: 'PageManage', name: 'PageManage', component: PageManage},// 页面管理
+      {path: 'ButtonManage', name: 'ButtonManage',component: ButtonManage},// 按钮管理
+      {path: 'FieldManage', name: 'FieldManage', component: FieldManage},// 字段管理
       {path: 'UEditorDemo', name: 'UEditorDemo', component: UEditorDemo},
       {path: 'ActivityManage',name: 'ActivityManage', component: ActivityManage},// 活动管理
       {path: 'PersonnelArchives',name: 'PersonnelArchives',component: PersonnelArchives},// 人事档案

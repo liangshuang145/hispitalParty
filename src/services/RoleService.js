@@ -4,7 +4,7 @@
  * @author jillyandkai@qq.com
  * @date 2019-05-20
  */
-// import http from '@/lib/http'
+import http from '@/lib/http'
 import mock from '@/mocks/data'
 
 /**
@@ -16,8 +16,13 @@ import mock from '@/mocks/data'
 const getRole = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    let data = mock.roleList
-    resolve(data)
+    http.get({
+      url: 'role/list',
+      method: 'get',
+      data:param
+    }).then((res) => {
+      console.log('获取角色',res)
+    });
   })
 
   // 正式

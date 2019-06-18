@@ -102,16 +102,16 @@
 
       //设置表头全选
       renderHeader(h, data) {
-        return h("span", [
-          h("input", {
-            attrs: {
-              id: "chooseall",
-              type: "checkbox",
-              style:
-                "border: 1px solid #dcdfe6;border-radius: 2px;box-sizing: border-box;width: 14px;height: 14px;background-color: #fff;"
-            }
-          })
-        ]);
+//        return h("span", [
+//          h("input", {
+//            attrs: {
+//              id: "chooseall",
+//              type: "checkbox",
+//              style:
+//                "border: 1px solid #dcdfe6;border-radius: 2px;box-sizing: border-box;width: 14px;height: 14px;background-color: #fff;"
+//            }
+//          })
+//        ]);
       },
       //功能函数:选中部分子集
       setchildtobeselect(arr, key) {
@@ -176,7 +176,6 @@
       },
       //某个复选框被点击时
       toselect(row) {
-        console.log(row);
         this.userCheckArr.push(row);
         let forStartCheckVal = this.userCheckArr,forEndCheckVal = [];
         for(let i = 0; i < forStartCheckVal.length;i++){
@@ -197,13 +196,20 @@
         //3、设置多选框的状态
         if (!row.checks) {
           this.setparentfalse(this.formatData, row.id, row._level); //设置父级选中的状态为false
-          document.getElementById("chooseall").checked = false; //设置全选框的状态
+//          document.getElementById("chooseall").checked = false; //设置全选框的状态
         } else {
           this.setparenttrue(this.formatData, row.id, row._level); //设置父级选中的状态为true
         }
-        if (this.key) {
-          document.getElementById("chooseall").checked = true; //设置全选框的状态
-        }
+//        if (this.key) {
+//          document.getElementById("chooseall").checked = true; //设置全选框的状态
+//        }
+      }
+    },
+    watch:{
+      key(val){
+          if (val){
+              console.log(this.formData)
+          }
       }
     },
     mounted() {
