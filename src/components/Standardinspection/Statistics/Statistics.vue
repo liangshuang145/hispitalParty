@@ -1,88 +1,30 @@
 <template>
-  <el-dialog :value="value" name="UserDialog" :visible="isShow" :before-close="handleClose" :title="title" width="1130px" center>
+  <el-dialog :value="value" name="UserDialog" :visible="isShow" :before-close="handleClose" :title="title" width="750px" center>
     <el-form ref="form" :model="form" :rules="rule" label-width="110px" label-position="right">
-      <tr>考核</tr>
       <tr>
-        <td><el-form-item label="考核名称" prop="nickname">
-          <el-input v-model="form.nickname" size="medium" :maxlength="30" placeholder="考核名称"/>
+        <td><el-form-item label="人员名称" prop="nickname">
+          <el-input v-model="form.nickname" size="medium" :maxlength="30" placeholder="请输入人员名称"/>
         </el-form-item></td>
-        <td><el-form-item label="考核日期" prop="datelasttime ">
-          <el-date-picker :maxlength="30"
+        <td><el-form-item label="诊断初次日期" prop="datelasttime ">
+          <el-date-picker
             v-model="form.datelasttime" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
           </el-date-picker>
         </el-form-item></td>
-        <td><el-form-item label="开始时间" prop="datelasttime1 ">
-          <el-time-select :maxlength="30"
-            v-model="form.value"
-            :picker-options="{start: '08:30',step: '00:15',end: '18:30'}"
-            placeholder="选择时间">
-          </el-time-select>
-        </el-form-item></td>
       </tr>
       <tr>
-        <td><el-form-item label="结束时间" prop="datelasttime2 ">
-          <el-time-select :maxlength="30"
-                          v-model="form.value2"
-                          :picker-options="{start: '08:30',step: '00:15',end: '18:30'}"
-                          placeholder="选择时间">
-          </el-time-select>
+        <td><el-form-item label="使用器材" prop="equipment ">
+          <el-input v-model="form.equipment " size="medium" :maxlength="30" placeholder="请输入器材"/>
         </el-form-item></td>
-        <td><el-form-item label="选择组织" prop="equipment ">
-          <el-select v-model="value3" placeholder="请选择">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item></td>
-        <td><el-form-item label="选择人员" prop="dangerous">
-          <el-select v-model="value2" placeholder="请选择">
-            <el-option
-              v-for="item in options2"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
+        <td><el-form-item label="预警" prop="dangerous">
+          <el-input v-model="form.dangerous" size="medium" :maxlength="30" placeholder="请输入预警"/>
         </el-form-item></td>
       </tr>
 
-      <!--<tr>-->
-        <!--<td><el-form-item label="考核一" prop="nickname1">-->
-          <!--<el-input v-model="form.nickname" size="medium" :maxlength="30" placeholder="考核名称"/>-->
-        <!--</el-form-item></td>-->
-        <!--<td><el-form-item label="考核内容" prop="nicktext1">-->
-          <!--<el-input v-model="form.nickname" size="medium" :maxlength="30" placeholder="考核得分"/>-->
-        <!--</el-form-item></td>-->
-        <!--<td><el-form-item label="考核得分" prop="nickscore1">-->
-          <!--<el-input v-model="form.nickname" size="medium" :maxlength="30" placeholder="考核得分"/>-->
-        <!--</el-form-item></td>-->
-      <!--</tr>-->
-    <tr>考核详情</tr>
-      <tr v-for="text in textall" :key="text.id">
-          <td>
-            <el-form-item label="考核" prop="text.num02">
-              <el-input v-model="text.num03" size="medium" :maxlength="30" placeholder="考核名称"/>
-            </el-form-item>
-          </td>
-        <td>
-          <el-form-item label="考核内容" prop="text.num06">
-            <el-input v-model="text.num07" size="medium" :maxlength="30" placeholder="考核内容"/>
-          </el-form-item>
-        </td>
-        <td>
-          <el-form-item label="考核得分" prop="text.num10">
-            <el-input v-model="text.num11" size="medium" :maxlength="30" placeholder="考核得分"/>
-          </el-form-item>
-        </td>
-      </tr>
 
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <!--<el-button v-if="type == 0" size="medium" width="long" @click="cancelClick">关 闭</el-button>-->
-      <template >
+      <el-button v-if="type == 0" size="medium" width="long" @click="cancelClick">关 闭</el-button>
+      <template v-else>
         <el-button size="medium" width="long" @click="cancelClick">取 消</el-button>
         <el-button size="medium" width="long" type="primary" @click="sureClick">确 定</el-button>
       </template>
@@ -171,110 +113,8 @@
     },
     data() {
       return {
-        textall:[
-            {
-              num01:'',
-              num02:'',
-              num03:'',
-              num04:'',
-              num05:'',
-              num06:'',
-              num07:'',
-              num08:'',
-              num09:'',
-              num10:'',
-              num11:'',
-              num12:'',
-        },
-          {
-            num01:'',
-            num02:'',
-            num03:'',
-            num04:'',
-            num05:'',
-            num06:'',
-            num07:'',
-            num08:'',
-            num09:'',
-            num10:'',
-            num11:'',
-            num12:'',
-          },
-          {
-            num01:'',
-            num02:'',
-            num03:'',
-            num04:'',
-            num05:'',
-            num06:'',
-            num07:'',
-            num08:'',
-            num09:'',
-            num10:'',
-            num11:'',
-            num12:'',
-          },
-          {
-            num01:'',
-            num02:'',
-            num03:'',
-            num04:'',
-            num05:'',
-            num06:'',
-            num07:'',
-            num08:'',
-            num09:'',
-            num10:'',
-            num11:'',
-            num12:'',
-          },
-          {
-            num01:'',
-            num02:'',
-            num03:'',
-            num04:'',
-            num05:'',
-            num06:'',
-            num07:'',
-            num08:'',
-            num09:'',
-            num10:'',
-            num11:'',
-            num12:'',
-          },
-          {
-            num01:'',
-            num02:'',
-            num03:'',
-            num04:'',
-            num05:'',
-            num06:'',
-            num07:'',
-            num08:'',
-            num09:'',
-            num10:'',
-            num11:'',
-            num12:'',
-          },
-          {
-            num01:'',
-            num02:'',
-            num03:'',
-            num04:'',
-            num05:'',
-            num06:'',
-            num07:'',
-            num08:'',
-            num09:'',
-            num10:'',
-            num11:'',
-            num12:'',
-          }
-        ],
         isShow: false,
         title:'',
-        value3:'',
-        type:'',
         form: {
           imageUrl:'',
           id: '',
@@ -303,10 +143,6 @@
           partyBranch:'',
           partyPosts:'',
           equipment:'',
-          value:'',
-          value2:'',
-          options:'',
-          options2:'',
         },
         rule: {
           name: [{

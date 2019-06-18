@@ -1,27 +1,16 @@
 <template>
   <el-dialog :value="value" name="UserDialog" :visible="isShow" :before-close="handleClose" :title="title" width="750px" center>
-    <el-form ref="form" :model="form" :rules="rule" label-width="110px" label-position="right">
-      <tr>
-        <td><el-form-item label="人员名称" prop="nickname">
-          <el-input v-model="form.nickname" size="medium" :maxlength="30" placeholder="请输入人员名称"/>
-        </el-form-item></td>
-        <td><el-form-item label="诊断初次日期" prop="datelasttime ">
-          <el-date-picker
-            v-model="form.datelasttime" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
-          </el-date-picker>
-        </el-form-item></td>
-      </tr>
-      <tr>
-        <td><el-form-item label="使用器材" prop="equipment ">
-          <el-input v-model="form.equipment " size="medium" :maxlength="30" placeholder="请输入器材"/>
-        </el-form-item></td>
-        <td><el-form-item label="预警" prop="dangerous">
-          <el-input v-model="form.dangerous" size="medium" :maxlength="30" placeholder="请输入预警"/>
-        </el-form-item></td>
-      </tr>
+    <el-table :data="gridData1">
+      <el-table-column property="text01" label="考试名称" ></el-table-column>
+      <el-table-column property="text02" label="考核日期" ></el-table-column>
+      <el-table-column property="text03" label="开始时间"></el-table-column>
+      <el-table-column property="text04" label="结束时间"></el-table-column>
+      <el-table-column property="text05" label="参与组织"></el-table-column>
+      <el-table-column property="text06" label="参与人员"></el-table-column>
+    </el-table>
 
 
-    </el-form>
+
     <span slot="footer" class="dialog-footer">
       <el-button v-if="type == 0" size="medium" width="long" @click="cancelClick">关 闭</el-button>
       <template v-else>
@@ -115,6 +104,16 @@ export default {
     return {
       isShow: false,
       title:'',
+      gridData1:[
+          {
+            text01:'言行举止',
+            text02:'2008-12-12',
+            text03:'15:50',
+            text04:'16:50',
+            text05:'',
+            text06:'',
+      },
+      ],
       form: {
         imageUrl:'',
         id: '',

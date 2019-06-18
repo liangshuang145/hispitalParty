@@ -31,27 +31,27 @@
     data() {
       return {
         radioGroupArr:[
-          {label:1,name:'根据姓名搜索'},
-          {label:2,name:'根据科室搜索'},
-          {label:3,name:'根据工号搜索'}
+          {label:1,name:'根据编号搜索'},
+          {label:2,name:'根据考试名称搜索'}
+//          {label:3,name:'根据工号搜索'}
         ],
         radio:1,
         search: '',
-        inputPlaceholder:'根据姓名搜索'
+        inputPlaceholder:'根据编号搜索'
       }
     },
     watch: {
         radio(radio){
             switch (radio){
               case 1:
-                this.inputPlaceholder = '根据姓名搜索';
+                this.inputPlaceholder = '根据编号搜索';
                 break;
               case 2:
-                this.inputPlaceholder = '根据科室搜索';
+                this.inputPlaceholder = '根据考试名称搜索';
                 break;
-              case 3:
-                this.inputPlaceholder = '根据工号搜索';
-                break;
+//              case 3:
+//                this.inputPlaceholder = '根据工号搜索';
+//                break;
             }
         }
     },
@@ -60,14 +60,14 @@
       selectSearch(){
         switch (this.radio){
           case 1:
-            // 根据姓名搜索
+            // 根据编号搜索
             break;
           case 2:
-            // 根据科室搜索
+            // 根据考试名称搜索
             break;
-          case 3:
-            // 根据工号搜索
-            break;
+//          case 3:
+//            // 根据工号搜索
+//            break;
         }
       }
     }

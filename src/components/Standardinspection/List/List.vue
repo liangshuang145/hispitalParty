@@ -2,13 +2,13 @@
   <div name="List" class="list-panel">
     <!--<buttons></buttons>-->
     <el-table ref="multipleTable" :data="userList"   highlight-current-row @current-change="handleTableChange" height="520">
-      <el-table-column prop="accountid" label="人员编号" width="180"/>
-      <el-table-column prop="nickname" label="人员名称" width="180"/>
-      <el-table-column prop="datelasttime" label="初次诊断时间" width="180"/>
-      <el-table-column prop="equipment" label="使用器材" width="180"/>
-      <el-table-column prop="dangerous" label="预警" width="180"/>
-      <el-table-column prop="text010" label="科室" width="180"/>
-      <el-table-column prop="text08" label="工号" width="180"/>
+      <el-table-column prop="accountid" label="考试编号" width="180"/>
+      <el-table-column prop="text011" label="考试名称" width="180"/>
+      <el-table-column prop="text012" label="答题时长" width="180"/>
+      <el-table-column prop="text04" label="考试开始日期" width="180"/>
+      <el-table-column prop="text013" label="开始时间" width="180"/>
+      <el-table-column prop="text014" label="结束时间" width="180"/>
+      <el-table-column prop="text08" label="合格分数" width="180"/>
     </el-table>
     <el-pagination background layout="prev, pager, next" :total="1000"/>
     <!--<user-dialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"/>-->
