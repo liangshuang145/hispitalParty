@@ -169,7 +169,7 @@ export default {
             ]
           },
           {'name': '党员考核', 'icon': 'el-icon-location', 'index': '5-2', 'child': [
-            {'name': '先锋指数', 'icon': 'el-icon-location', 'index': '/Index/pioneerIndex'},
+            {'name': '先锋指数', 'icon': 'el-icon-location', 'index': '/Index/z'},
             {'name': '民主评议', 'icon': 'el-icon-location', 'index': '/Index/democraticAppraisal'},
             {'name': '党员年报', 'icon': 'el-icon-location', 'index': '/Index/partyMembersAnnualReports'},
             ]
