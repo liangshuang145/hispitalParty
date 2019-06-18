@@ -36,6 +36,20 @@ Vue.use(BaiduMap, {
 
 Vue.config.productionTip = false;
 
+router.beforeEach((to, from, next) => {
+  // next()
+  if(to.path === '/login')  {
+    next()
+  }  // 如果即将进入登录路由，则直接放行
+  else {//进入的不是登录路由
+    if(!sessionStorage.getItem('userInfo')){
+      next({ path: '/login' })
+    }else{
+      next()
+    }
+  }
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

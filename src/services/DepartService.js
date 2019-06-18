@@ -4,7 +4,7 @@
  * @author jillyandkai@qq.com
  * @date 2019-05-21
  */
-// import http from '@/lib/http'
+import http from '@/lib/http'
 import mock from '@/mocks/data'
 
 /**
@@ -15,17 +15,32 @@ import mock from '@/mocks/data'
 const getDepart = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    let data = mock.departList
-    resolve(data)
+    http.get({
+        method: 'get',
+        url: 'depart/manager_list',
+        data: ''
+    }).then(res => {
+      resolve(res.data)
+    });
   })
+};
 
-  // 正式
-  // return http.request({
-  //   url: '/depart/view',
-  //   data: param,
-  //   method: 'post'
-  // })
-}
+/**
+ * 通过机构id查询子机构
+ * @param params
+ * @returns {Promise}
+ */
+const getDepartListBySubjectId = (params = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      method: 'post',
+      url: 'depart/list',
+      data: params
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
 
 /**
  * 添加部门
@@ -88,5 +103,6 @@ export default {
   getDepart,
   addDepart,
   updateDepart,
-  deleteDepart
+  deleteDepart,
+  getDepartListBySubjectId
 }

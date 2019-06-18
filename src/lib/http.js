@@ -11,9 +11,9 @@ const http = axios.create({
   // 设置默认请求头，使post请求发送的是formdata格式数据
   // axios的header默认的Content-Type好像是'application/json;charset=UTF-8'
   // 我的项目都是用json格式传输，如果需要更改的话，可以用这种方式修改
-  // headers: {
-  //   'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-  // }
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+  }
   // withCredentials: true // 允许携带cookie
 })
 
@@ -78,12 +78,12 @@ http.interceptors.response.use((response) => {
     //     message
     //   }
     // }
-
-    let data = response.data.data;
+    // console.log('response',response)
+    let data = response.data;
 
     // console.log('data == ', data)
 
-    data = JSON.parse(data);
+    // data = JSON.parse(data);
     return data
   } catch (e) {
     // throw {}
