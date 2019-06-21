@@ -1,23 +1,25 @@
 <template>
-  <el-dialog :value="value" name="UserDialog" :visible="isShow" :before-close="handleClose" :title="title" width="750px" center>
-    <span>考核</span>
-    <el-table :data="gridData1" max-height="450">
-      <el-table-column property="text01" label="考试名称" ></el-table-column>
-      <el-table-column property="text02" label="考核日期" ></el-table-column>
-      <el-table-column property="text03" label="开始时间"></el-table-column>
-      <el-table-column property="text04" label="结束时间"></el-table-column>
-      <el-table-column property="text05" label="参与组织"></el-table-column>
-      <el-table-column property="text06" label="参与人员"></el-table-column>
-    </el-table>
-    <div>&nbsp</div>
-  <span>考核详情</span>
-    <div>&nbsp</div>
-    <el-table :data="gridData2" max-height="450">
-      <el-table-column property="text01" label="考核编号" ></el-table-column>
-      <el-table-column property="text02" label="考核内容" ></el-table-column>
-      <el-table-column property="text03" label="考核得分"></el-table-column>
-    </el-table>
+  <el-dialog :value="value" name="UserDialog" :visible.sync="isShow" :before-close="handleClose" :title="title" width="750px"
+             :modal-append-to-body='false' append-to-body center>
 
+    <div name="buttons" class="buttons">
+      <el-row>
+        <el-col :span="12">
+          <el-button type="info" icon="el-icon-document" @click="look101">查看</el-button>
+        </el-col>
+      </el-row>
+
+      <Entering v-model="isEnteringShow" :type="EnteringType" :EnteringData="EnteringData"></Entering>
+    </div>
+    <div>&nbsp;</div>
+
+    <span>指标详情</span>
+    <div>&nbsp;</div>
+    <el-table :data="gridData1" max-height="450" highlight-current-row @current-change="handleTableChange">
+      <el-table-column property="text01" label="指标名称" ></el-table-column>
+      <el-table-column property="text02" label="创建事件" ></el-table-column>
+      <el-table-column property="text03" label="指标简介" ></el-table-column>
+    </el-table>
 
     <span slot="footer" class="dialog-footer">
       <el-button v-if="type == 0" size="medium" width="long" @click="cancelClick">关 闭</el-button>
@@ -28,17 +30,18 @@
     </span>
   </el-dialog>
 </template>
-
 <script>
 import { mapState, mapActions } from 'vuex'
 import Validator from '@/lib/validator'
 import UserService from '@/services/UserService'
 import ElFormItem from "../../../../node_modules/element-ui/packages/form/src/form-item";
+import Entering from '../Entering/Entering.vue'
 
 export default {
-  components: {ElFormItem},
+  components: {ElFormItem,Entering},
   name: 'UserDialog',
   props: {
+//      changeData,
     userData: { // 用户数据
       type: Object,
       default() {
@@ -55,6 +58,15 @@ export default {
     }
   },
   watch: {
+    isShow(newName,oldName){
+      console.log("newName",newName);
+      this.$emit("buttonisshow",newName);
+
+    },
+
+    changeData(tableData) {
+      this.tableData = tableData
+    },
     type(val) {
       let title = '';
       if(!val){
@@ -112,15 +124,23 @@ export default {
     return {
       isShow: false,
       title:'',
+      isEnteringShow:false,
+      EnteringData:{},
+      EnteringType:0,
+      changeTableData: null,
+      tableData:'',
+      currentkey:'',
       gridData1:[
           {
-            text01:'言行举止',
-            text02:'2008-12-12',
-            text03:'15:50',
-            text04:'16:50',
-            text05:'',
-            text06:'',
+            text01:'建造指标',
+            text02:'建造指标详情',
+            text03:'建造指标详情'
       },
+        {
+          text01:'制造指标',
+          text02:'制造指标详情',
+          text03:'建造指标详情',
+        },
       ],
       gridData2:[
         {
@@ -205,6 +225,27 @@ export default {
 //    await this.getGroupList()
 //  },
   methods: {
+    checkedrow(row,column,cell,eventr){
+        console.log(this.currentkey);
+      this.changeTableData = currentkey;
+    },
+    // 列表选中
+    handleTableChange(val) {
+      this.changeTableData = val;
+      this.$emit('tableDataChange',val)
+    },
+    look101(){
+//      if(!this.tableData){
+//        this.$message.error('操作错误,请先选择数据');
+//        return
+//      }
+//      this.$emit("buttonsisshow", this.isShow);
+
+      console.log('查看');
+      this.dialogType = 0;
+      this.isEnteringShow = true;
+      this.EnteringData = this.tableData
+    },
     ...mapActions([
       'getSubjectList',
       'getDepartList',

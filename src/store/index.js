@@ -128,7 +128,6 @@ export default new Vuex.Store({
     getRoleList({ commit }) {
       RoleService.getRole().then((res) => {
         console.log('this is getRoleList work ...')
-
         commit('setRoleList', res)
       })
     },

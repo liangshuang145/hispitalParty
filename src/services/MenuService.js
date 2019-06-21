@@ -17,27 +17,11 @@ const getMenuList = (param = {}) => {
       method:'get',
       data:param
     }).then((res) => {
-      resolve(res.data)
+  resolve(res.data)
     })
   })
 };
 
-/**
- * 获取菜单信息
- * @param param
- * @returns {Promise}
- */
-const getMenu = (param = {}) => {
-  return new Promise((resolve) => {
-    http.post({
-      url:'menu/view',
-      method: 'post',
-      data: param
-    }).then((res)=>{
-      resolve(res)
-    })
-  })
-};
 
 /**
  * 添加菜单
@@ -89,7 +73,27 @@ const delMenu = (param = {}) => {
     })
   })
 };
+/**
+ * 查看菜单详情
+ *
+ * @param {*} param
+ */
+const getMenu = (param = {}) => {
+  // 测试
+  return new Promise((resolve) => {
+    http.post({
+      url:'menu/view',
+      method:'post',
+      data:param
+    }).then((res) => {
+      console.log('查看菜单',res)
+      resolve(res);
+    },(res)=>{
+      console.log("查看菜单失败",res)
+    })
+  })
 
+};
 export default {
   getMenuList,
    getMenu,

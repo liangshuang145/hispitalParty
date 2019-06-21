@@ -1,17 +1,15 @@
-#@Author: bjy @Date: 2019/6/11 10:12 #
+ #@Author: bjy @Date: 2019/6/11 10:12 #
 <template>
     <div name="buttons" class="buttons">
       <el-row>
         <el-col :span="12">
-          <el-button type="info" icon="el-icon-document" @click="look" >查看</el-button>
-          <el-button type="success" icon="el-icon-document" @click="entering" >录入</el-button>
-          <el-button type="success" icon="el-icon-document" @click="statistics" >统计</el-button>
+          <el-button type="info" icon="el-icon-document" @click="look1" >查看</el-button>
+
         </el-col>
       </el-row>
       <!--<import-dialog v-model="isImportDialogShow"></import-dialog>-->
-      <userDialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"></userDialog>
-      <Entering v-model="isEnteringShow" :type="EnteringType" :EnteringData="EnteringData"></Entering>
-      <Statistics v-model="isStatisticsshow" :type="StatisticsType" :Statistics="StatisticsData"></Statistics>
+      <userDialog v-model="isUserDialogShow" :type="dialogType" :userData="userData" @buttonisshow="idontknowname"></userDialog>
+
     </div>
 </template>
 
@@ -50,7 +48,7 @@
         // 页面方法
         methods: {
             // 查看
-          look(){
+          look1(){
             if(!this.tableData){
               this.$message.error('操作错误,请先选择数据');
               return
@@ -61,25 +59,7 @@
             this.userData = this.tableData
           },
 
-          //录入
-          entering(){
 
-            console.log('录入');
-            this.EnteringType = 0;
-            this.isEnteringShow = true;
-            this.EnteringData = this.tableData
-          },
-
-          statistics(){
-            if(!this.tableData){
-              this.$message.error('操作错误,请先选择数据');
-              return
-            }
-            console.log('统计');
-            this.StatisticsType = 0;
-            this.isStatisticsshow = true;
-            this.StatisticsData = this.tableData
-          },
 
         },
         // 侦听器

@@ -64,7 +64,7 @@ export default {
       }).then((res) => {
           console.log('用户登录信息',res);
           if(res.code === 200){
-              let userInfo = res.data;
+            let userInfo = res.data;
             sessionStorage.setItem('userInfo',JSON.stringify(res.data));
             this.$router.push('Index');
             this.$notify.success({

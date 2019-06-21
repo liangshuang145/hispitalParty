@@ -22,6 +22,9 @@ const getRole = (param = {}) => {
       data:param
     }).then((res) => {
       console.log('获取角色',res)
+      resolve(res.data);
+    },(res)=>{
+      console.log('获取角色失败',res)
     });
   })
 
@@ -42,7 +45,22 @@ const getRole = (param = {}) => {
 const addRole = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    resolve(true)
+    param = {
+      id:  param.id,
+      name: param.name,
+      level: param.grade,
+    };
+    console.log("param",param.level);
+    http.post({
+      url: 'role/add',
+      method: 'post',
+      data: param
+    }).then((res) => {
+      console.log('添加角色',res)
+      resolve(res);
+    },(res)=>{
+      console.log('添加角色失败',res)
+    });
   })
 
   // 正式
@@ -62,7 +80,22 @@ const addRole = (param = {}) => {
 const updateRole = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    resolve(true)
+    param = {
+      id:  param.id,
+      name: param.name,
+      level: param.grade,
+    };
+    console.log("param",param.level);
+    http.post({
+      url: 'role/modify',
+      method: 'post',
+      data: param
+    }).then((res) => {
+      console.log('获取角色',res)
+      resolve(res);
+    },(res)=>{
+      console.log('获取角色失败',res)
+    });
   })
 
   // 正式

@@ -7,8 +7,36 @@
 import http from '@/lib/http'
 import mock from '@/mocks/data'
 
+
+
+
 /**
- * 通过机构id获取小组
+ * 获取小组列表
+ *
+ * @param {*} param
+ * @return axios
+ */
+const getGroupList = (param = {}) => {
+  // 测试
+  return new Promise((resolve) => {
+    http.post({
+      url:'groups/list',
+      method:'post',
+      data:param
+    }).then((res) => {
+      console.log('获取小组',res)
+      resolve(res.data);
+    },(err) => {
+      console.log(err)
+    })
+    // let data = mock.groupList
+    // resolve(data)
+  })
+
+}
+
+/**
+ * 获取小组
  *
  * @param {*} param
  * @return axios
@@ -22,6 +50,7 @@ const getGroup = (param = {}) => {
       data:param
     }).then((res) => {
       resolve(res.data)
+      resolve(res);
     },(err) => {
       console.log(err)
     })
@@ -129,5 +158,5 @@ export default {
   addGroup,
   updateGroup,
   deleteGroup,
-  getGroupChildById
-}
+getGroupChildById,
+getGroupList,}

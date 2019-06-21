@@ -10,6 +10,13 @@
       <el-select v-model="group" size="medium" placeholder="请选择行政(小组)" @change="selectGroup">
         <el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"/>
       </el-select>
+      <el-select v-model="user" size="medium" placeholder="请选择用户组" @change="selectUser">
+        <el-option v-for="item in userGroupList" :key="item.id" :label="item.name" :value="item.id"/>
+      </el-select>
+      <!--<el-select v-model="grade" size="medium" placeholder="请选择等级" @change="selectGrade">-->
+        <!--<el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"/>-->
+      <!--</el-select>-->
+
     </el-row>
     <el-row>
       <el-button type="primary" icon="el-icon-menu">确定菜单</el-button>
@@ -32,29 +39,34 @@
     ],
     data() {
       return {
+        options:[],
         search: '',
         subject: '',
         depart: '',
-        group: ''
+        group: '',
+        user: '',
       }
     },
     computed: {
       ...mapState([
         'subjectList',
         'departList',
-        'groupList'
+        'groupList',
+        'userGroupList'
       ])
     },
     async mounted() {
       await this.getSubjectList()
       await this.getDepartList()
       await this.getGroupList()
+      await this.getUserGroupList()
     },
     methods: {
       ...mapActions([
         'getSubjectList',
         'getDepartList',
-        'getGroupList'
+        'getGroupList',
+        'getUserGroupList'
       ]),
       selectSubject(val) {
         this.subject = val
@@ -65,6 +77,15 @@
       selectGroup(val) {
         this.group = val
       },
+      selectUser(val){
+          this.user = val
+      },
+      selectGrade(val){
+          this.grade = val
+      }
+    },
+    watch:{
+//      subject(newD)
     }
   }
 </script>

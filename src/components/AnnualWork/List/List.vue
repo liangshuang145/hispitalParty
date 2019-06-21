@@ -2,19 +2,18 @@
   <div name="List" class="list-panel">
     <!--<buttons></buttons>-->
     <el-table ref="multipleTable" :data="userList"   highlight-current-row @current-change="handleTableChange" height="520">
-      <el-table-column prop="accountid" label="考试编号" width="180"/>
-      <el-table-column prop="text011" label="考试名称" width="180"/>
-      <el-table-column prop="text012" label="答题时长" width="180"/>
-      <el-table-column prop="text04" label="考试开始日期" width="180"/>
-      <el-table-column prop="text013" label="开始时间" width="180"/>
-      <el-table-column prop="text014" label="结束时间" width="180"/>
-      <el-table-column prop="text08" label="合格分数" width="180"/>
+      <el-table-column prop="text016" label="类型" />
+      <el-table-column prop="text011" label="工作名称" />
+      <el-table-column prop="text04" label="开始时间" />
+      <el-table-column prop="text04" label="结束时间" />
+      <el-table-column prop="text02" label="说明" />
+      <!--<el-table-column prop="text014" label="结束时间" width="180"/>-->
+      <!--<el-table-column prop="text08" label="合格分数" width="180"/>-->
     </el-table>
     <el-pagination background layout="prev, pager, next" :total="1000"/>
     <!--<user-dialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"/>-->
   </div>
 </template>
-
 <script>
 import { mapState, mapActions } from 'vuex'
 import Bus from '../../bus/bus01.js'
