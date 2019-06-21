@@ -1,6 +1,7 @@
 <template>
   <el-dialog :value="value" name="UserDialog" :visible="isShow" :before-close="handleClose" :title="title" width="750px" center>
-    <el-table :data="gridData1">
+    <span>考核</span>
+    <el-table :data="gridData1" max-height="450">
       <el-table-column property="text01" label="考试名称" ></el-table-column>
       <el-table-column property="text02" label="考核日期" ></el-table-column>
       <el-table-column property="text03" label="开始时间"></el-table-column>
@@ -8,7 +9,14 @@
       <el-table-column property="text05" label="参与组织"></el-table-column>
       <el-table-column property="text06" label="参与人员"></el-table-column>
     </el-table>
-
+    <div>&nbsp</div>
+  <span>考核详情</span>
+    <div>&nbsp</div>
+    <el-table :data="gridData2" max-height="450">
+      <el-table-column property="text01" label="考核编号" ></el-table-column>
+      <el-table-column property="text02" label="考核内容" ></el-table-column>
+      <el-table-column property="text03" label="考核得分"></el-table-column>
+    </el-table>
 
 
     <span slot="footer" class="dialog-footer">
@@ -113,6 +121,18 @@ export default {
             text05:'',
             text06:'',
       },
+      ],
+      gridData2:[
+        {
+          text01:'考核一',
+          text02:'考核内容一',
+          text03:'100',
+        },
+        {
+          text01:'考核一',
+          text02:'考核内容一',
+          text03:'100',
+        },
       ],
       form: {
         imageUrl:'',

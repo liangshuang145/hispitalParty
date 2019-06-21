@@ -9,9 +9,6 @@
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="描述" prop="description">
-        <el-input type="textarea" v-model="form.description" :rows="3" :maxlength="255"  show-word-limit/>
-      </el-form-item>
       <el-form-item>
         <el-button type="success" size="medium" @click="submitForm">新增</el-button>
       </el-form-item>
@@ -89,10 +86,15 @@ export default {
         }
 
         RoleService.addRole(this.form).then((res) => {
-          this.$message.success('已添加')
-
-          // 重载 tree
-          this.getRoleList()
+          if (res.code === 200){
+            this.$message.success("修改成功");
+            //清空表单
+            this.$refs.form.resetFields();
+            // 重载 tree
+            this.getRoleList();
+          }else {
+            this.$message.error("修改失败")
+          }
         })
       })
     },

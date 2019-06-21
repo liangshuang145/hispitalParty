@@ -21,6 +21,12 @@ import DepartManageDemo from '../views/DepartManageDemo.vue'
 import GroupManageDemo from '../views/GroupManageDemo.vue'
 // 菜单管理
 import MenuManageDemo from '../views/MenuManageDemo.vue'
+// 按钮管理
+import ButtonManage from '../views/ButtonManage.vue'
+// 字段管理
+import FieldManage from '../views/FieldManage.vue'
+// 页面管理
+import PageManage from '../views/PageManage.vue'
 
 // --------组织人事--------
 //人事管理
@@ -70,6 +76,8 @@ import  PeopleStrength from '../views/PeopleStrength.vue'
 import  UnitedFrontStrength from '../views/UnitedFrontStrength.vue'
 //老干部力量图谱
 import VeteranCadreStrength from '../views/VeteranCadreStrength.vue'
+//年度工作
+import AnnualWork from '../views/AnnualWork.vue'
 //标准考核
 import Standardinspection from '../views/Standardinspection.vue'
 
@@ -100,6 +108,9 @@ export default new Router({
       {path: 'DepartManageDemo', name: 'DepartManageDemo', component: DepartManageDemo},
       {path: 'GroupManageDemo', name: 'GroupManageDemo', component: GroupManageDemo},
       {path: 'MenuManageDemo', name: 'MenuManageDemo', component: MenuManageDemo},
+      {path: 'PageManage', name: 'PageManage', component: PageManage},// 页面管理
+      {path: 'ButtonManage', name: 'ButtonManage',component: ButtonManage},// 按钮管理
+      {path: 'FieldManage', name: 'FieldManage', component: FieldManage},// 字段管理
       {path: 'UEditorDemo', name: 'UEditorDemo', component: UEditorDemo},
       {path: 'ActivityManage',name: 'ActivityManage', component: ActivityManage},// 活动管理
       {path: 'PersonnelArchives',name: 'PersonnelArchives',component: PersonnelArchives},// 人事档案
@@ -124,6 +135,7 @@ export default new Router({
       {path: 'PeopleStrength',name: 'PeopleStrength',component:PeopleStrength}, //群团力量图谱
       {path: 'UnitedFrontStrength',name: 'UnitedFrontStrength',component:UnitedFrontStrength}, //统战力量图谱
       {path: 'VeteranCadreStrength',name: 'VeteranCadreStrength',component:VeteranCadreStrength}, //老干部力量图谱
+      {path: 'AnnualWork',name: 'AnnualWork',component:AnnualWork}, //年度工作
       {path: 'Standardinspection',name: 'Standardinspection',component:Standardinspection},//先锋指数
       {path: 'PioneerIndex',name: 'PioneerIndex',component:PioneerIndex},//先锋指数
       {path: 'DemocraticAppraisal',name: 'DemocraticAppraisal',component:DemocraticAppraisal},//民主评议1

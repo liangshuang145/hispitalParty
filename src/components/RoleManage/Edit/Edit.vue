@@ -14,9 +14,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="描述" prop="description">
-        <el-input type="textarea" v-model="form.description" :rows="3" :maxlength="255"  show-word-limit/>
-      </el-form-item>
+
       <el-form-item>
         <el-button type="primary" size="medium" @click="submitForm">修改</el-button>
       </el-form-item>
@@ -42,6 +40,7 @@ export default {
         name: '',
         grade: '',
         description: ''
+
       },
       rule: {
         name: [{
@@ -69,7 +68,7 @@ export default {
       this.form.thisNode = newData
       this.form.id = newData.id
       this.form.name = newData.name
-      this.form.grade = newData.grade
+      this.form.grade = newData.level
       this.form.description = newData.description
     }
   },
@@ -85,10 +84,17 @@ export default {
         }
 
         RoleService.updateRole(this.form).then((res) => {
-          this.$message.success('已修改')
+           if (res.code === 200){
+               this.$message.success("修改成功");
+               //清空表单
+             this.$refs.form.resetFields();
+             // 重载 tree
+             this.getRoleList();
+           }else {
+               this.$message.error("修改失败")
+           }
 
-          // 重载 tree
-          this.getRoleList()
+
         })
       })
     }

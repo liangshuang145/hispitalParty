@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :value="value" name="UserDialog" :visible="isShow" :before-close="handleClose" :title="title" width="1130px" center>
+  <el-dialog :value="value" name="Entering" :visible="isShow" :before-close="handleClose" :title="title" width="1130px" center>
     <el-form ref="form" :model="form" :rules="rule" label-width="110px" label-position="right">
       <tr>考核</tr>
       <tr>

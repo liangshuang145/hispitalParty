@@ -18,6 +18,7 @@
 
 <script>
   import Search from '../Search/Search.vue'
+  import MenuManage from '../../../services/MenuService.js'
   export default {
     name: 'Info',
     components:{
@@ -50,8 +51,22 @@
         this.form.parentId = newData.parentId
         this.form.parentName = newData.parentName
         this.form.description = newData.description
+        this.getMenu();
       }
-    }
+    },
+    methods:{
+      // 获取页面信息
+      getMenu(){
+        MenuManage.getMenu({id:this.form.id}).then((res) => {
+          if(res.code === 200){
+            this.form = res.data
+          }else{
+            this.$message.error(res.message)
+          }
+          console.log('获取页面信息Tree',res)
+        })
+      }
+    },
   }
 </script>
 

@@ -14,9 +14,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="描述" prop="description">
-        <el-input type="textarea" v-model="form.description" :rows="3" :maxlength="255"  show-word-limit/>
-      </el-form-item>
+
     </el-form>
   </div>
 </template>
@@ -53,9 +51,10 @@ export default {
   watch: {
     pNode(newData, oldData) {
       this.form.thisNode = newData
+      this.form.grade = newData.level
       this.form.id = newData.id
       this.form.name = newData.name
-      this.form.grade = newData.grade
+//      this.form.grade = newData.grade
       this.form.description = newData.description
     }
   }

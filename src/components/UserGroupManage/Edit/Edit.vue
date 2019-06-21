@@ -1,14 +1,11 @@
 <template>
   <div name="Add" class="form-panel">
-    <el-form ref="form" :model="form" :rules="rule" label-width="100px">
-      <el-form-item label="名称" prop="name">
+    <el-form ref="form" :model="form" :rules="rule" label-width="100px" >
+      <el-form-item label="名称" prop="name" >
         <el-input v-model="form.name" size="medium" :maxlength="50"/>
       </el-form-item>
-      <el-form-item label="父级" prop="parentName">
+      <el-form-item label="上级小组" prop="fatherName">
         <el-input v-model="form.parentName" size="medium" :maxlength="50" disabled/>
-      </el-form-item>
-      <el-form-item label="描述" prop="description">
-        <el-input type="textarea" v-model="form.description" :rows="5" :maxlength="255"/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" size="medium" @click="submitForm">修改</el-button>
@@ -32,9 +29,8 @@ export default {
       form: {
         id: '',
         name: '',
-        parentId: '',
-        parentName: '',
-        description: ''
+        fatherId: '',
+        fatherName: '',
       },
       rule: {
         name: [{
@@ -47,12 +43,13 @@ export default {
   },
   watch: {
     pNode(newData, oldData) {
-      this.form.thisNode = newData
-      this.form.id = newData.id
-      this.form.name = newData.name
-      this.form.parentId = newData.parentId
-      this.form.parentName = newData.parentName
-      this.form.description = newData.description
+      this.thisNode = newData;
+      this.form.id = newData.id;
+      this.form.name = newData.name;
+      if(newData.father){
+        this.form.fatherId = newData.father.id;
+        this.form.fatherName = newData.father.name;
+      }
     }
   },
   methods: {
@@ -65,12 +62,14 @@ export default {
           this.$message.error('请检查字段')
           return
         }
-
         UserGroupService.updateUserGroup(this.form).then((res) => {
-          this.$message.success('已修改')
-
-          // 重载 tree
-          this.getUserGroupList()
+            if(res.code === 200){
+              this.$message.success('已修改');
+              // 重载 tree
+              this.getUserGroupList()
+            }else{
+              this.$message.error(res.message);
+            }
         })
       })
     }
@@ -81,6 +80,6 @@ export default {
 <style scoped>
 .form-panel {
   min-height: 520px;
-  overflow-y: auto;
+  overflow-y: auto
 }
 </style>

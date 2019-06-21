@@ -13,9 +13,16 @@ import mock from '@/mocks/data'
 const getMenuList = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    let data = mock.menuList;
-    console.log(data)
-    resolve(data)
+    http.get({
+      url:'menu/list',
+      method:'get',
+      data:param
+    }).then((res) => {
+      console.log('获取菜单',res)
+      resolve(res.data);
+    },(res)=>{
+      console.log("获取菜单失败",res)
+    })
   })
 
   // 正式
@@ -26,6 +33,30 @@ const getMenuList = (param = {}) => {
   // })
 };
 
+
+/**
+ * 查看菜单详情
+ *
+ * @param {*} param
+ */
+const getMenu = (param = {}) => {
+  // 测试
+  return new Promise((resolve) => {
+    http.post({
+      url:'menu/view',
+      method:'post',
+      data:param
+    }).then((res) => {
+      console.log('查看菜单',res)
+      resolve(res);
+    },(res)=>{
+      console.log("查看菜单失败",res)
+    })
+  })
+
+};
+
 export default {
   getMenuList,
+  getMenu,
 }

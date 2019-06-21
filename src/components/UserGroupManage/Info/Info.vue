@@ -1,20 +1,22 @@
 <template>
   <div name="Info" class="form-panel">
-    <el-form ref="form" :model="form" label-width="100px">
+    <el-form ref="form" :model="form" label-width="100px" >
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name" size="medium" :maxlength="50" disabled/>
       </el-form-item>
-      <el-form-item label="父级" prop="parentName">
-        <el-input v-model="form.parentName" size="medium" :maxlength="50" disabled/>
+      <el-form-item label="上级小组" prop="fatherName">
+        <el-input v-model="form.fatherName" size="medium" :maxlength="50" disabled/>
       </el-form-item>
-      <el-form-item label="描述" prop="description">
-        <el-input type="textarea" v-model="form.description" :rows="5" :maxlength="255" disabled/>
+      <el-form-item>
+        <el-button type="primary" size="medium" @click="submitForm">删除</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+  import UserGroupService from '../../../services/UserGroupService'
 export default {
   name: 'Info',
   props: [
@@ -25,21 +27,46 @@ export default {
       form: {
         id: '',
         name: '',
-        parentId: '',
-        parentName: '',
-        description: ''
+        fatherId: '',
+        fatherName: '',
       },
       thisNode: this.pNode
     }
   },
+  methods:{
+    ...mapActions([
+      'getUserGroupList'
+    ]),
+    submitForm(){
+      this.$confirm('此操作将永久删除该小组, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        UserGroupService.deleteUserGroup().then((res) => {
+            if(res.code === 200){
+              this.$message.success('删除成功');
+              // 重载 tree
+              this.getUserGroupList()
+            }else{
+                this.$message.error(res.message)
+            }
+        });
+      }).catch(() => {
+        this.$message.info('已取消删除');
+      });
+
+    }
+  },
   watch: {
     pNode(newData, oldData) {
-      this.form.thisNode = newData
-      this.form.id = newData.id
-      this.form.name = newData.name
-      this.form.parentId = newData.parentId
-      this.form.parentName = newData.parentName
-      this.form.description = newData.description
+      this.thisNode = newData;
+      this.form.id = newData.id;
+      this.form.name = newData.name;
+      if(newData.father){
+        this.form.fatherId = newData.father.id;
+        this.form.fatherName = newData.father.name;
+      }
     }
   }
 }

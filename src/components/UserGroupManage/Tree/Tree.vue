@@ -2,7 +2,7 @@
 <template>
   <div class="tree">
     <el-tabs type="border-card">
-      <el-tab-pane label="列表">
+      <el-tab-pane label="用户组">
         <el-input size="medium" placeholder="输入关键字进行过滤" v-model="filterText"/>
         <el-tree
           :data="userGroupList"

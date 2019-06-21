@@ -4,11 +4,8 @@
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name" size="medium" :maxlength="50"/>
       </el-form-item>
-      <el-form-item label="父级" prop="parentName">
-        <el-input v-model="form.parentName" size="medium" :maxlength="50" disabled/>
-      </el-form-item>
-      <el-form-item label="描述" prop="description">
-        <el-input type="textarea" v-model="form.description" :rows="5" :maxlength="255"/>
+      <el-form-item label="上级小组" prop="fatherName">
+        <el-input v-model="form.fatherName" size="medium" :maxlength="50" disabled/>
       </el-form-item>
       <el-form-item>
         <el-button type="success" size="medium" @click="submitForm">新增</el-button>
@@ -30,10 +27,9 @@ export default {
   data() {
     return {
       form: {
+        id:'',
         name: '',
-        parentId: '',
-        parentName: '',
-        description: ''
+        fatherName: '',
       },
       rule: {
         name: [{
@@ -45,10 +41,9 @@ export default {
   },
   watch: {
     pNode(pNode) {
-      this.form.name = pNode.name
-      this.form.parentId = pNode.parentId
-      this.form.parentName = pNode.parentName
-      this.form.description = pNode.description
+        console.log(pNode);
+      this.form.id = pNode.id;
+      this.form.fatherName = pNode.name;
     }
   },
   methods: {
@@ -58,15 +53,18 @@ export default {
     submitForm() {
       this.$refs['form'].validate((valid) => {
         if (!valid) {
-          this.$message.error('请检查字段')
+          this.$message.error('请检查字段');
           return
         }
-
+        // 添加
         UserGroupService.addUserGroup(this.form).then((res) => {
-          this.$message.success('已添加')
-
-          // 重载 tree
-          this.getUserGroupList()
+            if(res.code === 200){
+              this.$message.success('添加'+res.message);
+              // 重载 tree
+              this.getUserGroupList()
+            }else{
+                this.$message.error(res.message)
+            }
         })
       })
     }

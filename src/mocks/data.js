@@ -44,9 +44,8 @@ export default {
     text012: '60',
     text013: '16:50',
     text014: '17:50',
-    text015: '60'
-
-
+    text015: '60',
+    text016: '医工体建设'
   }, {
     id: 2,
     nickname: '王小虎',
@@ -75,7 +74,8 @@ export default {
     text012: '60',
     text013: '16:50',
     text014: '17:50',
-    text015: '60'
+    text015: '60',
+    text016: '医工体建设'
 
   }, {
     id: 3,
@@ -105,7 +105,8 @@ export default {
     text012: '60',
     text013: '16:50',
     text014: '17:50',
-    text015: '60'
+    text015: '60',
+    text016: '医工体建设'
   }, {
     id: 4,
     nickname: '王小虎',
@@ -134,7 +135,8 @@ export default {
     text012: '60',
     text013: '16:50',
     text014: '17:50',
-    text015: '60'
+    text015: '60',
+    text016: '医工体建设'
   }, {
     id: 5,
     nickname: '王小虎',
@@ -163,7 +165,8 @@ export default {
     text012: '60',
     text013: '16:50',
     text014: '17:50',
-    text015: '60'
+    text015: '60',
+    text016: '医工体建设'
   }, {
     id: 6,
     nickname: '王小虎',
@@ -192,7 +195,8 @@ export default {
     text012: '60',
     text013: '16:50',
     text014: '17:50',
-    text015: '60'
+    text015: '60',
+    text016: '医工体建设'
   }, {
     id: 7,
     nickname: '王小虎',
@@ -221,7 +225,8 @@ export default {
     text012: '60',
     text013: '16:50',
     text014: '17:50',
-    text015: '60'
+    text015: '60',
+    text016: '医工体建设'
   }, {
     id: 8,
     nickname: '王小虎',
@@ -250,7 +255,8 @@ export default {
     text012: '60',
     text013: '16:50',
     text014: '17:50',
-    text015: '60'
+    text015: '60',
+    text016: '医工体建设'
   }, {
     id: 9,
     nickname: '王小虎',
@@ -279,7 +285,8 @@ export default {
     text012: '60',
     text013: '16:50',
     text014: '17:50',
-    text015: '60'
+    text015: '60',
+    text016: '医工体建设'
   }, {
     id: 10,
     nickname: '王小虎',
@@ -308,7 +315,8 @@ export default {
     text012: '60',
     text013: '16:50',
     text014: '17:50',
-    text015: '60'
+    text015: '60',
+    text016: '医工体建设'
   }],
   // 用户组列表
   userGroupList: [{
