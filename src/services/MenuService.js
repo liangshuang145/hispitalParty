@@ -11,30 +11,89 @@ import mock from '@/mocks/data'
  * @param {*} param
  */
 const getMenuList = (param = {}) => {
-  // 测试
   return new Promise((resolve) => {
     http.get({
       url:'menu/list',
       method:'get',
       data:param
     }).then((res) => {
-      let data = res.data;
-      for(let i in data){
-        data[i]['event'] = data[i].name
-      }
-      res.data = data
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 获取菜单信息
+ * @param param
+ * @returns {Promise}
+ */
+const getMenu = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'menu/view',
+      method: 'post',
+      data: param
+    }).then((res)=>{
       resolve(res)
     })
   })
+};
 
-  // 正式
-  // return http.request({
-  //   url: '/user/list',
-  //   data: param,
-  //   method: 'post'
-  // })
+/**
+ * 添加菜单
+ * @param param
+ * @returns {Promise}
+ */
+const addMenu = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'menu/add',
+      method: 'post',
+      data: param
+    }).then((res)=>{
+      resolve(res)
+    })
+  })
+};
+
+/**
+ * 修改菜单
+ * @param param
+ * @returns {Promise}
+ */
+const updateMenu = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'menu/modify',
+      method: 'post',
+      data: param
+    }).then((res)=>{
+      resolve(res)
+    })
+  })
+};
+
+/**
+ * 删除菜单
+ * @param param
+ * @returns {Promise}
+ */
+const delMenu = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'menu/del',
+      method: 'post',
+      data: param
+    }).then((res)=>{
+      resolve(res)
+    })
+  })
 };
 
 export default {
   getMenuList,
+   getMenu,
+  addMenu,
+  delMenu,
+  updateMenu
 }

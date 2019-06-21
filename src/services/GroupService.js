@@ -8,7 +8,7 @@ import http from '@/lib/http'
 import mock from '@/mocks/data'
 
 /**
- * 获取小组
+ * 通过机构id获取小组
  *
  * @param {*} param
  * @return axios
@@ -16,26 +16,34 @@ import mock from '@/mocks/data'
 const getGroup = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    http.get({
-      url:'groups/view',
-      method:'get',
+    http.post({
+      url:'groups/list',
+      method:'post',
       data:param
     }).then((res) => {
-      console.log('获取小组',res)
+      resolve(res.data)
     },(err) => {
       console.log(err)
     })
-    // let data = mock.groupList
-    // resolve(data)
   })
+};
 
-  // 正式
-  // return http.request({
-  //   url: '/group/view',
-  //   data: param,
-  //   method: 'post'
-  // })
-}
+/**
+ * 通过id获取子集小组
+ * @param param
+ * @returns {Promise}
+ */
+const getGroupChildById = (param = {}) =>{
+  return  new Promise((resolve) => {
+    http.post({
+      url:'groups/childs',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
 
 /**
  * 添加小组
@@ -44,18 +52,24 @@ const getGroup = (param = {}) => {
  * @return axios
  */
 const addGroup = (param = {}) => {
-  // 测试
   return new Promise((resolve) => {
-    resolve(true)
+    param = {
+      name:param.name,
+      subjectId:param.subjectId,
+      userId:param.userId,
+      remark:param.remark
+    };
+    http.post({
+      url:'groups/add',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res)
+    }).then((res) => {
+      resolve(res)
+    })
   })
-
-  // 正式
-  // return http.request({
-  //   url: '/group/add',
-  //   data: param,
-  //   method: 'post'
-  // })
-}
+};
 
 /**
  * 修改小组
@@ -66,7 +80,20 @@ const addGroup = (param = {}) => {
 const updateGroup = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    resolve(true)
+    param = {
+      id:param.id,
+      name:param.name,
+      subjectId:param.subjectId,
+      userId:param.userId,
+      remark:param.remark
+    };
+    http.post({
+      url:'groups/modify',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res)
+    });
   })
 
   // 正式
@@ -95,11 +122,12 @@ const deleteGroup = (param = {}) => {
   //   data: param,
   //   method: 'post'
   // })
-}
+};
 
 export default {
   getGroup,
   addGroup,
   updateGroup,
-  deleteGroup
+  deleteGroup,
+  getGroupChildById
 }

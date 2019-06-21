@@ -48,14 +48,16 @@ export default {
   },
   methods: {
     ...mapActions([
-      'getMenuList'
+      'getMenuList',
+      'getMenuById'
     ]),
     filterNode(value, data) {
       if (!value) return true
       return data.name.indexOf(value) !== -1
     },
     nodeClick(data, node) {
-      data['parentData'] = node.parent.data
+      data['parentData'] = node.parent.data;
+      this.getMenuById(data.id)
       this.$emit('nodeDept', data)
     }
   }

@@ -8,10 +8,10 @@
     </el-breadcrumb>
     <div class="content-panel">
       <el-row>
-        <el-col :span="5">
-          <tree @nodeDept="thisDept"/>
-        </el-col>
-        <el-col :span="19">
+        <!--<el-col :span="5">-->
+          <!--<tree @nodeDept="thisDept"/>-->
+        <!--</el-col>-->
+        <el-col :span="24">
           <manage :currentNode="currentNode"/>
         </el-col>
       </el-row>

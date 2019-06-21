@@ -20,10 +20,7 @@ const getSubject = (param = {}) => {
       url: 'subject/list',
       data: param
     }).then((res) => {
-      // res = JSON.parse(res);
-      // res.data = JSON.parse(res.data)
-      console.log('获取机构',res);
-      // resolve(res)
+      resolve(res.data)
     },err =>{
       reject(err)
     })
@@ -63,7 +60,19 @@ const addSubject = (param = {}) => {
 const updateSubject = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    resolve(true)
+    param = {
+      id:param.id,
+      name:param.name,
+      userId:param.userId,
+      subjectId:param.subjectId,
+    }
+    http.post({
+        url: 'subject/modify',
+      data: param,
+      method: 'post'
+  ``}).then((res)=>{
+      resolve(res)
+    })
   })
 
   // 正式
@@ -81,9 +90,17 @@ const updateSubject = (param = {}) => {
  * @return axios
  */
 const deleteSubject = (param = {}) => {
-  // 测试
   return new Promise((resolve) => {
-    resolve(true)
+    param = {
+      id:param.id
+    };
+    http.post({
+        url: 'subject/delete',
+        data: param,
+        method: 'post'
+      }).then((res) => {
+      resolve(res)
+    });
   })
 
   // 正式

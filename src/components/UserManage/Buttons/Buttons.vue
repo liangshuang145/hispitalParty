@@ -13,7 +13,7 @@
 
 <script>
   import userDialog from '../UserDialog/UserDialog.vue'
-  import userService from '../../../services/UserService.js'
+  import UserService from '../../../services/UserService.js'
 
     export default{
         name: 'buttons',
@@ -37,10 +37,16 @@
               this.$message.error('操作错误,请先选择数据');
               return
             }
-            console.log('查看');
             this.dialogType = 0;
-            this.isUserDialogShow = true;
-            this.userData = this.tableData
+            UserService.getUserInfo({id:this.tableData.id}).then((res) => {
+              if(res.code === 200){
+                this.isUserDialogShow = true;
+                this.userData = res.data
+              }else {
+                  this.$message.error(res.message)
+              }
+            });
+
           },
           // 添加
           addUser(){
@@ -63,7 +69,7 @@
           // 删除
           delUser(){
             if(!this.tableData){
-              this.$message.error('操作错误,请先选择数据')
+              this.$message.error('操作错误,请先选择数据');
               return
             }
             this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
@@ -71,7 +77,13 @@
               cancelButtonText: '取消',
               type: 'warning'
             }).then(() => {
-              this.$message.success('已删除')
+                UserService.deleteUser({id:this.tableData.id}).then((res) => {
+                    if(res.code === 200){
+                      this.$message.success('删除成功')
+                    }else {
+                        this.$message.error(res.message)
+                    }
+                });
             }).catch(() => {
               this.$message.info('已取消')
             })

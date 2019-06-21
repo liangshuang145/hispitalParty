@@ -49,7 +49,7 @@
         'getUserGroupList'
       ]),
       filterNode(value, data) {
-        if (!value) return true
+        if (!value) return true;
         return data.name.indexOf(value) !== -1
       },
       nodeClick(data, node) {

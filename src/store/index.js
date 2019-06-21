@@ -30,6 +30,7 @@ export default new Vuex.Store({
     buttonList: [], // 按钮列表
     fieldList: [], // 字段列表
     pageList:[], // 页面列表
+    menuInfo:{},// 单个菜单信息
   },
   mutations: {
     // 登录
@@ -74,6 +75,10 @@ export default new Vuex.Store({
     setButtonList(state, data) {
       state.buttonList = data
     },
+    // 单个菜单信息
+    setMenuInfo(state, data){
+      state.menuInfo = data
+    },
     // 字段列表
     setFieldList(state, data){
       state.fieldList = data
@@ -82,14 +87,33 @@ export default new Vuex.Store({
     setPageList(state, data){
       state.pageList = data
     }
+
   },
   actions: {
-    // 获取用户列表
+    // 获取用户列表 废弃
     getUserList({ commit }) {
       UserService.getUserList().then((res) => {
         console.log('this is getList work ...')
 
         commit('setUserList', res)
+      })
+    },
+    // 通过部门id获取用户列表-分页
+    getUserListByDepartId({ commit },param){
+      UserService.getUserListByDepartId(param).then((res) => {
+        commit('setUserList', res)
+      })
+    },
+    // 通过小组id获取用户列表-分页
+    getUserListByGroupId({ commit },param){
+      UserService.getUserListByGroupId(param).then((res) => {
+        commit('setUserList',res)
+      })
+    },
+    // 通过名称获取用户列表-分页
+    getUserListByName({ commit },param){
+      UserService.getUserListByName(param).then((res) => {
+        commit('setUserList',res)
       })
     },
     // 获取用户组列表
@@ -119,15 +143,20 @@ export default new Vuex.Store({
     // 获取组织(部门)列表
     getDepartList({ commit }) {
       DepartService.getDepart().then((res) => {
-        console.log('this is getDepartList work ...')
-
+        console.log('this is getDepartList work ...');
         commit('setDepartList', res)
       })
     },
-    // 获取行政(小组)列表
-    getGroupList({ commit }) {
-      GroupService.getGroup().then((res) => {
-        console.log('this is getGroupList work ...')
+    // 通过机构id查询组织(部门)列表
+    getDepartListBySubjectId({ commit },param){
+      DepartService.getDepartListBySubjectId(param).then((res) => {
+        commit('setDepartList', res)
+      })
+    },
+    // 通过机构id,获取行政(小组)列表
+    getGroupList({ commit },subjectId) {
+      GroupService.getGroup(subjectId).then((res) => {
+        console.log('this is getGroupList work ...');
 
         commit('setGroupList', res)
       })
@@ -138,6 +167,12 @@ export default new Vuex.Store({
         console.log('this is getMenuList work ...');
 
         commit('setMenuList', res)
+      })
+    },
+    // 通过菜单id获取菜单信息
+    getMenuById({ commit },id){
+      MenuService.getMenu({id:id}).then((res) => {
+        commit('setMenuInfo', res)
       })
     },
     // 获取按钮列表

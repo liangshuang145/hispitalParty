@@ -13,12 +13,11 @@ import mock from '@/mocks/data'
  * @param {*} param
  */
 const getDepart = (param = {}) => {
-  // 测试
   return new Promise((resolve) => {
     http.get({
         method: 'get',
         url: 'depart/manager_list',
-        data: ''
+        data: param
     }).then(res => {
       resolve(res.data)
     });
@@ -26,7 +25,7 @@ const getDepart = (param = {}) => {
 };
 
 /**
- * 通过机构id查询子机构
+ * 通过机构id查询下属部门
  * @param params
  * @returns {Promise}
  */
@@ -36,6 +35,23 @@ const getDepartListBySubjectId = (params = {}) => {
       method: 'post',
       url: 'depart/list',
       data: params
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 通过id查询自子集
+ * @param param
+ * @returns {Promise}
+ */
+const selectDepartChildById = (param = {}) =>{
+  return new Promise((resolve) => {
+    http.post({
+      url:'depart/childs',
+      method:'post',
+      data:param
     }).then((res) => {
       resolve(res)
     })
@@ -48,18 +64,22 @@ const getDepartListBySubjectId = (params = {}) => {
  * @param {*} param
  */
 const addDepart = (param = {}) => {
-  // 测试
   return new Promise((resolve) => {
-    resolve(true)
+    param = {
+      name:param.name,
+      fatherId:param.fatherId,
+      subjectId:param.subjectId,
+      userId:param.userId
+    };
+    http.post({
+        url: 'depart/add',
+        data: param,
+        method: 'post'
+      }).then((res) => {
+      resolve(res)
+    });
   })
-
-  // 正式
-  // return http.request({
-  //   url: '/depart/add',
-  //   data: param,
-  //   method: 'post'
-  // })
-}
+};
 
 /**
  * 修改部门
@@ -69,40 +89,30 @@ const addDepart = (param = {}) => {
 const updateDepart = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    resolve(true)
+    param = {
+      id:param.id,
+      name:param.name,
+      fatherId:param.fatherId,
+      userId:param.userId,
+      subjectId:param.subjectId
+    };
+    http.post({
+      url:'depart/modify',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res)
+    },(err) => {
+      console.error(err)
+    })
   })
-
-  // 正式
-  // return http.request({
-  //   url: '/depart/update',
-  //   data: param,
-  //   method: 'post'
-  // })
 };
 
-/**
- * 删除部门
- *
- * @param {*} param
- */
-const deleteDepart = (param = {}) => {
-  // 测试
-  return new Promise((resolve) => {
-    resolve(true)
-  })
-
-  // 正式
-  // return http.request({
-  //   url: '/depart/delete',
-  //   data: param,
-  //   method: 'post'
-  // })
-}
 
 export default {
   getDepart,
   addDepart,
   updateDepart,
-  deleteDepart,
-  getDepartListBySubjectId
+  getDepartListBySubjectId,
+  selectDepartChildById
 }

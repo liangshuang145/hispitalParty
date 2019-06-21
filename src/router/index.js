@@ -133,7 +133,7 @@ export default new Router({
       {path: 'PeopleStrength',name: 'PeopleStrength',component:PeopleStrength}, //群团力量图谱
       {path: 'UnitedFrontStrength',name: 'UnitedFrontStrength',component:UnitedFrontStrength}, //统战力量图谱
       {path: 'VeteranCadreStrength',name: 'VeteranCadreStrength',component:VeteranCadreStrength}, //老干部力量图谱
-      {path: 'Standardinspection',name: 'Standardinspection',component:Standardinspection},//先锋指数
+      {path: 'Standardinspection',name: 'Standardinspection',component:Standardinspection},//标准考核
       {path: 'PioneerIndex',name: 'PioneerIndex',component:PioneerIndex},//先锋指数
       {path: 'DemocraticAppraisal',name: 'DemocraticAppraisal',component:DemocraticAppraisal},//民主评议1
       {path: 'PartyMembersAnnualReports',name: 'PartyMembersAnnualReports',component:PartyMembersAnnualReports},//党员年报

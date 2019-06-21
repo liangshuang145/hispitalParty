@@ -3,6 +3,11 @@
   <div class="tree">
     <el-tabs type="border-card">
       <el-tab-pane label="列表">
+        <el-row>
+          <el-col :span="24">
+            <search></search>
+          </el-col>
+        </el-row>
         <el-input size="medium" placeholder="输入关键字进行过滤" v-model="filterText"/>
         <el-tree
           :data="groupList"
@@ -20,9 +25,18 @@
 </template>
 
 <script>
+
 import { mapState, mapActions } from 'vuex'
+import ElRow from "element-ui/packages/row/src/row";
+import ElCol from "element-ui/packages/col/src/col";
+import Search from "../Search/Search";
+import GroupService from '../../../services/GroupService'
 
 export default {
+  components: {
+    Search,
+    ElCol,
+    ElRow},
   name: 'Tree',
   data() {
     return {
@@ -55,7 +69,10 @@ export default {
       return data.name.indexOf(value) !== -1
     },
     nodeClick(data, node) {
-      data['parentData'] = node.parent.data
+      data['parentData'] = node.parent.data;
+      GroupService.getGroupChildById({id:data.id}).then((res) => {
+         console.log('getGroupChildById',res)
+      });
       this.$emit('nodeDept', data)
     }
   }

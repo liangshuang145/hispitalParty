@@ -20,23 +20,19 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
-  import Buttons from '../Buttons/Buttons.vue'
   import UserService from '../../../services/UserService'
 
   export default {
     name: 'search',
-    components: {
-      Buttons
-    },
     props: [
       'currentNode'
     ],
     data() {
       return {
         radioGroupArr:[
-          {label:1,name:'根据姓名搜索'},
-          {label:2,name:'根据科室搜索'},
-          {label:3,name:'根据工号搜索'}
+          {label:1,name:'姓名'},
+          {label:2,name:'科室'},
+          {label:3,name:'工号'}
         ],
         radio:1,
         search: '',
@@ -90,6 +86,6 @@
     margin-right: 5px;
   }
   .el-input.search-input {
-    width: 350px;
+    width: 300px;
   }
 </style>

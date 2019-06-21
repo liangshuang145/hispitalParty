@@ -2,8 +2,14 @@
 <template>
     <div name="buttons" class="buttons">
       <el-row>
-        <el-col :span="12">
-          <el-button type="success" icon="el-icon-delete" @click="ImportExcel" >导入表格</el-button>
+        <el-col :span="10">
+          <!--<el-button type="primary" icon="el-icon-s-order" @click="isLook" >查看</el-button>-->
+          <!--<el-button type="primary" icon="el-icon-plus" @click="isAdd" >新增</el-button>-->
+          <!--<el-button type="primary" icon="el-icon-edit" @click="isModify" >修改</el-button>-->
+          <el-button type="success" icon="el-icon-folder-add" @click="ImportExcel" >导入表格</el-button>
+        </el-col>
+        <el-col :span="14">
+          <search/>
         </el-col>
       </el-row>
       <import-dialog v-model="isImportDialogShow"></import-dialog>
@@ -15,6 +21,7 @@
   import userService from '../../../services/UserService.js'
   import ElCol from "element-ui/packages/col/src/col";
   import ElRow from "element-ui/packages/row/src/row";
+  import Search from "../Search/Search";
 
     export default{
         name: 'buttons',
@@ -37,6 +44,24 @@
           ImportExcel(){
               console.log('导入表格');
               this.isImportDialogShow = true
+          },
+          // 查看
+          isLook(){
+            if(!this.tableData){
+              this.$message.error('操作错误,请先选择数据');
+              return
+            }
+          },
+          // 新增
+          isAdd(){
+
+          },
+          // 修改
+          isModify(){
+            if(!this.tableData){
+              this.$message.error('操作错误,请先选择数据');
+              return
+            }
           },
           // 本日排行
           rankingOfDay(){
@@ -63,7 +88,8 @@
         },
         // 依赖注入
       components: {
-          ElRow,
+        Search,
+        ElRow,
           ElCol,
         importDialog
         }

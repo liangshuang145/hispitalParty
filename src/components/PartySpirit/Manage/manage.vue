@@ -4,9 +4,9 @@
         <div>
           <buttons :changeData="tableData"/>
         </div>
-        <div>
-          <search />
-        </div>
+        <!--<div>-->
+          <!--<search />-->
+        <!--</div>-->
         <div>
           <list @tableDataChange="changeData"/>
         </div>

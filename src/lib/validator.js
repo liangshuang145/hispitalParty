@@ -84,12 +84,27 @@ const checkName = (rule, value, callback) => {
   } else {
     callback()
   }
-}
+};
+/**
+ * 机构检查
+ * @param rule
+ * @param value
+ * @param callback
+ * @returns {*}
+ */
+const checkSubjectId = (rule, value, callback) => {
+  if (value === '') {
+    return callback(new Error('请选择机构'))
+  } else {
+    callback()
+  }
+};
 
 export default {
   checkUsername,
   checkPassword,
   checkEmail,
   checkAnswer,
-  checkName
+  checkName,
+  checkSubjectId
 }

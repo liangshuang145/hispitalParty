@@ -5,9 +5,6 @@
           <buttons :changeData="tableData"/>
         </div>
         <div>
-          <Search/>
-        </div>
-        <div>
           <list @tableDataChange="changeData"/>
         </div>
       </el-tabs>

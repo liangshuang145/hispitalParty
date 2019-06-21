@@ -1,79 +1,46 @@
 <template>
   <el-dialog
-    :value="value"
-    name="UserDialog"
-    :visible="isShow"
-    :before-close="handleClose"
-    :title="title"
-    width="640px"
-    center
-  >
-    <el-form ref="form" :model="form" :rules="rule" label-width="100px">
+    :value="value" name="UserDialog" :visible="isShow" :before-close="handleClose"
+    :title="title" width="640px" center>
+    <el-form ref="form" :model="form" :rules="rule" label-width="120px">
       <el-form-item label="账号" prop="account">
-        <el-input
-          v-model="form.account"
-          size="medium"
-          :maxlength="30"
-          auto-complete="new-account"
-          placeholder="请输入账号"
-        />
+        <el-input v-model="form.account" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入账号"></el-input>
       </el-form-item>
-      <el-form-item v-if="type == 0" label="密码" prop="password">
-        <el-input
-          type="password"
-          v-model="form.password"
-          size="medium"
-          :maxlength="30"
-          auto-complete="new-password"
-          placeholder="请输入密码"
-        />
+      <el-form-item v-if="type == 0 || type == 1" label="密码" prop="password">
+        <el-input type="password" v-model="form.password" size="medium" :maxlength="30" auto-complete="new-password" show-password placeholder="请输入密码"></el-input>
       </el-form-item>
-      <el-form-item label="昵称" prop="nickname">
-        <el-input v-model="form.nickname" size="medium" :maxlength="30" placeholder="请输入昵称"/>
+      <el-form-item label="姓名" prop="name">
+        <el-input v-model="form.name" size="medium" :maxlength="30" placeholder="请输入昵称"></el-input>
       </el-form-item>
-      <el-form-item label="性别" prop="gender">
-        <el-radio v-model="form.gender" :label="0">女</el-radio>
-        <el-radio v-model="form.gender" :label="1">男</el-radio>
-        <el-radio v-model="form.gender" :label="-1">未知</el-radio>
+      <el-form-item label="性别" prop="sex">
+        <el-radio v-model="form.sex" :label="0">男</el-radio>
+        <el-radio v-model="form.sex" :label="1">女</el-radio>
       </el-form-item>
-      <el-form-item label="类型" prop="type">
-        <el-radio v-model="form.type" :label="0">超级管理员</el-radio>
-        <el-radio v-model="form.type" :label="1">管理员</el-radio>
-        <el-radio v-model="form.type" :label="2">成员</el-radio>
+      <el-form-item label="类型" prop="userType">
+        <el-radio v-model="form.userType" label="admin">超级管理员</el-radio>
+        <el-radio v-model="form.userType" label="user">普通用户</el-radio>
       </el-form-item>
-      <el-form-item label="机构" prop="subject">
-        <el-select v-model="form.subject" size="medium" placeholder="请选择机构" @change="selectSubject">
-          <el-option
-            v-for="item in subjectList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
+      <el-form-item label="机构" prop="subjectId">
+        <el-select v-model="form.subjectId" size="medium" placeholder="请选择机构" @change="selectSubject">
+          <el-option v-for="item in subjectList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="组织(部门)" prop="depart">
-        <el-select
-          v-model="form.depart"
-          size="medium"
-          placeholder="请选择组织(部门)"
-          @change="selectDepart"
-        >
-          <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id"/>
+      <el-form-item label="所在组织类型" prop="subjectId">
+        <el-radio v-model="changeDepartSubject" label="depart">组织(部门)</el-radio>
+        <el-radio v-model="changeDepartSubject" label="groups">行政(小组)</el-radio>
+      </el-form-item>
+      <el-form-item label="组织(部门)" prop="departId" v-if="changeDepartSubject == 'depart'">
+        <el-select v-model="form.departId" size="medium" placeholder="请选择组织(部门)" @change="selectDepart">
+          <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="行政(小组)" prop="group">
-        <el-select v-model="form.group" size="medium" placeholder="请选择行政(小组)" @change="selectGroup">
+      <el-form-item label="行政(小组)" prop="groupsId"  >
+        <el-select v-model="form.groupsId" size="medium" placeholder="请选择行政(小组)" @change="selectGroup">
           <el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="描述" prop="description">
-        <el-input
-          type="textarea"
-          v-model="form.description"
-          :rows="5"
-          :maxlength="255"
-          placeholder="请输入描述"
-        />
+      <el-form-item label="描述" prop="remark">
+        <el-input type="textarea" v-model="form.remark" :rows="5" :maxlength="255" placeholder="请输入描述" show-word-limit></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -112,7 +79,6 @@ export default {
   watch: {
     type(val) {
       let title = '';
-      console.log('type--',this.type);
       if(!val){
           val = 0
       }
@@ -141,28 +107,29 @@ export default {
       this.form.account = data.account;
       this.form.nickname = data.nickname;
       this.form.gender = data.gender;
-      this.form.type = data.type;
-      this.form.subject = data.subject;
-      this.form.depart = data.depart;
-      this.form.group = data.group;
-      this.form.description = data.description
+      this.form.userType = data.userType;
+//      this.form.subject = data.subject;
+//      this.form.depart = data.depart;
+//      this.form.group = data.group;
     }
   },
   data() {
     return {
       isShow: false,
       title:'',
+      changeDepartSubject:'depart',
       form: {
         id: '',
-        account: '',
-        password: '',
-        nickname: '',
-        gender: -1,
-        type: 2,
-        subject: '',
-        depart: '',
-        group: '',
-        description: ''
+        account: '',// 账号
+        password: '',// 密码
+        name: '',//姓名
+        sex: 0,
+        userType: 'user',//用户类型
+        subjectId: '',
+        departId: '',
+        groupsId: '',
+        remark: '',// 描述
+        type:this.type
       },
       rule: {
         name: [{
@@ -180,18 +147,18 @@ export default {
     ]),
   },
   async mounted() {
-    await this.getSubjectList()
-    await this.getDepartList()
-    await this.getGroupList()
+    await this.getSubjectList();
   },
   methods: {
     ...mapActions([
       'getSubjectList',
-      'getDepartList',
       'getGroupList',
-      'getUserList'
+      'getUserList',
+      'getDepartListBySubjectId'
     ]),
     selectSubject(val) {
+      this.getDepartListBySubjectId({subjectId:val});
+      this.getGroupList({subjectId:val});
       this.form.subject = val
     },
     selectDepart(val) {
@@ -204,6 +171,8 @@ export default {
     sureClick() {
       switch (this.type) {
         case 1: // 新增
+//          this.changeDepartSubject === 'depart'? this.form.groupsId = '': this.form.departId  = '';
+
           UserService.addUser(this.form).then((res) => {
             this.$message.success('已添加');
 
