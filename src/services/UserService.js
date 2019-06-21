@@ -105,9 +105,9 @@ const getUserInfo = (param = {}) => {
     param = {
       id:param.id,
     };
-    http.get({
+    http.post({
       url:'user/view',
-      method:'get',
+      method:'post',
       data:param
     }).then((res) => {
       resolve(res)
@@ -130,12 +130,12 @@ const addUser = (param = {}) => {
       subjectId:param.subjectId,
       departId:param.departId,
       groupsId:param.groupsId,
-      remark:param.remark
+      remark:param.remark,
+      password:param.password
     };
-    console.log('新增用户',param);
-    http.post({
+    http.get({
       url:'user/add',
-      method:'post',
+      method:'get',
       data:param
     }).then((res) => {
       resolve(res)

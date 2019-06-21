@@ -6,7 +6,7 @@
       <el-form-item label="账号" prop="account">
         <el-input v-model="form.account" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入账号"></el-input>
       </el-form-item>
-      <el-form-item v-if="type == 0 || type == 1" label="密码" prop="password">
+      <el-form-item v-if="type == 1" label="密码" prop="password">
         <el-input type="password" v-model="form.password" size="medium" :maxlength="30" auto-complete="new-password" show-password placeholder="请输入密码"></el-input>
       </el-form-item>
       <el-form-item label="姓名" prop="name">
@@ -17,8 +17,8 @@
         <el-radio v-model="form.sex" :label="1">女</el-radio>
       </el-form-item>
       <el-form-item label="类型" prop="userType">
-        <el-radio v-model="form.userType" label="admin">超级管理员</el-radio>
-        <el-radio v-model="form.userType" label="user">普通用户</el-radio>
+        <el-radio v-model="form.userType" :label="1">超级管理员</el-radio>
+        <el-radio v-model="form.userType" :label="0">普通用户</el-radio>
       </el-form-item>
       <el-form-item label="机构" prop="subjectId">
         <el-select v-model="form.subjectId" size="medium" placeholder="请选择机构" @change="selectSubject">
@@ -172,12 +172,17 @@ export default {
       switch (this.type) {
         case 1: // 新增
 //          this.changeDepartSubject === 'depart'? this.form.groupsId = '': this.form.departId  = '';
-
+          if(!this.form.userType){
+            this.form.userType = 0
+          }
           UserService.addUser(this.form).then((res) => {
-            this.$message.success('已添加');
-
-            this.getUserList();
-            this.isShow = false
+              if(res.code === 200){
+                this.$message.success('已添加成功');
+                this.getUserList();
+                this.isShow = false
+              }else{
+                  this.$message.error(res.message)
+              }
           });
           break;
         case 2: // 修改
