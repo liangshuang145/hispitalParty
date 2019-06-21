@@ -18,7 +18,7 @@ import mock from '@/mocks/data'
  */
 const getGroupList = (param = {}) => {
   // 测试
-  return new Promise((resolve) => {
+  return new Promise((resolve) => {z
     http.post({
       url:'groups/list',
       method:'post',
@@ -36,7 +36,7 @@ const getGroupList = (param = {}) => {
 }
 
 /**
- * 获取小组
+ * 通过机构id 获取小组
  *
  * @param {*} param
  * @return axios
@@ -44,13 +44,19 @@ const getGroupList = (param = {}) => {
 const getGroup = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
+    console.log('开始的param',param)
+    // param={
+    //   subjectId: param.subjectId
+    // };
+    console.log('处理过的param',param);
     http.post({
       url:'groups/list',
       method:'post',
       data:param
     }).then((res) => {
-      resolve(res.data)
-      resolve(res);
+      console.log(res);
+      // resolve(res.data)
+      resolve(res.data);
     },(err) => {
       console.log(err)
     })
@@ -64,12 +70,14 @@ const getGroup = (param = {}) => {
  */
 const getGroupChildById = (param = {}) =>{
   return  new Promise((resolve) => {
+
     http.post({
       url:'groups/childs',
       method:'post',
-      data:param
+      data: param
     }).then((res) => {
       resolve(res)
+      console.log("通过id获取子集小组",res);
     })
   })
 };

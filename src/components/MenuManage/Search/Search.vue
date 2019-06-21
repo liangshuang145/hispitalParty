@@ -7,7 +7,7 @@
       <el-select v-model="depart" size="medium" placeholder="请选择组织(部门)" @change="selectDepart">
         <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id"/>
       </el-select>
-      <el-select v-model="group" size="medium" placeholder="请选择行政(小组)" @change="selectGroup">
+      <el-select v-model="group" size="medium" placeholder="请选择行政(小组)" @change="selectGroup" multiple>
         <el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"/>
       </el-select>
       <el-select v-model="user" size="medium" placeholder="请选择用户组" @change="selectUser">
@@ -16,7 +16,6 @@
       <!--<el-select v-model="grade" size="medium" placeholder="请选择等级" @change="selectGrade">-->
         <!--<el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"/>-->
       <!--</el-select>-->
-
     </el-row>
     <el-row>
       <el-button type="primary" icon="el-icon-menu">确定菜单</el-button>
@@ -28,6 +27,7 @@
   import { mapState, mapActions } from 'vuex'
   import ElRow from "element-ui/packages/row/src/row";
   import ElButton from "../../../../node_modules/element-ui/packages/button/src/button";
+  import GroupService from '../../../services/GroupService'
   export default {
     name: 'Search',
     components: {
@@ -85,8 +85,21 @@
       }
     },
     watch:{
-//      subject(newD)
-    }
+      subject(newData, oldData){
+         console.log('newData',newData);
+        this.getGroupList({subjectId:newData})
+
+//        GroupService.getGroup({subjectId:newData}).then((res) => {
+//          if(res.code === 200){
+//              console.log(res.data);
+//            groupList = res.data
+//          }else{
+//            this.$message.error(res.message)
+//          }
+//          console.log('根据id获取子集',res)
+//        })
+      },
+    },
   }
 </script>
 
