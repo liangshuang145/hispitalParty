@@ -1,13 +1,17 @@
 #@Author: bjy @Date: 2019/6/11 10:12 #
 <template>
-    <div  class="buttons">
-      <!--<div class="button-search">-->
-        <div>
-          <el-button type="info" icon="el-icon-document" @click="look" >查看</el-button>
+    <div name="buttons"  class="buttons">
+      <el-row>
+        <el-col :span="10">
+          <el-button type="primary " icon="el-icon-document" @click="look" >查看</el-button>
           <el-button type="primary" icon="el-icon-plus" @click="addUser">添加</el-button>
           <el-button type="success" icon="el-icon-edit" @click="updateUser">修改</el-button>
           <el-button type="danger" icon="el-icon-delete" @click="delUser">删除</el-button>
-        </div>
+        </el-col>
+        <el-col :span="14">
+          <search></search>
+        </el-col>
+      </el-row>
         <!--<div>-->
       <!--<search/>-->
       <!--</div>-->
@@ -19,7 +23,8 @@
   import userDialog from '../UserDialog/UserDialog.vue'
   import userService from '../../../services/UserService.js'
   import ElCol from "element-ui/packages/col/src/col";
-  import Search from '../Search/Search.vue'
+  import ElRow from "element-ui/packages/row/src/row";
+  import Search from "../Search/Search";
 
     export default{
         name: 'buttons',
@@ -43,10 +48,17 @@
               this.$message.error('操作错误,请先选择数据');
               return
             }
-            console.log('查看');
-            this.dialogType = 0;
-            this.isUserDialogShow = true;
-            this.userData = this.tableData
+//            console.log('查看');
+//            this.dialogType = 0;
+//            this.isUserDialogShow = true;
+//            this.userData = this.tableData;
+            this.$router.push({
+              path: '/Index/PersonnelArchives/Info',
+              params:{
+                dialogType:0,
+                userData:this.tableData
+              }
+            })
           },
           // 添加
           addUser(){
@@ -91,9 +103,10 @@
         },
         // 依赖注入
         components: {
+          Search,
+          ElRow,
           ElCol,
           userDialog,
-          Search
         }
     }
 </script>

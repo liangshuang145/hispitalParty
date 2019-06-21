@@ -7,14 +7,11 @@
       <el-breadcrumb-item to="/Index/GroupManageDemo">{{ pageTitle }}</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="content-panel">
-      <search/>
-    </div>
-    <div class="content-panel">
       <el-row>
-        <el-col :span="8">
+        <el-col :span="6">
           <tree @nodeDept="thisDept"/>
         </el-col>
-        <el-col :span="16">
+        <el-col :span="18">
           <manage :currentNode="currentNode"/>
         </el-col>
       </el-row>

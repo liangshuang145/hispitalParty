@@ -1,74 +1,119 @@
 /**
  * User 用户接口请求对象
  *
- * @author jillyandkai@qq.com
+ * @author jiangyu8013@163.com
  * @date 2019-03-22
  */
 // import axios from 'axios'
 import http from '@/lib/http'
 import mock from '@/mocks/data'
 
-/**
- * 获取用户信息
- *
- * @param data
- * @param callback 正式开发接入axios
- * @returns {boolean}
- */
-// const getUserInfo = (data, callback) => {
-//   let { username, password } = data
-//   let userInfo = mock.userInfo
-//   if (username === userInfo.username && password === userInfo.password) {
-//     callback(userInfo)
-//     return true
-//   } else {
-//     callback('')
-//     return false
-//   }
-// }
-const getUserInfo = (param = {}) => {
-  param = {
-    account: param.username,
-    password: param.password
-  };
-
-  // return axios({
-  //   method: 'post',
-  //   url: 'http://192.168.1.17/login',
-  //   data: param
-  // })
-  // http.post({
-  //     method: 'post',
-  //     url: 'index/login',
-  //     data:param
-  // })
-
-
-  // return axios.post('http://192.168.1.17/login', param)
-  // return http.post('/login', param)
-
-  // return http.post('/login', param)
-}
 
 /**
- * 获取用户列表
+ * 获取用户列表-分页 废弃
  *
  * @param {*} param
  */
 const getUserList = (param = {}) => {
-  // 测试
   return new Promise((resolve) => {
-    let data = mock.userList;
-    resolve(data)
+    param = {
+      page:param.page
+    };
+    http.get({
+      url:'user/list',
+      method:'get',
+      data:param
+    }).then((res) => {
+      resolve(res)
+    })
   })
+};
 
-  // 正式
-  // return http.request({
-  //   url: '/user/list',
-  //   data: param,
-  //   method: 'post'
-  // })
-}
+/**
+ * 通过名称查询用户信息
+ * @param param
+ * @returns {Promise}
+ */
+const getUserListByName = (param = {}) => {
+  return new Promise((resolve) => {
+    param = {
+      key:param.name,
+      page:param.page,
+      size:param.size
+    };
+    http.post({
+      url:'user/search',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
+
+/**
+ * 通过组织id查询用户列表
+ * @param param
+ * @returns {Promise}
+ */
+const getUserListByGroupId = (param = {}) => {
+  return new Promise((resolve) => {
+    param = {
+      groupId:param.groupId,
+      page:param.page,
+      size:param.size
+    };
+    http.post({
+      url:'user/groupUser',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
+
+/**
+ * 通过部门id查询用户列表
+ * @param param
+ * @returns {Promise}
+ */
+const getUserListByDepartId = (param = {}) => {
+  return new Promise((resolve) => {
+    param = {
+      departId:param.departId,
+      page:param.page,
+      size:param.size
+    };
+    http.post({
+      url:'user/departUser',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
+
+/**
+ * 获取单个用户信息
+ * @param param
+ * @returns {Promise}
+ */
+const getUserInfo = (param = {}) => {
+  return new Promise((resolve) => {
+    param = {
+      id:param.id,
+    };
+    http.get({
+      url:'user/view',
+      method:'get',
+      data:param
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
 
 /**
  * 新增用户
@@ -76,9 +121,25 @@ const getUserList = (param = {}) => {
  * @param {*} param
  */
 const addUser = (param = {}) => {
-  // 测试
   return new Promise((resolve) => {
-    resolve(true)
+    param = {
+      account:param.account,
+      name:param.name,
+      sex:Number(param.sex),
+      userType:param.userType,
+      subjectId:param.subjectId,
+      departId:param.departId,
+      groupsId:param.groupsId,
+      remark:param.remark
+    };
+    console.log('新增用户',param);
+    http.post({
+      url:'user/add',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res)
+    })
   })
 
   // 正式
@@ -87,7 +148,7 @@ const addUser = (param = {}) => {
   //   data: param,
   //   method: 'post'
   // })
-}
+};
 
 /**
  * 修改用户
@@ -106,7 +167,7 @@ const updateUser = (param = {}) => {
   //   data: param,
   //   method: 'post'
   // })
-}
+};
 
 /**
  * 删除用户
@@ -116,7 +177,16 @@ const updateUser = (param = {}) => {
 const deleteUser = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    resolve(true)
+    param = {
+      id:param.id
+    };
+    http.get({
+      url:'user/del',
+      data:param,
+      method:'get'
+    }).then((res) => {
+      resolve(res)
+    });
   })
 
   // 正式
@@ -125,12 +195,15 @@ const deleteUser = (param = {}) => {
   //   data: param,
   //   method: 'post'
   // })
-}
+};
 
 export default {
-  getUserInfo,
   getUserList,
+  getUserInfo,
   addUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getUserListByName,
+  getUserListByGroupId,
+  getUserListByDepartId
 }

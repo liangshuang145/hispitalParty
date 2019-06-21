@@ -4,6 +4,11 @@
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name" size="medium" :maxlength="50"/>
       </el-form-item>
+      <el-form-item label="类型">
+        <el-radio v-model="form.type" :label="0">总院</el-radio>
+        <el-radio v-model="form.type" :label="1">分院</el-radio>
+        <el-radio v-model="form.type" :label="2">其他</el-radio>
+      </el-form-item>
       <el-form-item>
         <el-button type="success" size="medium" @click="submitForm">新增</el-button>
       </el-form-item>
@@ -25,7 +30,7 @@ export default {
     return {
       form: {
         name: '',
-        type: 1,
+        type: 2,
       },
       rule: {
         name: [{

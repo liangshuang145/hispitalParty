@@ -63,7 +63,19 @@ const addSubject = (param = {}) => {
 const updateSubject = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    resolve(true)
+    param = {
+      id:param.id,
+      name:param.name,
+      userId:param.userId,
+      subjectId:param.subjectId,
+    }
+    http.post({
+        url: 'subject/modify',
+      data: param,
+      method: 'post'
+  ``}).then((res)=>{
+      resolve(res)
+    })
   })
 
   // 正式
@@ -81,9 +93,17 @@ const updateSubject = (param = {}) => {
  * @return axios
  */
 const deleteSubject = (param = {}) => {
-  // 测试
   return new Promise((resolve) => {
-    resolve(true)
+    param = {
+      id:param.id
+    };
+    http.post({
+        url: 'subject/delete',
+        data: param,
+        method: 'post'
+      }).then((res) => {
+      resolve(res)
+    });
   })
 
   // 正式

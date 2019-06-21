@@ -1,14 +1,14 @@
 <template>
   <div name="Add" class="form-panel">
-    <el-form ref="form" :model="form" :rules="rule" label-suffix="：" label-width="100px">
+    <el-form ref="form" :model="form" :rules="rule" label-suffix="：" label-width="120px">
       <el-form-item label="名称" prop="name">
-        <el-input v-model="form.name" size="medium" :maxlength="50"/>
+        <el-input v-model="form.name" size="medium" :maxlength="50"></el-input>
       </el-form-item>
-      <el-form-item label="父级" prop="parentName">
-        <el-input v-model="form.parentName" size="medium" :maxlength="50" disabled/>
+      <el-form-item label="所属机构" prop="subjectName">
+        <search :fatherValue="form.subjectName" @changeSubject="changeSubject"></search>
       </el-form-item>
-      <el-form-item label="描述" prop="description">
-        <el-input type="textarea" v-model="form.description" :rows="5" :maxlength="255"/>
+      <el-form-item label="上级组织(部门)" prop="fatherName">
+        <el-input v-model="form.fatherName" size="medium" :maxlength="50" disabled/>
       </el-form-item>
       <el-form-item>
         <el-button type="success" size="medium" @click="submitForm">新增</el-button>
@@ -21,56 +21,72 @@
 import { mapActions } from 'vuex'
 import Validator from '@/lib/validator'
 import DepartService from '@/services/DepartService'
+import Search from '../Search/Search.vue'
 
 export default {
   name: 'Add',
   props: [
     'pNode'
   ],
+  components:{
+    Search
+  },
   data() {
     return {
       form: {
         name: '',
         subjectId: '',
-        subjectName: '',
-        parentId: '',
-        parentName: '',
-        description: ''
+        subjectName:'',
+        fatherId:'',
+        fatherName: '',
+        userName: ''
       },
       rule: {
         name: [{
           validator: Validator.checkName,
           trigger: 'blur'
-        }]
-      }
+        }],
+      },
+      thisNode:''
     }
+  },
+  created(){
+    let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+    this.form.userId = userInfo.id
   },
   watch: {
     pNode(pNode) {
-      this.form.name = pNode.name
-      this.form.subjectId = pNode.subjectId
-      this.form.subjectName = pNode.subjectName
-      this.form.parentId = pNode.parentId
-      this.form.parentName = pNode.parentName
-      this.form.description = pNode.description
+      this.thisNode = pNode;
+      this.form.fatherId = pNode.id;
+      this.form.fatherName = pNode.name;
+      this.form.subjectName = pNode.subject.name;
+      this.form.subjectId = pNode.subject.id;
     }
   },
   methods: {
     ...mapActions([
       'getDepartList'
     ]),
+    // 选择机构
+    changeSubject(subjectId){
+      this.form.subjectId = subjectId
+    },
     submitForm() {
       this.$refs['form'].validate((valid) => {
         if (!valid) {
-          this.$message.error('请检查字段')
+          this.$message.error('请检查字段');
           return
         }
-
         DepartService.addDepart(this.form).then((res) => {
-          this.$message.success('已添加');
-
-          // 重载 tree
-          this.getDepartList()
+            if (res.code === 200){
+              this.$message.success('添加'+res.message);
+              // 清空表单
+              this.$refs.form.resetFields();
+              // 重载   tree
+              this.getDepartList()
+            }else{
+              this.$message.success(res.message);
+            }
         })
       })
     }

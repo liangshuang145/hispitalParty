@@ -12,13 +12,9 @@
         </el-radio-group>
       </div>
       <div>
-        <el-input class="search-input" size="medium" v-model="search"  v-if="radio === 1 || radio === 2"
-                  :placeholder="inputPlaceholder" :type="radio === 1 ? 'text': 'number'" @input="selectSearch">
+        <el-input class="search-input" size="medium" v-model="search" :placeholder="inputPlaceholder" @input="selectSearch">
           <el-button slot="append" icon="el-icon-search" @click="selectSearch"></el-button>
         </el-input>
-      </div>
-      <div v-if="radio == 3">
-        <el-date-picker v-model="searchYear"  size="medium" type="year" class="search-input" placeholder="选择年" @change="selectSearch"></el-date-picker>
       </div>
     </div>
   </div>
@@ -40,9 +36,9 @@
     data() {
       return {
         radioGroupArr:[
-          {label:1,name:'根据姓名搜索'},
-          {label:2,name:'根据科室搜索'},
-          {label:3,name:'根据工号搜索'}
+          {label:1,name:'姓名搜索'},
+          {label:2,name:'科室搜索'},
+          {label:3,name:'工号搜索'}
         ],
         radio:1,
         search: '',

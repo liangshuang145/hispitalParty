@@ -6,11 +6,12 @@
         :data="navMenu"
         :index="navMenu.index"
         :route="navMenu.route"
+        popper-class=" menu-item-height"
       >
         <i :class="navMenu.icon"></i>
         <span slot="title">{{ navMenu.name }}</span>
       </el-menu-item>
-      <el-submenu v-if="navMenu.child" :data="navMenu" :index="navMenu.index">
+      <el-submenu v-if="navMenu.child" :data="navMenu" :index="navMenu.index" popper-class="menu-item-height"  class="is-active">
         <template slot="title">
           <i :class="navMenu.icon"></i>
           <span>{{ navMenu.name }}</span>
@@ -64,4 +65,16 @@ export default {
 .el-menu-vertical-demo {
   height: 100%;
 }
+.menu-item{
+  border: 1px solid #f8f8f8;
+}
+  .menu-item-height{
+    height:50px;
+  }
+  .el-menu-item.is-active[data-v-2ca7c6d6]{
+    background-color: #ffffff !important;
+  }
+  .el-submenu{
+    border-bottom: 1px solid #f8f8f8;
+  }
 </style>

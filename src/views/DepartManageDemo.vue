@@ -7,14 +7,11 @@
       <el-breadcrumb-item to="/Index/DepartManageDemo">{{ pageTitle }}</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="content-panel">
-      <search/>
-    </div>
-    <div class="content-panel">
       <el-row>
-        <el-col :span="8">
+        <el-col :span="6">
           <tree @nodeDept="thisDept"/>
         </el-col>
-        <el-col :span="16">
+        <el-col :span="18">
           <manage :currentNode="currentNode"/>
         </el-col>
       </el-row>
@@ -23,14 +20,12 @@
 </template>
 
 <script>
-import Search from '@/components/DepartManage/Search/Search.vue'
 import Tree from '@/components/DepartManage/Tree/Tree.vue'
 import Manage from '@/components/DepartManage/Manage/Manage.vue'
 
 export default {
   name: 'DepartManageDemo',
   components: {
-    Search,
     Tree,
     Manage
   },

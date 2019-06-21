@@ -14,7 +14,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'Search',
   props: [
-    'currentNode'
+    'fatherValue',
   ],
   data() {
     return {
@@ -26,16 +26,22 @@ export default {
       'subjectList'
     ])
   },
+  watch:{
+    fatherValue(val){
+        this.value = val
+    }
+  },
   mounted() {
     this.getSubjectList()
   },
   methods: {
     ...mapActions([
       'getSubjectList',
-      'getDepartList'
+      'getDepartListBySubjectId'
     ]),
-    selectParent() {
-      this.getDepartList()
+    selectParent(data) {
+      this.getDepartListBySubjectId({subjectId:data});
+      this.$emit('changeSubject',data)
     }
   }
 }
@@ -43,9 +49,7 @@ export default {
 
 <style scoped>
 .search-panel {
-  padding: 20px;
-  margin-top: 20px;
-  border: 1px solid #eee;
+  margin: 10px 0;
   border-radius: 3px;
 }
 </style>

@@ -5,18 +5,17 @@
           <buttons :changeData="tableData"/>
         </div>
         <div>
-          <Search/>
-        </div>
-        <div>
-          <list @tableDataChange="changeData"/>
+          <list  @tableDataChange="changeData"></list>
+          <!--<list @tableDataChange="changeData"/>-->
         </div>
       </el-tabs>
 </template>
 
 <script>
   import Search from '../Search/Search.vue'
-  import List from '../List/List.vue'
+//  import List from '../List/List.vue'
   import Buttons from '../Buttons/Buttons.vue'
+  import List from "../List/List";
     //  此处导入组件,格式,例如:import xxx名称 from "路径"
     export default{
         // 这里是name,记得填写
@@ -47,8 +46,9 @@
         },
         // 依赖注入
         components: {
-          Search,
           List,
+          Search,
+//          List,
           Buttons
         }
     }

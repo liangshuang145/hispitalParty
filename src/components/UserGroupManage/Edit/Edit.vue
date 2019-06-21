@@ -5,7 +5,7 @@
         <el-input v-model="form.name" size="medium" :maxlength="50"/>
       </el-form-item>
       <el-form-item label="上级小组" prop="fatherName">
-        <el-input v-model="form.parentName" size="medium" :maxlength="50" disabled/>
+        <el-input v-model="form.fatherName" size="medium" :maxlength="50" disabled/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" size="medium" @click="submitForm">修改</el-button>

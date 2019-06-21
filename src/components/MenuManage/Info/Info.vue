@@ -5,11 +5,11 @@
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name" size="medium" :maxlength="50" disabled/>
       </el-form-item>
-      <el-form-item label="父级" prop="parentName">
-        <el-input v-model="form.parentName" size="medium" :maxlength="50" disabled/>
+      <el-form-item label="父级页面" prop="parentName" v-if="form.father">
+        <el-input v-model="form.father.name" size="medium" :maxlength="50" disabled/>
       </el-form-item>
       <el-form-item label="描述" prop="description">
-        <el-input type="textarea" v-model="form.description" :rows="5" :maxlength="255" disabled/>
+        <el-input type="textarea" v-model="form.remark" :rows="5" :maxlength="255" disabled/>
       </el-form-item>
     </el-form>
     <Search/>
@@ -19,6 +19,8 @@
 <script>
   import Search from '../Search/Search.vue'
   import MenuManage from '../../../services/MenuService.js'
+  import MenuService from '../../../services/MenuService'
+  import { mapState, mapActions } from 'vuex'
   export default {
     name: 'Info',
     components:{
@@ -41,7 +43,23 @@
         thisNode: this.pNode
       }
     },
+    computed: {
+      ...mapState([
+        'menuInfo'
+      ])
+    },
+    methods:{
+
+    },
     watch: {
+      menuInfo(Info){
+          if (Info.code === 200){
+              this.form = Info.data
+          }else {
+              this.$message.error(res.message)
+          }
+//          console.log('menuInfo',val)
+      },
       pNode(newData, oldData) {
         this.form.thisNode = newData
         this.form.id = newData.id
@@ -53,6 +71,7 @@
         this.form.description = newData.description
         this.getMenu();
       }
+
     },
     methods:{
       // 获取页面信息

@@ -2,15 +2,17 @@
 <template>
     <div  class="buttons">
       <!--<div class="button-search">-->
-        <div>
-          <el-button type="info" icon="el-icon-document" @click="look" >查看</el-button>
-          <el-button type="primary" icon="el-icon-plus" @click="addUser">添加</el-button>
+      <el-row>
+        <el-col :span="10">
+          <el-button type="primary" icon="el-icon-document" @click="look">查看</el-button>
           <el-button type="success" icon="el-icon-edit" @click="updateUser">修改</el-button>
+          <el-button type="primary" icon="el-icon-plus" @click="addUser">添加</el-button>
           <el-button type="danger" icon="el-icon-delete" @click="delUser">删除</el-button>
-        </div>
-        <!--<div>-->
-      <!--<search/>-->
-      <!--</div>-->
+        </el-col>
+        <el-col :span="14">
+          <search></search>
+        </el-col>
+      </el-row>
       <userDialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"></userDialog>
     </div>
 </template>
@@ -20,6 +22,7 @@
   import userService from '../../../services/UserService.js'
   import ElCol from "element-ui/packages/col/src/col";
   import Search from '../Search/Search.vue'
+  import ElRow from "element-ui/packages/row/src/row";
 
     export default{
         name: 'buttons',
@@ -91,6 +94,7 @@
         },
         // 依赖注入
         components: {
+          ElRow,
           ElCol,
           userDialog,
           Search
