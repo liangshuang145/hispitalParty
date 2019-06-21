@@ -11,12 +11,12 @@ import mock from '@/mocks/data'
 
 
 /**
- * 获取小组列表
+ *  通过机构id 获取小组列表
  *
  * @param {*} param
  * @return axios
  */
-const getGroupList = (param = {}) => {
+const getGroupListBySubjectId = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
     http.post({
@@ -24,19 +24,16 @@ const getGroupList = (param = {}) => {
       method:'post',
       data:param
     }).then((res) => {
-      console.log('获取小组',res)
       resolve(res.data);
     },(err) => {
       console.log(err)
     })
-    // let data = mock.groupList
-    // resolve(data)
   })
 
 }
 
 /**
- * 获取小组
+ * 获取小组 不传参数
  *
  * @param {*} param
  * @return axios
@@ -44,13 +41,12 @@ const getGroupList = (param = {}) => {
 const getGroup = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    http.post({
-      url:'groups/list',
-      method:'post',
+    http.get({
+      url:'groups/manager_list',
+      method:'get',
       data:param
     }).then((res) => {
       resolve(res.data)
-      resolve(res);
     },(err) => {
       console.log(err)
     })
@@ -158,5 +154,6 @@ export default {
   addGroup,
   updateGroup,
   deleteGroup,
-getGroupChildById,
-getGroupList,}
+  getGroupChildById,
+  getGroupListBySubjectId ,
+}

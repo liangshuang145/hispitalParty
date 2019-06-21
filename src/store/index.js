@@ -152,11 +152,15 @@ export default new Vuex.Store({
         commit('setDepartList', res)
       })
     },
-    // 通过机构id,获取行政(小组)列表
-    getGroupList({ commit },subjectId) {
-      GroupService.getGroup(subjectId).then((res) => {
-        console.log('this is getGroupList work ...');
-
+    // 获取行政(小组)列表
+    getGroupList({ commit }) {
+      GroupService.getGroup().then((res) => {
+        commit('setGroupList', res)
+      })
+    },
+    // 通过机构id查询行政小组列表
+    getGroupListBySubjectId({ commit },param){
+      GroupService.getGroupListBySubjectId(param).then((res) => {
         commit('setGroupList', res)
       })
     },

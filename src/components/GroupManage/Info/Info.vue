@@ -46,10 +46,8 @@ export default {
       this.thisNode = newData;
       this.form.id = newData.id;
       this.form.name = newData.name;
-      if(newData.father){
-          this.form.fatherName = newData.father.name;
-        this.form.fatherId = newData.father.id
-      }
+      this.form.fatherName = newData.parentData.name;
+      this.form.fatherId = newData.parentData.id;
       this.form.subjectId = newData.subject.id;
       this.form.subjectName = newData.subject.name;
       this.form.remark = newData.remark;

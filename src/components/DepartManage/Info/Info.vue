@@ -1,6 +1,6 @@
 <template>
   <div name="Info" class="form-panel">
-    <el-form ref="form" :model="form" label-suffix="：" label-width="120px">
+    <el-form ref="form" :model="form" label-suffix="" label-width="140px">
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name" size="medium" :maxlength="50" disabled/>
       </el-form-item>
@@ -43,10 +43,8 @@ export default {
       this.form.name = newData.name;
       this.form.subjectId = newData.subject.id;
       this.form.subjectName = newData.subject.name;
-      if(newData.father){
-        this.form.fatherId = newData.father.id;
-        this.form.fatherName = newData.father.name
-      }
+      this.form.fatherId = newData.parentData.id;
+      this.form.fatherName = newData.parentData.name;
     }
   }
 }
