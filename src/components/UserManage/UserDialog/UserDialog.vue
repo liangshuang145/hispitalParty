@@ -135,6 +135,14 @@ export default {
         name: [{
           validator: Validator.checkName,
           trigger: 'blur'
+        }],
+        account: [{
+            validator: Validator.checkAccount,
+          trigger: 'blur'
+        }],
+        password: [{
+            validator: Validator.checkPassword,
+          trigger: 'blur'
         }]
       }
     }

@@ -55,7 +55,7 @@
     methods: {
       ...mapActions([
         'getSubjectList',
-        'getGroupList',
+        'getGroupListBySubjectId',
         'getDepartListBySubjectId',
         'getUserListByDepartId',
         'getUserListByGroupId',
@@ -69,7 +69,7 @@
       // 选择机构
       selectSubject(val) {
         this.getDepartListBySubjectId({subjectId:val});
-        this.getGroupList({subjectId:val});
+        this.getGroupListBySubjectId({subjectId:val});
         this.subject = val
       },
       // 选择部门

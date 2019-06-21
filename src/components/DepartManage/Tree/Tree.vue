@@ -21,7 +21,19 @@
           highlight-current
           :filter-node-method="filterNode"
           ref="tree"
-        ></el-tree>
+        >
+          <span class="custom-tree-node" slot-scope="{ node, data }">
+          <span>{{ node.label }}</span>
+          <span>
+            <el-button
+              type="text"
+              size="mini"
+              @click="showChild(data)">
+              查看子集
+            </el-button>
+          </span>
+          </span>
+        </el-tree>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -73,15 +85,19 @@ export default {
       if (!value) return true;
       return data.name.indexOf(value) !== -1
     },
+    // 展示下一子集 实际上是添加
+    showChild(data){
+      DepartService.selectDepartChildById({id:data.id}).then((res) => {
+        if(res.code === 200){
+          this.$set(data, 'child', []);
+          data.child = res.data;
+        }else{
+          this.$message.error(res.message)
+        }
+      });
+    },
     nodeClick(data, node) {
       data['parentData'] = node.parent.data;
-      DepartService.selectDepartChildById({id:data.id}).then((res) => {
-         if(res.code === 200){
-             console.log(res.data)
-         }else{
-             this.$message.error(res.message)
-         }
-      });
       this.$emit('nodeDept', data)
     }
   }
@@ -101,4 +117,12 @@ export default {
   .i-el-col-padding{
     padding-top: 13px;
   }
+.custom-tree-node {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
+}
 </style>

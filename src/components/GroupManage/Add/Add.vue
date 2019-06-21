@@ -5,7 +5,7 @@
         <el-input v-model="form.name" size="medium" :maxlength="50"/>
       </el-form-item>
       <el-form-item label="所属机构" prop="parentName">
-        <search @changeSubject="changeSubject"></search>
+        <el-input v-model="form.subjectName" size="medium" :maxlength="50" disabled></el-input>
       </el-form-item>
       <el-form-item label="上级小组" prop="fatherName">
         <el-input v-model="form.fatherName" size="medium" :maxlength="50" disabled></el-input>
@@ -64,6 +64,8 @@ export default {
   },
   watch: {
     pNode(pNode) {
+      this.form.subjectId = pNode.subject.id;
+      this.form.subjectName = pNode.subject.name;
       this.form.fatherName = pNode.name;
       this.form.fatherId = pNode.id;
     }
@@ -72,7 +74,6 @@ export default {
     ...mapActions([
       'getGroupList'
     ]),
-
     /// 选择机构
     changeSubject(subjetId){
       this.form.subjectId = subjetId
@@ -85,7 +86,6 @@ export default {
         }
         GroupService.addGroup(this.form).then((res) => {
           this.$message.success('已添加');
-
           // 重载 tree
           this.getGroupList()
         })

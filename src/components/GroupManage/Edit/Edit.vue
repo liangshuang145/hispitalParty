@@ -8,7 +8,9 @@
         <search :subjectName="form.subjectName" @changeSubject="changeSubject"></search>
       </el-form-item>
       <el-form-item label="上级小组" prop="fatherName">
-        <el-input v-model="form.fatherName" size="medium" :maxlength="50" disabled/>
+        <el-select v-model="form.fatherName" size="medium" placeholder="请选择上级行政(小组)" @change="selectParentGroup">
+          <el-option v-for="item in fatherOption" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
       </el-form-item>
       <el-form-item label="用户名称" prop="userName">
         <el-input v-model="form.userName" size="medium" :maxlength="50" disabled/>
@@ -53,6 +55,7 @@ export default {
           trigger: 'blur'
         }]
       },
+      fatherOption:[],
       thisNode: this.pNode
     }
   },
@@ -65,15 +68,22 @@ export default {
       this.thisNode = newData;
       this.form.id = newData.id;
       this.form.name = newData.name;
-      if(newData.father){
-        this.form.fatherName = newData.father.name;
-        this.form.fatherId = newData.father.id
-      }
+      this.form.fatherName = newData.parentData.name;
+      this.form.fatherId = newData.parentData.id;
       this.form.subjectId = newData.subject.id;
       this.form.subjectName = newData.subject.name;
       this.form.remark = newData.remark;
       if(newData.user){
         this.form.userName = newData.user.name
+      }
+      if(!newData.parentData.length){
+        if(newData.parentData.parentData.child){
+          this.fatherOption = newData.parentData.parentData.child
+        }else{
+          this.fatherOption = newData.parentData.parentData
+        }
+      }else {
+        this.fatherOption = []
       }
     }
   },
@@ -83,8 +93,11 @@ export default {
     ]),
     // 用户下拉框选择
     changeSubject(data){
-        console.log('用户下拉框选择',data);
       this.form.subjectId = data
+    },
+    // 用户下拉选择上级小组
+    selectParentGroup(groupId){
+        this.form.fatherId = groupId
     },
     submitForm() {
       this.$refs['form'].validate((valid) => {

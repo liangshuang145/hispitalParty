@@ -85,17 +85,20 @@ const checkName = (rule, value, callback) => {
     callback()
   }
 };
+
 /**
- * 机构检查
+ * 校验账号
  * @param rule
  * @param value
  * @param callback
- * @returns {*}
  */
-const checkSubjectId = (rule, value, callback) => {
-  if (value === '') {
-    return callback(new Error('请选择机构'))
-  } else {
+const checkAccount = (rule, value, callback) => {
+  if(!value){
+    return callback(new Error('请输入账号'))
+  }
+  if(value.match(/^[\u4e00-\u9fa5]+$/)){ // 校验中文
+    return callback(new Error('账号不能为中文'))
+  }else{
     callback()
   }
 };
@@ -106,5 +109,5 @@ export default {
   checkEmail,
   checkAnswer,
   checkName,
-  checkSubjectId
+  checkAccount
 }

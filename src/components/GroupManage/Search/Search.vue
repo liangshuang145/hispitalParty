@@ -37,11 +37,11 @@ export default {
   methods: {
     ...mapActions([
       'getSubjectList',
-      'getGroupList'
+      'getGroupList',
+      'getGroupListBySubjectId'
     ]),
     selectParent(data) {
-        console.log(data)
-      this.getGroupList({subjectId:data});
+      this.getGroupListBySubjectId({subjectId:data});
       this.$emit('changeSubject',data)
     }
   }

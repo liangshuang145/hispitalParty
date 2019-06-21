@@ -8,7 +8,10 @@
         <search :fatherValue="form.subjectName" @changeSubject="changeSubject"></search>
       </el-form-item>
       <el-form-item label="上级组织(部门)" prop="fatherName">
-        <el-input v-model="form.fatherName" size="medium" :maxlength="50" disabled/>
+        <el-select v-model="form.fatherName" size="medium" placeholder="请选择上级组织(部门)" @change="selectParentDepart">
+          <el-option v-for="item in fatherOption" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
+        <!--<el-input v-model="form.fatherName" size="medium" :maxlength="50" disabled/>-->
       </el-form-item>
       <el-form-item>
         <el-button type="primary" size="medium" @click="submitForm">修改</el-button>
@@ -46,6 +49,7 @@ export default {
           trigger: 'blur'
         }]
       },
+      fatherOption:[],
       thisNode: this.pNode
     }
   },
@@ -60,9 +64,16 @@ export default {
       this.form.name = newData.name;
       this.form.subjectId = newData.subject.id;
       this.form.subjectName = newData.subject.name;
-      if(newData.father){
-        this.form.fatherId = newData.father.id;
-        this.form.fatherName = newData.father.name
+      this.form.fatherName = newData.parentData.name;
+      this.form.fatherId = newData.parentData.id;
+      if(!newData.parentData.length){
+        if(newData.parentData.parentData.child){
+          this.fatherOption = newData.parentData.parentData.child
+        }else{
+          this.fatherOption = newData.parentData.parentData
+        }
+      }else {
+        this.fatherOption = []
       }
     }
   },
@@ -70,14 +81,19 @@ export default {
     ...mapActions([
       'getDepartList'
     ]),
+    // 选择机构
     changeSubject(subjectId){
         this.form.subjectId = subjectId
+    },
+    // 选择上级小组
+    selectParentDepart(departId){
+        this.form.fatherId = departId
     },
     // 修改提交
     submitForm() {
       this.$refs['form'].validate((valid) => {
         if (!valid) {
-          this.$message.error('请检查字段')
+          this.$message.error('请检查字段');
           return
         }
 
