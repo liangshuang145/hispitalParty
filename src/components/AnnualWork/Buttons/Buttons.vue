@@ -2,43 +2,33 @@
 <template>
     <div name="buttons" class="buttons">
       <el-row>
-        <el-col :span="12">
-          <el-button type="info" icon="el-icon-document" @click="look1" >查看</el-button>
-
+        <el-col :span="24">
+          <el-button type="info" icon="el-icon-document" @click="lookWork" size="small">查看工作</el-button>
+          <el-button type="primary" icon="el-icon-plus" @click="addWork" size="small">添加工作</el-button>
+          <!--<el-button type="primary" icon="el-icon-plus" @click="addUser" size="small">添加工作指标</el-button>-->
+          <!--<el-button type="primary" icon="el-icon-plus" @click="addUser" size="small">添加指标详情</el-button>-->
+          <!--<el-button type="danger" icon="el-icon-delete" @click="delUser" size="small">删除工作</el-button>-->
+          <!--<el-button type="danger" icon="el-icon-delete" @click="delUser" size="small">删除工作指标</el-button>-->
         </el-col>
       </el-row>
-      <!--<import-dialog v-model="isImportDialogShow"></import-dialog>-->
-      <userDialog v-model="isUserDialogShow" :type="dialogType" :userData="userData" @buttonisshow="idontknowname"></userDialog>
+      <work-dialog v-model="isWorkDialogShow" :type="workDialogType" ></work-dialog>
+      <!--<userDialog v-model="isUserDialogShow" :type="dialogType" :userData="userData" @buttonisshow="idontknowname"></userDialog>-->
 
     </div>
 </template>
 
 <script>
-  import userDialog from '../UserDialog/UserDialog.vue'
-  import importDialog from '../ImportDialog/ImportDialog.vue'
-  import userService from '../../../services/UserService.js'
   import ElCol from "element-ui/packages/col/src/col";
   import ElRow from "element-ui/packages/row/src/row";
-  import Entering from '../Entering/Entering.vue'
-  import Statistics from '../Statistics/Statistics.vue'
+  import WorkDialog from "../WorkDialog/WorkDialog";
 
     export default{
         name: 'buttons',
         props:['changeData'],
         data () {
             return {
-              isUserDialogShow:false,
-              isImportDialogShow:false,
-              dialogType:0,// 类型: 0-查看(默认),1-新增,2-修改
-              tableData:'',
-              userData:{},
-              isEnteringShow:false,
-              EnteringData:{},
-              EnteringType:0,
-              isStatisticsshow:false,
-              StatisticsType:0,
-              StatisticsData:{},
-
+              isWorkDialogShow:false,
+              workDialogType:0,// 类型: 0-查看(默认),1-新增,2-修改
 
             }
         },
@@ -47,16 +37,20 @@
         },
         // 页面方法
         methods: {
-            // 查看
-          look1(){
+            // 查看工作
+          lookWork(){
             if(!this.tableData){
               this.$message.error('操作错误,请先选择数据');
               return
             }
             console.log('查看');
             this.dialogType = 0;
-            this.isUserDialogShow = true;
+            this.isWorkDialogShow = true;
             this.userData = this.tableData
+          },
+          // 添加工作
+          addWork(){
+            this.isWorkDialogShow = true
           },
 
 
@@ -70,12 +64,9 @@
         },
         // 依赖注入
       components: {
-          ElRow,
-          ElCol,
-          userDialog,
-        importDialog,
-        Entering,
-        Statistics,
+        WorkDialog,
+        ElRow,
+        ElCol,
         }
     }
 </script>

@@ -41,7 +41,6 @@ export default {
   },
   watch: {
     pNode(pNode) {
-        console.log(pNode);
       this.form.id = pNode.id;
       this.form.fatherName = pNode.name;
     }

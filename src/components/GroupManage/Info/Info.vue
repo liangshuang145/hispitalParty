@@ -43,6 +43,7 @@ export default {
   },
   watch: {
     pNode(newData, oldData) {
+        console.log(newData);
       this.thisNode = newData;
       this.form.id = newData.id;
       this.form.name = newData.name;

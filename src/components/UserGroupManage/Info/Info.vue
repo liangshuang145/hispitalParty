@@ -63,10 +63,8 @@ export default {
       this.thisNode = newData;
       this.form.id = newData.id;
       this.form.name = newData.name;
-      if(newData.father){
-        this.form.fatherId = newData.father.id;
-        this.form.fatherName = newData.father.name;
-      }
+      this.form.fatherId = newData.parentData.id;
+      this.form.fatherName = newData.parentData.name;
     }
   }
 }

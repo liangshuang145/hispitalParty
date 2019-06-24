@@ -21,7 +21,7 @@
         <el-radio v-model="form.userType" :label="0">普通用户</el-radio>
       </el-form-item>
       <el-form-item label="机构" prop="subjectId">
-        <el-select v-model="form.subjectId" size="medium" placeholder="请选择机构" @change="selectSubject">
+        <el-select v-model="form.subjectName" size="medium" placeholder="请选择机构" @change="selectSubject">
           <el-option v-for="item in subjectList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
@@ -30,13 +30,18 @@
         <el-radio v-model="changeDepartSubject" label="groups">行政(小组)</el-radio>
       </el-form-item>
       <el-form-item label="组织(部门)" prop="departId" v-if="changeDepartSubject == 'depart'">
-        <el-select v-model="form.departId" size="medium" placeholder="请选择组织(部门)" @change="selectDepart">
+        <el-select v-model="form.departName" size="medium" placeholder="请选择组织(部门)" @change="selectDepart">
           <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="行政(小组)" prop="groupsId"  >
-        <el-select v-model="form.groupsId" size="medium" placeholder="请选择行政(小组)" @change="selectGroup">
+      <el-form-item label="行政(小组)" prop="groupsId"  v-if="changeDepartSubject == 'groups'" >
+        <el-select v-model="form.groupsName" size="medium" placeholder="请选择行政(小组)" @change="selectGroup">
           <el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="用户角色" prop="groupsId"  >
+        <el-select v-model="form.roleIds" multiple size="medium" placeholder="请选择用户角色" @change="selectRole">
+          <el-option v-for="item in roleList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>
       <el-form-item label="描述" prop="remark">
@@ -77,6 +82,9 @@ export default {
     }
   },
   watch: {
+      'form.roleIds'(val){
+          console.log('roleIds',val)
+      },
     type(val) {
       let title = '';
       if(!val){
@@ -103,14 +111,38 @@ export default {
       this.$emit('input', val)
     },
     userData(data) {
-      this.form.id = data.id;
-      this.form.account = data.account;
-      this.form.nickname = data.nickname;
-      this.form.gender = data.gender;
-      this.form.userType = data.userType;
-//      this.form.subject = data.subject;
-//      this.form.depart = data.depart;
-//      this.form.group = data.group;
+        if(this.type != 1){
+          this.form.id = data.id;
+          this.form.account = data.account;
+          this.form.name = data.name;
+          this.form.sex = Number(data.sex);
+          if(data.userType === 'admin'){
+            this.form.userType = 1
+          }else if(data.userType === 'normal'){
+            this.form.userType = 0
+          }
+          this.form.remark = data.remark;
+          if (data.userRoles){
+            let userRoles = data.userRoles,myRoleIds = [];
+            for (let i = 0; i < userRoles.length; i++){
+                let id = userRoles[i].id;
+              myRoleIds[myRoleIds.length] = id
+          }
+            this.form.roleIds = myRoleIds;
+          }
+          this.form.subjectId = data.userRelations[0].subject.id;
+          this.form.subjectName = data.userRelations[0].subject.name;
+          if (data.userRelations[0].depart){
+            this.form.departId = data.userRelations[0].depart.id;
+            this.form.departName = data.userRelations[0].depart.name;
+            this.changeDepartSubject = 'depart'
+          }
+          if(data.userRelations[0].group){
+            this.form.groupId = data.userRelations[0].group.id;
+            this.form.groupName = data.userRelations[0].group.name;
+            this.changeDepartSubject = 'groups'
+          }
+        }
     }
   },
   data() {
@@ -124,11 +156,15 @@ export default {
         password: '',// 密码
         name: '',//姓名
         sex: 0,
-        userType: 'user',//用户类型
+        userType: 0,//用户类型
+        departName:'',
+        subjectName:'',
+        groupsName:'',
         subjectId: '',
         departId: '',
         groupsId: '',
         remark: '',// 描述
+        roleIds:[],
         type:this.type
       },
       rule: {
@@ -151,35 +187,43 @@ export default {
     ...mapState([
       'subjectList',
       'departList',
-      'groupList'
+      'groupList',
+      'roleList'
     ]),
   },
   async mounted() {
     await this.getSubjectList();
+    await this.getRoleList();
+    await this.getDepartListBySubjectId({subjectId:this.form.subjectId});
+    await this.getGroupListBySubjectId({subjectId:this.form.subjectId});
   },
   methods: {
     ...mapActions([
       'getSubjectList',
-      'getGroupList',
+      'getGroupListBySubjectId',
       'getUserList',
-      'getDepartListBySubjectId'
+      'getDepartListBySubjectId',
+      'getRoleList'
     ]),
     selectSubject(val) {
       this.getDepartListBySubjectId({subjectId:val});
-      this.getGroupList({subjectId:val});
-      this.form.subject = val
+      this.getGroupListBySubjectId({subjectId:val});
+      this.form.subjectId = val
     },
     selectDepart(val) {
-      this.form.depart = val
+      this.form.departId = val
     },
     selectGroup(val) {
-      this.form.group = val
+      this.form.groupId = val
+    },
+    selectRole(){
+
     },
     // 确定按钮
     sureClick() {
       switch (this.type) {
         case 1: // 新增
-//          this.changeDepartSubject === 'depart'? this.form.groupsId = '': this.form.departId  = '';
+          this.changeDepartSubject === 'depart'? this.form.groupsId = '': this.form.departId  = '';
           if(!this.form.userType){
             this.form.userType = 0
           }

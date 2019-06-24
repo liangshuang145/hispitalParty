@@ -17,6 +17,9 @@
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex'
+  import FieldService from '../../../services/FieldService'
+
 export default {
   name: 'Info',
   props: [
@@ -27,19 +30,42 @@ export default {
       form: {
         id: '',
         name: '',
-        type: 0,
-        description: ''
       },
       thisNode: this.pNode
     }
   },
+  methods:{
+    ...mapActions([
+      'getUserGroupList',
+      'getPageList',
+      'getRoleList',
+      'getFieldList'
+    ]),
+    getField(id){
+      FieldService.getField({id:id}).then((res) => {
+          if(res.code === 200){
+              console.log(res.data)
+          }
+      })
+    }
+  },
+  computed: {
+    ...mapState([
+      'pageList',
+      'userGroupList',
+      'roleList'
+    ])
+  },
+  mounted() {
+    this.getUserGroupList();
+    this.getPageList();
+    this.getRoleList()
+  },
   watch: {
     pNode(newData, oldData) {
-      this.form.thisNode = newData
-      this.form.id = newData.id
-      this.form.name = newData.name
-      this.form.type = newData.type
-      this.form.description = newData.description
+      this.thisNode = newData;
+      this.form.id = newData.id;
+      this.getField(newData.id);
     }
   }
 }

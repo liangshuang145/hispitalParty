@@ -1,6 +1,5 @@
 <template>
   <div name="List" class="list-panel">
-    <!--<buttons></buttons>-->
     <el-table ref="multipleTable" :data="list"   highlight-current-row @current-change="handleTableChange" height="520">
       <el-table-column prop="account" label="账号" width="110"/>
       <el-table-column prop="nickname" label="昵称" width="100"/>
@@ -44,7 +43,7 @@ export default {
         }else{
             this.$message.error(res.message)
         }
-//        console.log('userList',val)
+        console.log('userList',Info)
     }
   },
   computed: {
@@ -57,7 +56,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'getUserList'
+      'getUserList',
     ]),
     // 分页组件
     handleCurrentChange(pageNum){

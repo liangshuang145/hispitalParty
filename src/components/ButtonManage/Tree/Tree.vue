@@ -5,7 +5,7 @@
       <el-tab-pane label="列表">
         <el-input size="medium" placeholder="输入关键字进行过滤" v-model="filterText"/>
         <el-tree
-          :data="buttonList.buttonTree"
+          :data="buttonList"
           :props="defaultProps"
           @node-click="nodeClick"
           current-node-key

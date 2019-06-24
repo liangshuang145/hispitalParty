@@ -32,20 +32,20 @@ export default {
   },
   computed: {
     ...mapState([
-      'userList'
+      'workList'
     ])
   },
   mounted() {
-    this.getUserList();
-    //Tree传递数据
-    Bus.$on('txt',(data)=> {
-      this.setUserList(state,data)
-      this.getUserList();
-    })
+    this.getWorkList();
+//    //Tree传递数据
+//    Bus.$on('txt',(data)=> {
+//      this.setUserList(state,data)
+//      this.getUserList();
+//    })
   },
   methods: {
     ...mapActions([
-      'getUserList'
+      'getWorkList'
     ]),
     // 列表选中
     handleTableChange(val) {

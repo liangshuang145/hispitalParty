@@ -41,7 +41,6 @@ export default {
   components: {ElFormItem,Entering},
   name: 'UserDialog',
   props: {
-//      changeData,
     userData: { // 用户数据
       type: Object,
       default() {
@@ -61,7 +60,6 @@ export default {
     isShow(newName,oldName){
       console.log("newName",newName);
       this.$emit("buttonisshow",newName);
-
     },
 
     changeData(tableData) {

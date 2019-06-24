@@ -41,7 +41,7 @@ export default {
       'getGroupListBySubjectId'
     ]),
     selectParent(data) {
-      this.getGroupListBySubjectId({subjectId:data});
+//      this.getGroupListBySubjectId({subjectId:data});
       this.$emit('changeSubject',data)
     }
   }

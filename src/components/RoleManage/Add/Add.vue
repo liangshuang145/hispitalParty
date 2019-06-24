@@ -13,15 +13,6 @@
         <el-button type="success" size="medium" @click="submitForm">新增</el-button>
       </el-form-item>
     </el-form>
-    <el-row>
-      <el-col :span="12">
-        <!--<fields></fields>-->
-      </el-col>
-      <el-col :span="12">
-        <!--type 0查看,1新增,2修改 -->
-        <!--<button-check-box :type="1" @checkedOptions="checkedOptions"></button-check-box>-->
-      </el-col>
-    </el-row>
   </div>
 </template>
 

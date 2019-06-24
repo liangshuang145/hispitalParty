@@ -346,7 +346,7 @@ export default {
     // 确定按钮
     sureClick() {
       switch (this.type) {
-        case 1: // 新增
+        case 1: // 新增`
           UserService.addUser(this.form).then((res) => {
             this.$message.success('已添加');
 

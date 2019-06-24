@@ -40,7 +40,7 @@ export default {
       'getDepartListBySubjectId'
     ]),
     selectParent(data) {
-      this.getDepartListBySubjectId({subjectId:data});
+//      this.getDepartListBySubjectId({subjectId:data});
       this.$emit('changeSubject',data)
     }
   }

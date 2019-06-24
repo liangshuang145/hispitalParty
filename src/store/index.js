@@ -13,6 +13,7 @@ import MenuService from '@/services/MenuService'
 import ButtonService from '@/services/ButtonService'
 import FieldService from '@/services/FieldService'
 import PageService from  '@/services/PageService'
+import WorkService from '../services/WorkService'
 
 Vue.use(Vuex);
 
@@ -31,6 +32,7 @@ export default new Vuex.Store({
     fieldList: [], // 字段列表
     pageList:[], // 页面列表
     menuInfo:{},// 单个菜单信息
+    workList:[],// 中心工作列表
   },
   mutations: {
     // 登录
@@ -86,6 +88,9 @@ export default new Vuex.Store({
     // 页面列表
     setPageList(state, data){
       state.pageList = data
+    },
+    setWorkList(state, data){
+      state.workList = data
     }
 
   },
@@ -198,6 +203,11 @@ export default new Vuex.Store({
       PageService.getPageList().then((res) => {
         console.log('this is getPageList work ...')
         commit('setPageList', res)
+      })
+    },
+    getWorkList({commit}){
+      WorkService.getWorkList().then((res) => {
+        commit('setWorkList',res)
       })
     }
   }

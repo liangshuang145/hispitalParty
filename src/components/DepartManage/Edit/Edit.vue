@@ -5,13 +5,12 @@
         <el-input v-model="form.name" size="medium" :maxlength="50" />
       </el-form-item>
       <el-form-item label="所属机构" prop="subjectName">
-        <search :fatherValue="form.subjectName" @changeSubject="changeSubject"></search>
+        <el-input v-model="form.subjectName" size="medium" :maxlength="50" disabled></el-input>
       </el-form-item>
       <el-form-item label="上级组织(部门)" prop="fatherName">
         <el-select v-model="form.fatherName" size="medium" placeholder="请选择上级组织(部门)" @change="selectParentDepart">
           <el-option v-for="item in fatherOption" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
-        <!--<el-input v-model="form.fatherName" size="medium" :maxlength="50" disabled/>-->
       </el-form-item>
       <el-form-item>
         <el-button type="primary" size="medium" @click="submitForm">修改</el-button>
@@ -25,9 +24,12 @@ import { mapActions } from 'vuex'
 import Validator from '@/lib/validator'
 import DepartService from '@/services/DepartService'
 import Search from "../Search/Search";
+import ElInput from "../../../../node_modules/element-ui/packages/input/src/input";
 
 export default {
-  components: {Search},
+  components: {
+    ElInput,
+    Search},
   name: 'Edit',
   props: [
     'pNode'
@@ -67,11 +69,18 @@ export default {
       this.form.fatherName = newData.parentData.name;
       this.form.fatherId = newData.parentData.id;
       if(!newData.parentData.length){
+          let fatherArr = [],arr = [];
         if(newData.parentData.parentData.child){
-          this.fatherOption = newData.parentData.parentData.child
+          fatherArr = newData.parentData.parentData.child
         }else{
-          this.fatherOption = newData.parentData.parentData
+          fatherArr = newData.parentData.parentData
         }
+        for (let i in fatherArr){
+            if(this.form.subjectId === fatherArr[i].subject.id){
+                arr.push(fatherArr[i])
+            }
+        }
+        this.fatherOption = arr
       }else {
         this.fatherOption = []
       }

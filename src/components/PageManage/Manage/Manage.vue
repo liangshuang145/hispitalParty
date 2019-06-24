@@ -5,10 +5,10 @@
       <info :pNode="pNode"/>
     </el-tab-pane>
     <el-tab-pane label="修改项">
-      <edit :pNode="pNode" @loadingDept="loadingDept"/>
+      <edit :pNode="pNode" />
     </el-tab-pane>
     <el-tab-pane label="新增项">
-      <add :pNode="pNode" @loadingDept="loadingDept"/>
+      <add :pNode="pNode" />
     </el-tab-pane>
   </el-tabs>
 </template>

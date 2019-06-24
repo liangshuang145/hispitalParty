@@ -17,7 +17,6 @@ import mock from '@/mocks/data'
  * @return axios
  */
 const getGroupListBySubjectId = (param = {}) => {
-  // 测试
   return new Promise((resolve) => {
     http.post({
       url:'groups/list',
@@ -81,9 +80,11 @@ const addGroup = (param = {}) => {
     param = {
       name:param.name,
       subjectId:param.subjectId,
+      fatherId:param.fatherId,
       userId:param.userId,
       remark:param.remark
     };
+    console.log(param)
     http.post({
       url:'groups/add',
       method:'post',
