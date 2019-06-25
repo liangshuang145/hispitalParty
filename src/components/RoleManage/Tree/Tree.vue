@@ -13,7 +13,7 @@
           highlight-current
           :filter-node-method="filterNode"
           ref="tree"
-        />
+        ></el-tree>
       </el-tab-pane>
     </el-tabs>
   </div>

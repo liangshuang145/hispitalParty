@@ -2,6 +2,7 @@
 <template>
   <div class="tree">
     <el-tabs type="border-card">
+      <el-tab-pane label="年度">
         <el-input size="medium" placeholder="输入关键字进行过滤" v-model="filterText"/>
         <el-tree
           :data="userGroupList"
@@ -12,15 +13,18 @@
           highlight-current
           :filter-node-method="filterNode"
           ref="tree"
-        />
+        ></el-tree>
+      </el-tab-pane>
     </el-tabs >
   </div>
 </template>
 
 <script>
   import { mapState, mapActions } from 'vuex'
+  import ElTabPane from "../../../../node_modules/element-ui/packages/tabs/src/tab-pane";
 
   export default {
+    components: {ElTabPane},
     name: 'Tree',
     data() {
       return {
@@ -67,7 +71,7 @@
 
   .el-tree {
     overflow: auto;
-    height: 640px;
+    height: 540px;
     margin-top: 10px;
   }
 </style>

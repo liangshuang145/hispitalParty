@@ -5,7 +5,7 @@
         <el-input v-model="form.name" size="medium" :maxlength="50" />
       </el-form-item>
       <el-form-item label="所属机构" prop="subjectName">
-        <search :subjectName="form.subjectName" @changeSubject="changeSubject"></search>
+        <el-input v-model="form.subjectName" size="medium" :maxlength="50"  disabled/>
       </el-form-item>
       <el-form-item label="上级小组" prop="fatherName">
         <el-select v-model="form.fatherName" size="medium" placeholder="请选择上级行政(小组)" @change="selectParentGroup">
@@ -17,6 +17,9 @@
       </el-form-item>
       <el-form-item label="小组描述" prop="remark">
         <el-input type="textarea" v-model="form.remark" :rows="3" :maxlength="255" />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" size="medium" @click="submitForm">修改</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -77,11 +80,18 @@ export default {
         this.form.userName = newData.user.name
       }
       if(!newData.parentData.length){
+        let fatherArr = [],arr = [];
         if(newData.parentData.parentData.child){
-          this.fatherOption = newData.parentData.parentData.child
+          fatherArr = newData.parentData.parentData.child
         }else{
-          this.fatherOption = newData.parentData.parentData
+          fatherArr = newData.parentData.parentData
         }
+        for (let i in fatherArr){
+          if(this.form.subjectId === fatherArr[i].subject.id){
+            arr.push(fatherArr[i])
+          }
+        }
+        this.fatherOption = arr
       }else {
         this.fatherOption = []
       }
@@ -105,7 +115,6 @@ export default {
           this.$message.error('请检查字段');
           return
         }
-
         GroupService.updateGroup(this.form).then((res) => {
             if(res.code === 200){
               this.$message.success('修改成功');

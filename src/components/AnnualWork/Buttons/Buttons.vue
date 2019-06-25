@@ -2,66 +2,87 @@
 <template>
     <div name="buttons" class="buttons">
       <el-row>
-        <el-col :span="12">
-          <el-button type="info" icon="el-icon-document" @click="look1" >查看</el-button>
-
+        <el-col :span="24">
+          <el-button type="info" icon="el-icon-document" @click="lookWork" size="small">查看工作</el-button>
+          <el-button type="info" icon="el-icon-plus" @click="lookIndicator" size="small">查看指标</el-button>
+          <el-button type="primary" icon="el-icon-plus" @click="addWork" size="small">添加工作</el-button>
+          <!--<el-button type="primary" icon="el-icon-plus" @click="addIndicator" size="small">添加工作指标</el-button>-->
+          <!--<el-button type="danger" icon="el-icon-delete" @click="delUser" size="small">删除工作</el-button>-->
+          <!--<el-button type="danger" icon="el-icon-delete" @click="delUser" size="small">删除工作指标</el-button>-->
         </el-col>
       </el-row>
-      <!--<import-dialog v-model="isImportDialogShow"></import-dialog>-->
-      <userDialog v-model="isUserDialogShow" :type="dialogType" :userData="userData" @buttonisshow="idontknowname"></userDialog>
-
+      <work-dialog v-model="isWorkDialogShow" :type="workDialogType" :workData="workData"></work-dialog>
+      <indicator-list :IndicatorList = 'workIndicatorList' v-model="isIndicatorListDialogShow" :workData="workData"> </indicator-list>
     </div>
 </template>
 
 <script>
-  import userDialog from '../UserDialog/UserDialog.vue'
-  import importDialog from '../ImportDialog/ImportDialog.vue'
-  import userService from '../../../services/UserService.js'
+  import { mapState, mapActions } from 'vuex'
   import ElCol from "element-ui/packages/col/src/col";
   import ElRow from "element-ui/packages/row/src/row";
-  import Entering from '../Entering/Entering.vue'
-  import Statistics from '../Statistics/Statistics.vue'
+  import WorkDialog from "../WorkDialog/WorkDialog";
+  import WorkService from '../../../services/WorkService'
+  import IndicatorList from "../IndicatorList/IndicatorList";
 
     export default{
         name: 'buttons',
         props:['changeData'],
         data () {
             return {
-              isUserDialogShow:false,
-              isImportDialogShow:false,
-              dialogType:0,// 类型: 0-查看(默认),1-新增,2-修改
-              tableData:'',
-              userData:{},
-              isEnteringShow:false,
-              EnteringData:{},
-              EnteringType:0,
-              isStatisticsshow:false,
-              StatisticsType:0,
-              StatisticsData:{},
-
-
+              tableData:null,
+              isWorkDialogShow:false,// 工作添加
+              isIndicatorListDialogShow:false,// 指标列表弹窗
+              workDialogType:0,// 类型: 0-查看(默认),1-新增,2-修改\
+              workData:{},
             }
         },
+      computed: {
+        ...mapState([
+          'workIndicatorList',
+        ])
+      },
         // 页面初始化(生命周期)
         created(){
         },
         // 页面方法
         methods: {
-            // 查看
-          look1(){
+          ...mapActions([
+            'getWorkIndicatorList',
+          ]),
+          lookIndicator(){
             if(!this.tableData){
               this.$message.error('操作错误,请先选择数据');
               return
             }
-            console.log('查看');
-            this.dialogType = 0;
-            this.isUserDialogShow = true;
-            this.userData = this.tableData
+            this.workData = this.changeData;
+            this.getWorkIndicatorList({id:this.changeData.id});
+            this.isIndicatorListDialogShow = true
           },
+            // 查看工作
+          lookWork(){
+            if(!this.tableData){
+              this.$message.error('操作错误,请先选择数据');
+              return
+            }
+            WorkService.getWork({id:this.tableData.id}).then((res) => {
+                if(res.code === 200){
+                  this.workDialogType = 0;
+                  this.isWorkDialogShow = true;
+                  this.workData = res.data;
+                }else {
+                    this.$message.error(res.message)
+                }
+            });
 
-
-
+          },
+          // 添加工作
+          addWork(){
+            this.workDialogType = 1;
+            this.isWorkDialogShow = true;
+            this.workData = {}
+          },
         },
+
         // 侦听器
         watch: {
           changeData(tableData) {
@@ -70,12 +91,10 @@
         },
         // 依赖注入
       components: {
-          ElRow,
-          ElCol,
-          userDialog,
-        importDialog,
-        Entering,
-        Statistics,
+        IndicatorList,
+        WorkDialog,
+        ElRow,
+        ElCol,
         }
     }
 </script>

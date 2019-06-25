@@ -5,7 +5,10 @@
         <el-input v-model="form.name" size="medium" :maxlength="50"/>
       </el-form-item>
       <el-form-item label="上级小组" prop="fatherName">
-        <el-input v-model="form.fatherName" size="medium" :maxlength="50" disabled/>
+        <el-select v-model="form.fatherName" size="medium" placeholder="请选择上级用户组" @change="selectParentUserGroup">
+          <el-option v-for="item in fatherOption" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
+        <!--<el-input v-model="form.fatherName" size="medium" :maxlength="50" disabled/>-->
       </el-form-item>
       <el-form-item>
         <el-button type="primary" size="medium" @click="submitForm">修改</el-button>
@@ -38,6 +41,7 @@ export default {
           trigger: 'blur'
         }]
       },
+      fatherOption:[],
       thisNode: this.pNode
     }
   },
@@ -46,9 +50,16 @@ export default {
       this.thisNode = newData;
       this.form.id = newData.id;
       this.form.name = newData.name;
-      if(newData.father){
-        this.form.fatherId = newData.father.id;
-        this.form.fatherName = newData.father.name;
+      this.form.fatherId = newData.parentData.id;
+      this.form.fatherName = newData.parentData.name;
+      if(!newData.parentData.length){
+        if(newData.parentData.parentData.child){
+          this.fatherOption = newData.parentData.parentData.child
+        }else{
+          this.fatherOption = newData.parentData.parentData
+        }
+      }else {
+        this.fatherOption = []
       }
     }
   },
@@ -56,6 +67,9 @@ export default {
     ...mapActions([
       'getUserGroupList'
     ]),
+    selectParentUserGroup(id){
+      this.form.fatherId = id;
+    },
     submitForm() {
       this.$refs['form'].validate((valid) => {
         if (!valid) {

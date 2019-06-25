@@ -37,7 +37,8 @@ const getUserList = (param = {}) => {
 const getUserListByName = (param = {}) => {
   return new Promise((resolve) => {
     param = {
-      key:param.name,
+      key:param.key,
+      value:param.value,
       page:param.page,
       size:param.size
     };
@@ -131,7 +132,8 @@ const addUser = (param = {}) => {
       departId:param.departId,
       groupsId:param.groupsId,
       remark:param.remark,
-      password:param.password
+      password:param.password,
+      roleIds:param.roleIds
     };
     http.get({
       url:'user/add',

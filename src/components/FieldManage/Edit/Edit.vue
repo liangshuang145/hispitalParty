@@ -22,7 +22,7 @@
 <script>
 import { mapActions } from 'vuex'
 import Validator from '@/lib/validator'
-import SubjectService from '@/services/SubjectService'
+import FieldService from '@/services/FieldService'
 
 export default {
   name: 'Edit',
@@ -48,25 +48,26 @@ export default {
   },
   watch: {
     pNode(newData, oldData) {
-      this.form.thisNode = newData
-      this.form.id = newData.id
-      this.form.name = newData.name
-      this.form.type = newData.type
-      this.form.description = newData.description
+      this.form.thisNode = newData;
+      this.form.id = newData.id;
+      this.getField(newData.id);
     }
   },
   methods: {
     ...mapActions([
       'getSubjectList'
     ]),
+    getField(id){
+
+    },
     submitForm() {
       this.$refs['form'].validate((valid) => {
         if (!valid) {
-          this.$message.error('请检查字段')
+          this.$message.error('请检查字段');
           return
         }
 
-        SubjectService.updateSubject(this.form).then((res) => {
+        FieldService.updateField(this.form).then((res) => {
           this.$message.success('已修改')
 
           // 重载 tree

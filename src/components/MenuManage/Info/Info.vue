@@ -138,41 +138,7 @@
           value: '选项9',
           label: '9'
         }],
-        data: [{
-          id: 1,
-          label: '一级 1',
-          children: [{
-            id: 4,
-            label: '二级 1-1',
-            children: [{
-              id: 9,
-              label: '三级 1-1-1'
-            }, {
-              id: 10,
-              label: '三级 1-1-2'
-            }]
-          }]
-        }, {
-          id: 2,
-          label: '一级 2',
-          children: [{
-            id: 5,
-            label: '二级 2-1'
-          }, {
-            id: 6,
-            label: '二级 2-2'
-          }]
-        }, {
-          id: 3,
-          label: '一级 3',
-          children: [{
-            id: 7,
-            label: '二级 3-1'
-          }, {
-            id: 8,
-            label: '二级 3-2'
-          }]
-        }],
+
         form: {
           id: '',
           name: '',
@@ -219,8 +185,8 @@
         this.form.description = newData.description
         this.getMenu();
       }
-
     },
+
     methods:{
       // 获取页面信息
       getMenu(){
@@ -243,8 +209,8 @@
         return data.name.indexOf(value) !== -1
       },
       nodeClick(data, node) {
-          console.log(data);
-          console.log(node);
+        console.log(data);
+        console.log(node);
         data['parentData'] = node.parent.data;
         this.getMenuById(data.id)
         this.$emit('nodeDept', data)
@@ -284,9 +250,6 @@
 //          }];
 //          resolve(data);
 //        }, 500);
-      },
-      houlaifangfa(node){
-
       },
 //    / 二级节点
     getChildrenNode(node,resolve) {

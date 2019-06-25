@@ -1,16 +1,31 @@
 <template>
   <div name="Edit" class="form-panel">
     <el-form ref="form" :model="form" :rules="rule" label-width="100px">
-      <el-form-item label="名称" prop="name">
+      <el-form-item label="按钮名称" prop="name">
         <el-input v-model="form.name" size="medium" :maxlength="50"/>
       </el-form-item>
-      <!--<el-form-item label="类型">-->
-        <!--<el-radio v-model="form.type" :label="0">总院</el-radio>-->
-        <!--<el-radio v-model="form.type" :label="1">分院</el-radio>-->
-        <!--<el-radio v-model="form.type" :label="2">其他</el-radio>-->
-      <!--</el-form-item>-->
-      <el-form-item label="描述" prop="description">
-        <el-input type="textarea" v-model="form.description" size="medium" :rows="5" :maxlength="255"/>
+      <el-form-item label="字段名称" prop="fieldName">
+        <el-select v-model="form.fieldName" size="medium" filterable placeholder="请选择字段" @change="selectParentField">
+          <el-option v-for="item in fieldList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="用户组" prop="userGroupIds">
+        <el-select v-model="form.userGroupIds" size="medium" filterable multiple placeholder="请选择用户组" >
+          <el-option v-for="item in userGroupList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="角色权限" prop="roleIds">
+        <el-select v-model="form.roleIds" size="medium" filterable multiple placeholder="请选择角色" >
+          <el-option v-for="item in roleList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="按钮等级" prop="level">
+        <el-select v-model="form.level" size="medium" placeholder="请选择按钮等级">
+          <el-option v-for="(item,index) in 10" :key="item" :label="index+' 级'" :value="index"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="按钮排序" prop="sort">
+        <el-input v-model="form.sort" size="medium" :maxlength="50" type="number"/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" size="medium" @click="submitForm">修改</el-button>
@@ -20,10 +35,9 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import Validator from '@/lib/validator'
-import SubjectService from '@/services/SubjectService'
-
+import ButtonService from '../../../services/ButtonService'
 export default {
   name: 'Edit',
   props: [
@@ -34,8 +48,12 @@ export default {
       form: {
         id: '',
         name: '',
-        type: 0,
-        description: ''
+        sort:'',
+        level:'',
+        roleIds:[],
+        userGroupIds:[],
+        fieldName:[],
+        fieldId:''
       },
       rule: {
         name: [{
@@ -48,29 +66,66 @@ export default {
   },
   watch: {
     pNode(newData, oldData) {
-      this.form.thisNode = newData
-      this.form.id = newData.id
-      this.form.name = newData.name
-      this.form.type = newData.type
-      this.form.description = newData.description
+      this.form.thisNode = newData;
+      this.form.id = newData.id;
+      this.getButtonView(newData.id);
     }
+  },
+  computed: {
+    ...mapState([
+      'fieldList',
+      'userGroupList',
+      'roleList'
+    ])
+  },
+  mounted() {
+    this.getUserGroupList();
+    this.getFieldList();
+    this.getRoleList()
   },
   methods: {
     ...mapActions([
-      'getSubjectList'
+      'getButtonList',
+      'getUserGroupList',
+      'getFieldList',
+      'getRoleList'
     ]),
+    selectParentField(fieldId){
+      this.form.fieldId = fieldId
+    },
+    getButtonView(id){
+        ButtonService.getButton({id:id}).then((res) => {
+            if(res.code === 200){
+                let data = res.data;
+                this.form.id = data.button.id;
+                this.form.name = data.button.name;
+                this.form.level = data.button.level;
+                this.form.sort = data.button.sort;
+                this.form.roleIds = data.roleIds;
+                this.form.userGroupIds = data.userGroupIds;
+                this.form.fieldId = data.field.id;
+                this.form.fieldName = data.field.name;
+            }else{
+                this.$message.error(res.message)
+            }
+        })
+    },
     submitForm() {
       this.$refs['form'].validate((valid) => {
         if (!valid) {
-          this.$message.error('请检查字段')
+          this.$message.error('请检查字段');
           return
         }
 
-        SubjectService.updateSubject(this.form).then((res) => {
-          this.$message.success('已修改')
+        ButtonService.updateButton(this.form).then((res) => {
+            if (res.code === 200){
+              this.$message.success('修改'+res.message);
+              // 重载 tree
+              this.getButtonList()
+            }else{
+                this.$message.error(res.code)
+            }
 
-          // 重载 tree
-          this.getSubjectList()
         })
       })
     }

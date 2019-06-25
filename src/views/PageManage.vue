@@ -8,10 +8,10 @@
     </el-breadcrumb>
     <div class="content-panel">
       <el-row>
-        <el-col :span="4">
-          <tree @nodeDept="thisDept"/>
+        <el-col :span="8">
+          <tree @changeData="thisDept"/>
         </el-col>
-        <el-col :span="20">
+        <el-col :span="16">
           <manage :currentNode="currentNode"/>
         </el-col>
       </el-row>
@@ -32,7 +32,7 @@
     data() {
       return {
         pageTitle: '页面管理',
-        currentNode: null
+        currentNode: ''
       }
     },
     created() {

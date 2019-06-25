@@ -25,14 +25,26 @@ const getUserGroupList = (param = {}) => {
       resolve(res.data);
     })
   })
+};
 
-  // 正式
-  // return http.request({
-  //   url: '/usergroup/view',
-  //   data: param,
-  //   method: 'post'
-  // })
-}
+/**
+ * 获取id 获得用户组列表 子集
+ *
+ * @param {*} param
+ * @return axios
+ */
+const getUserGroupListById = (param = {}) => {
+  // 测试
+  return new Promise((resolve) => {
+    http.post({
+      url:'user_group/child',
+      method:'post',
+      data: param
+    }).then((res) => {
+      resolve(res);
+    })
+  })
+};
 
 /**
  * 添加用户组
@@ -89,13 +101,6 @@ const deleteUserGroup = (param = {}) => {
   return new Promise((resolve) => {
     resolve(true)
   })
-
-  // 正式
-  // return http.request({
-  //   url: '/usergroup/delete',
-  //   data: param,
-  //   method: 'post'
-  // })
 };
 /**
  * 查看单个用户组
@@ -119,5 +124,6 @@ export default {
   addUserGroup,
   updateUserGroup,
   deleteUserGroup,
-  getUserGroup
+  getUserGroup,
+  getUserGroupListById,
 }

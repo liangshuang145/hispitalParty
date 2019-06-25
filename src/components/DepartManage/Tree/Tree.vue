@@ -2,15 +2,15 @@
 <template>
   <div class="tree">
     <el-tabs type="border-card">
-      <el-tab-pane label="列表">
-        <el-row>
-          <el-col :span="20">
-            <search></search>
-          </el-col>
-          <el-col :span="4" class="i-el-col-padding">
-            <el-button type="success" @click="restTree" size="small">重置</el-button>
-          </el-col>
-        </el-row>
+      <el-tab-pane label="组织(部门)">
+        <!--<el-row>-->
+          <!--<el-col :span="20">-->
+            <!--<search></search>-->
+          <!--</el-col>-->
+          <!--<el-col :span="4" class="i-el-col-padding">-->
+            <!--<el-button type="success" @click="restTree" size="small">重置</el-button>-->
+          <!--</el-col>-->
+        <!--</el-row>-->
         <el-input size="medium" placeholder="输入关键字进行过滤" v-model="filterText"/>
         <el-tree
           :data="departList"
@@ -44,11 +44,11 @@ import { mapState, mapActions } from 'vuex'
 import DepartService from '../../../services/DepartService'
 import ElRow from "element-ui/packages/row/src/row";
 import ElCol from "element-ui/packages/col/src/col";
-import Search from "../Search/Search";
+//import Search from "../Search/Search";
 
 export default {
   components: {
-    Search,
+//    Search,
     ElCol,
     ElRow},
   name: 'Tree',
@@ -78,9 +78,9 @@ export default {
     ...mapActions([
       'getDepartList'
     ]),
-    restTree(){
-      this.getDepartList()
-    },
+//    restTree(){
+//      this.getDepartList()
+//    },
     filterNode(value, data) {
       if (!value) return true;
       return data.name.indexOf(value) !== -1

@@ -21,12 +21,11 @@ const getButtonList = (param = {}) => {
       let responseValue = res.data,jsonObj = {},buttonArr = [];
       for (let i in responseValue){
         buttonArr.push(responseValue[i].button)
-        // console.log('循环: '+i+", ",responseValue[i])
       }
       jsonObj['buttonTree'] = buttonArr;
       jsonObj['responseValue'] = responseValue;
-      console.log('获取button列表',buttonArr)
-      resolve(jsonObj)
+      console.log('获取button列表',buttonArr);
+      resolve(buttonArr)
     })
   })
 };
@@ -38,11 +37,21 @@ const getButtonList = (param = {}) => {
  */
 const addButton = (param = {}) =>{
   return new Promise((resolve) => {
+    param = {
+      name:param.name,
+      fieldId:param.fieldId,
+      userGroupIds:param.userGroupIds,
+      roleIds:param.roleIds,
+      sort:param.sort,
+      level:param.level
+    };
+    console.log('param',param)
     http.post({
       url:'button/add',
       method:'post',
       data:param
     }).then((res) => {
+      resolve(res);
       console.log('添加按钮',res.data)
     })
   })
@@ -55,12 +64,21 @@ const addButton = (param = {}) =>{
  */
 const updateButton = (param = {}) =>{
   return new Promise((resolve) => {
+    param = {
+      id:param.id,
+      name:param.name,
+      fieldId:param.fieldId,
+      userGroupIds:param.userGroupIds,
+      roleIds:param.roleIds,
+      sort:param.sort,
+      level:param.level
+    };
     http.post({
       url:'button/modify',
       method:'post',
       data:param
     }).then((res) => {
-      console.log('修改按钮',res.data)
+      resolve(res);
     })
   })
 };
@@ -94,7 +112,19 @@ const getButton = (param = {}) =>{
       method: 'post',
       data:param
     }).then((res) => {
-      console.log('查看按钮',res)
+      console.log(res);
+      let responseData = res.data,roleIds = [],userGroupIds = [],arr;
+      for (let i in responseData.buttonRoles){
+        userGroupIds.push(responseData.buttonRoles[i].userGroup.id);
+        if (roleIds.includes(responseData.buttonRoles[i].role.id)) {// 当前数组存在
+          continue;
+        }else{
+          roleIds.push(responseData.buttonRoles[i].role.id);
+        }
+      }
+      res.data['roleIds'] = roleIds;
+      res.data['userGroupIds'] = userGroupIds;
+      resolve(res);
     })
   })
 };

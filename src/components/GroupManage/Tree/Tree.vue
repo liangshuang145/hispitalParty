@@ -2,12 +2,7 @@
 <template>
   <div class="tree">
     <el-tabs type="border-card">
-      <el-tab-pane label="列表">
-        <el-row>
-          <el-col :span="24">
-            <search></search>
-          </el-col>
-        </el-row>
+      <el-tab-pane label="行政(小组)">
         <el-input size="medium" placeholder="输入关键字进行过滤" v-model="filterText"/>
         <el-tree
           :data="groupList"
@@ -95,7 +90,6 @@ export default {
     // 点击
     nodeClick(data, node) {
       data['parentData'] = node.parent.data;
-
       this.$emit('nodeDept', data)
     }
   }

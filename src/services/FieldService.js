@@ -29,12 +29,20 @@ const getFieldList = (param = {}) => {
  */
 const addField = (param = {}) => {
   return new Promise((resolve) => {
-    http.get({
-      url:'field/list',
-      method: 'get',
+    param = {
+      name: param.name,
+      pageId:param.pageId,
+      roleIds:param.roleIds,
+      userGroupId:param.userGroupId,
+      level:param.level,
+      sort:param.sort
+    };
+    http.post({
+      url:'field/add',
+      method: 'post',
       data: param
     }).then(res => {
-      console.log('获取字段列表',res)
+      resolve(res)
     })
   })
 };
@@ -85,7 +93,7 @@ const getField = (param = {}) => {
       method: 'post',
       data: param
     }).then(res => {
-      console.log('查看字段',res)
+      resolve(res);
     })
   })
 };
