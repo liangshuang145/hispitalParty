@@ -4,58 +4,85 @@
       <el-row>
         <el-col :span="24">
           <el-button type="info" icon="el-icon-document" @click="lookWork" size="small">查看工作</el-button>
+          <el-button type="info" icon="el-icon-plus" @click="lookIndicator" size="small">查看指标</el-button>
           <el-button type="primary" icon="el-icon-plus" @click="addWork" size="small">添加工作</el-button>
-          <!--<el-button type="primary" icon="el-icon-plus" @click="addUser" size="small">添加工作指标</el-button>-->
-          <!--<el-button type="primary" icon="el-icon-plus" @click="addUser" size="small">添加指标详情</el-button>-->
+          <!--<el-button type="primary" icon="el-icon-plus" @click="addIndicator" size="small">添加工作指标</el-button>-->
           <!--<el-button type="danger" icon="el-icon-delete" @click="delUser" size="small">删除工作</el-button>-->
           <!--<el-button type="danger" icon="el-icon-delete" @click="delUser" size="small">删除工作指标</el-button>-->
         </el-col>
       </el-row>
-      <work-dialog v-model="isWorkDialogShow" :type="workDialogType" ></work-dialog>
-      <!--<userDialog v-model="isUserDialogShow" :type="dialogType" :userData="userData" @buttonisshow="idontknowname"></userDialog>-->
-
+      <work-dialog v-model="isWorkDialogShow" :type="workDialogType" :workData="workData"></work-dialog>
+      <indicator-list :IndicatorList = 'workIndicatorList' v-model="isIndicatorListDialogShow" :workData="workData"> </indicator-list>
     </div>
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex'
   import ElCol from "element-ui/packages/col/src/col";
   import ElRow from "element-ui/packages/row/src/row";
   import WorkDialog from "../WorkDialog/WorkDialog";
+  import WorkService from '../../../services/WorkService'
+  import IndicatorList from "../IndicatorList/IndicatorList";
 
     export default{
         name: 'buttons',
         props:['changeData'],
         data () {
             return {
-              isWorkDialogShow:false,
-              workDialogType:0,// 类型: 0-查看(默认),1-新增,2-修改
-
+              tableData:null,
+              isWorkDialogShow:false,// 工作添加
+              isIndicatorListDialogShow:false,// 指标列表弹窗
+              workDialogType:0,// 类型: 0-查看(默认),1-新增,2-修改\
+              workData:{},
             }
         },
+      computed: {
+        ...mapState([
+          'workIndicatorList',
+        ])
+      },
         // 页面初始化(生命周期)
         created(){
         },
         // 页面方法
         methods: {
+          ...mapActions([
+            'getWorkIndicatorList',
+          ]),
+          lookIndicator(){
+            if(!this.tableData){
+              this.$message.error('操作错误,请先选择数据');
+              return
+            }
+            this.workData = this.changeData;
+            this.getWorkIndicatorList({id:this.changeData.id});
+            this.isIndicatorListDialogShow = true
+          },
             // 查看工作
           lookWork(){
             if(!this.tableData){
               this.$message.error('操作错误,请先选择数据');
               return
             }
-            console.log('查看');
-            this.dialogType = 0;
-            this.isWorkDialogShow = true;
-            this.userData = this.tableData
+            WorkService.getWork({id:this.tableData.id}).then((res) => {
+                if(res.code === 200){
+                  this.workDialogType = 0;
+                  this.isWorkDialogShow = true;
+                  this.workData = res.data;
+                }else {
+                    this.$message.error(res.message)
+                }
+            });
+
           },
           // 添加工作
           addWork(){
-            this.isWorkDialogShow = true
+            this.workDialogType = 1;
+            this.isWorkDialogShow = true;
+            this.workData = {}
           },
-
-
-
         },
+
         // 侦听器
         watch: {
           changeData(tableData) {
@@ -64,6 +91,7 @@
         },
         // 依赖注入
       components: {
+        IndicatorList,
         WorkDialog,
         ElRow,
         ElCol,

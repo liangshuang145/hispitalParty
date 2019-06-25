@@ -1,17 +1,14 @@
 <template>
   <div name="List" class="list-panel">
-    <!--<buttons></buttons>-->
-    <el-table ref="multipleTable" :data="userList"   highlight-current-row @current-change="handleTableChange" height="520">
-      <el-table-column prop="text016" label="类型" />
-      <el-table-column prop="text011" label="工作名称" />
-      <el-table-column prop="text04" label="开始时间" />
-      <el-table-column prop="text04" label="结束时间" />
-      <el-table-column prop="text02" label="说明" />
-      <!--<el-table-column prop="text014" label="结束时间" width="180"/>-->
-      <!--<el-table-column prop="text08" label="合格分数" width="180"/>-->
+    <el-table ref="multipleTable" :data="workList"   highlight-current-row @current-change="handleTableChange" height="520">
+      <el-table-column prop="typeName" label="类型" />
+      <el-table-column prop="name" label="工作名称" />
+      <el-table-column prop="year" label="所属年度" />
+      <el-table-column prop="startTime" label="开始时间" />
+      <el-table-column prop="endTime" label="结束时间" />
+      <el-table-column prop="remark" label="工作描述" />
     </el-table>
-    <el-pagination background layout="prev, pager, next" :total="1000"/>
-    <!--<user-dialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"/>-->
+    <!--<el-pagination background layout="prev, pager, next" :total="1000"/>-->
   </div>
 </template>
 <script>
@@ -35,13 +32,37 @@ export default {
       'workList'
     ])
   },
+  watch:{
+    workList(list){
+        for (let i in list){
+            let typeName = '';
+          switch (list[i].workType){
+            case 'one':
+                typeName = '医共体建设';
+                break;
+            case 'two':
+                typeName = '等级医院评审';
+                break;
+            case 'three':
+                typeName = '最多跑一次';
+                break;
+            case 'four':
+                typeName = '优质服务专项行动';
+                break;
+            case 'five' :
+                typeName = '核心业务指标';
+                break;
+            default:
+                typeName = '医共体建设';
+                break;
+            }
+
+            list[i]['typeName'] = typeName
+        }
+    }
+  },
   mounted() {
     this.getWorkList();
-//    //Tree传递数据
-//    Bus.$on('txt',(data)=> {
-//      this.setUserList(state,data)
-//      this.getUserList();
-//    })
   },
   methods: {
     ...mapActions([
@@ -52,36 +73,6 @@ export default {
       this.changeTableData = val;
       this.$emit('tableDataChange',val)
     },
-//    // 查看用户
-//    viewUser(data) {
-//      console.log('data =viewUser= ', data)
-//
-//      this.dialogType = 0
-//      this.isUserDialogShow = true
-//      this.userData = data
-//    },
-//    // 修改用户
-//    updateUser(data) {
-//      console.log('data =updateUser= ', data)
-//
-//      this.dialogType = 2
-//      this.isUserDialogShow = true
-//      this.userData = data
-//    },
-//    // 删除用户
-//    deleteUser(data) {
-//      console.log('data =deleteUser= ', data)
-//
-//      this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
-//        confirmButtonText: '确定',
-//        cancelButtonText: '取消',
-//        type: 'warning'
-//      }).then(() => {
-//        this.$message.success('已删除')
-//      }).catch(() => {
-//        this.$message.info('已取消')
-//      })
-//    }
   }
 }
 </script>

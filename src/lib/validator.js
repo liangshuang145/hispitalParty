@@ -103,11 +103,60 @@ const checkAccount = (rule, value, callback) => {
   }
 };
 
+/**
+ * 校验SubjectId 机构id
+ * @param rule
+ * @param value
+ * @param callback
+ */
+const checkSubjectId = (rule, value, callback) => {
+  if(!value){
+    return callback(new Error('请选择所属机构'))
+  }else{
+    callback()
+  }
+};
+
+/**
+ * 校验年度
+ * @param rule
+ * @param value
+ * @param callback
+ * @returns {*}
+ */
+const checkYear = (rule, value, callback) => {
+  if(!value){
+    return callback(new Error('请选择所属年度'))
+  }else{
+    callback()
+  }
+};
+
+/**
+ * 校验工作周期
+ * @param rule
+ * @param value
+ * @param callback
+ * @returns {*}
+ */
+const checkWorkCycle = (rule, value, callback) => {
+  console.log('校验工作周期',value)
+  if(!value){
+    return callback(new Error('请选择工作周期'))
+  }else{
+    callback()
+  }
+};
+
+
 export default {
   checkUsername,
   checkPassword,
   checkEmail,
   checkAnswer,
   checkName,
-  checkAccount
+  checkAccount,
+  checkSubjectId,
+  checkYear,
+  checkWorkCycle
 }

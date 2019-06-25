@@ -11,32 +11,40 @@
           <el-option v-for="item in workTypeArr" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="所在机构" prop="subjectName">
-        <el-select v-model="form.subjectName" size="medium" placeholder="请选择所在机构" @change="selectSubject">
+      <el-form-item label="所在机构" prop="subjectId">
+        <el-select v-model="form.subjectId" size="medium" filterable placeholder="请选择所在机构" @change="selectSubject">
           <el-option v-for="item in subjectList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="组织部门" prop="departName">
-        <el-select v-model="form.departName" size="medium" placeholder="请选择组织部门" @change="selectDepart">
+      <el-form-item label="组织部门" prop="departId">
+        <el-select v-model="form.departId" size="medium" filterable placeholder="请选择组织部门" @change="selectDepart">
           <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="行政小组" prop="groupList">
-        <el-select v-model="form.groupName" size="medium" placeholder="请选择行政小组" @change="selectGroup">
+      <el-form-item label="行政小组" prop="groupId">
+        <el-select v-model="form.groupId" size="medium" filterable placeholder="请选择行政小组" @change="selectGroup">
           <el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="工作年度" prop="year">
-        <el-date-picker v-model="form.year" ype="year" placeholder="选择工作年度"></el-date-picker>
+        <el-date-picker v-model="form.year" type="year" placeholder="选择工作年度" value-format="yyyy"></el-date-picker>
       </el-form-item>
       <el-form-item label="工作周期" prop="workCycle">
-        <el-date-picker v-model="workCycle" type="daterange" value-format="yyyyMMddHHmmss" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']">
+        <el-date-picker v-model="form.workCycle" type="daterange" value-format="yyyyMMddHHmmss" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="描述" prop="remark">
         <el-input type="textarea" v-model="form.remark" :rows="5" :maxlength="255" placeholder="请输入描述" show-word-limit></el-input>
       </el-form-item>
     </el-form>
+    <!-- 操作 -->
+    <span slot="footer" class="dialog-footer">
+      <el-button v-if="type == 0" size="medium" width="long" @click="cancelClick">关 闭</el-button>
+      <template v-else>
+        <el-button size="medium" width="long" @click="cancelClick">取 消</el-button>
+        <el-button size="medium" width="long" type="primary" @click="sureClick">确 定</el-button>
+      </template>
+    </span>
   </el-dialog>
 </template>
 
@@ -75,15 +83,27 @@
                 workType:'',
                 startTime:'',
                 endTime:'',
-                year:''
+                year:'',
+                workCycle:[],
               },
               rule: {
                 name: [{
                   validator: Validator.checkName,
                   trigger: 'blur'
+                }],
+                subjectId:[{
+                  validator: Validator.checkSubjectId,
+                  trigger: 'blur'
+                }],
+                year:[{
+                  validator: Validator.checkYear,
+                  trigger: 'blur'
+                }],
+                workCycle:[{
+                  validator: Validator.checkWorkCycle,
+                  trigger: 'blur'
                 }]
               },
-              workCycle:[],
               // 0 医共体建设 1 等级医院评审 2 最多跑一次 3 优质服务专项行动 4 核心业务指标
               workTypeArr:[
                 {value:0,label:'医共体建设'},
@@ -102,8 +122,24 @@
           ])
         },
         watch:{
+          workData(data){
+              if(this.type != 1){
+                this.form.id = data.id;
+                this.form.name = data.name;
+                this.form.workType = data.workType;
+                this.form.startTime = data.startTime;
+                this.form.endTime = data.endTime;
+                this.form.year = data.year;
+//                this.form.subjectId = data.subject.id;
+//                this.getGroupListBySubjectId({subjectId:data.subject.id});
+//                this.getDepartListBySubjectId({subjectId:data.subject.id});
+                this.form.workCycle = [data.startTime,data.endTime];
+              }else {
+                this.form.workType = 0;
+              }
+          },
           //  工作周期
-          workCycle(data){
+          'form.workCycle'(data){
             this.form.startTime = String(data[0]);
             this.form.endTime = String(data[1]);
           },
@@ -111,14 +147,17 @@
             let title = '';
             switch (val) {
               case 1:
-                title = '新增用户';
+                title = '新增工作';
                 break;
               case 2:
-                title = '修改用户';
+                title = '修改工作';
+                break;
+              case 0:
+                title = '查看工作';
                 break;
               default:
-                title = '查看用户';
-                break
+                  title = '查看工作';
+                break;
             }
             this.title = title
           },
@@ -137,7 +176,8 @@
           ...mapActions([
             'getGroupListBySubjectId',
             'getDepartListBySubjectId',
-            'getSubjectList'
+            'getSubjectList',
+            'getWorkList'
           ]),
           // 选择机构
           selectSubject(subjectId){
@@ -153,8 +193,39 @@
           selectGroup(groupId){
             this.form.groupId = groupId
           },
+          // 确定按钮
+          sureClick() {
+            this.$refs['form'].validate((valid) => {
+              switch (this.type) {
+                case 1: // 新增
+                  if (!this.form.workType) {
+                    this.form.workType = 0
+                  }
+                  WorkService.addWork(this.form).then((res) => {
+                    if (res.code === 200) {
+                      this.$message.success(res.message);
+                      // 重载列表
+                      this.getWorkList();
+                      // 窗口关闭
+                      this.handleClose();
+                    } else {
+                      this.$message.error(res.message)
+                    }
+                  });
+                  break;
+                case 2:// 修改
+                  break;
+                default:
+                  break;
+              }
+            });
+          },
           // 关闭按钮
           handleClose() {
+            this.isShow = false
+          },
+          // 取消按钮
+          cancelClick() {
             this.isShow = false
           },
         },

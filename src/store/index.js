@@ -33,6 +33,7 @@ export default new Vuex.Store({
     pageList:[], // 页面列表
     menuInfo:{},// 单个菜单信息
     workList:[],// 中心工作列表
+    workIndicatorList:[],// 中心工作, 单个工作指标列表
   },
   mutations: {
     // 登录
@@ -89,8 +90,13 @@ export default new Vuex.Store({
     setPageList(state, data){
       state.pageList = data
     },
+    // 获取工作列表
     setWorkList(state, data){
       state.workList = data
+    },
+    // 中心工作, 单个工作指标列表
+    setWorkIndicatorList(state, data){
+      state.workIndicatorList = data
     }
 
   },
@@ -205,9 +211,16 @@ export default new Vuex.Store({
         commit('setPageList', res)
       })
     },
+    // 获取中心工作列表
     getWorkList({commit}){
       WorkService.getWorkList().then((res) => {
         commit('setWorkList',res)
+      })
+    },
+    // 中心工作 通过工作id获取工作指标列表
+    getWorkIndicatorList({ commit },param){
+      WorkService.getWorkIndicatorList(param).then((res) => {
+        commit('setWorkIndicatorList',res)
       })
     }
   }
