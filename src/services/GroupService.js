@@ -18,13 +18,18 @@ import mock from '@/mocks/data'
  */
 const getGroupListBySubjectId = (param = {}) => {
   // 测试
-  return new Promise((resolve) => {z
+  return new Promise((resolve) => {
+    param={
+      subjectId: param.subjectId,
+      type: param.type
+    }
     http.post({
       url:'groups/list',
       method:'post',
       data:param
     }).then((res) => {
-      resolve(res.data);
+      console.log(res);
+      resolve(res);
     },(err) => {
       console.log(err)
     })
@@ -60,7 +65,9 @@ const getGroup = (param = {}) => {
  */
 const getGroupChildById = (param = {}) =>{
   return  new Promise((resolve) => {
-
+    param={
+      id: param.id
+    }
     http.post({
       url:'groups/childs',
       method:'post',

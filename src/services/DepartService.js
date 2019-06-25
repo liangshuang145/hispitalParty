@@ -31,12 +31,17 @@ const getDepart = (param = {}) => {
  */
 const getDepartListBySubjectId = (params = {}) => {
   return new Promise((resolve) => {
+    params={
+      subjectId: params.subjectId,
+      type: params.type
+    }
     http.post({
       method: 'post',
       url: 'depart/list',
       data: params
     }).then((res) => {
-      resolve(res.data)
+      console.log("res",res);
+      resolve(res)
     })
   })
 };
@@ -48,6 +53,9 @@ const getDepartListBySubjectId = (params = {}) => {
  */
 const selectDepartChildById = (param = {}) =>{
   return new Promise((resolve) => {
+    param={
+      id: param.id
+    }
     http.post({
       url:'depart/childs',
       method:'post',

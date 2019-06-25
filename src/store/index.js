@@ -13,6 +13,7 @@ import MenuService from '@/services/MenuService'
 import ButtonService from '@/services/ButtonService'
 import FieldService from '@/services/FieldService'
 import PageService from  '@/services/PageService'
+import SpiriService from '@/services/SpiritService'
 
 Vue.use(Vuex);
 
@@ -31,6 +32,7 @@ export default new Vuex.Store({
     fieldList: [], // 字段列表
     pageList:[], // 页面列表
     menuInfo:{},// 单个菜单信息
+    spiritList:[],//党内精神列表
   },
   mutations: {
     // 登录
@@ -86,8 +88,11 @@ export default new Vuex.Store({
     // 页面列表
     setPageList(state, data){
       state.pageList = data
+    },
+    //党内精神列表
+    setSpiritList(state,data){
+      state.spiritList = data
     }
-
   },
   actions: {
     // 获取用户列表 废弃
@@ -199,6 +204,13 @@ export default new Vuex.Store({
         console.log('this is getPageList work ...')
         commit('setPageList', res)
       })
+    },
+    //党内精神列表
+    getSpiritList({ commit}){
+      SpiriService.getSpiritList().then((res) => {
+        console.log('this is getSpiritList work ...')
+        commit('setSpiritList', res)
+      })
+    },
     }
-  }
 })

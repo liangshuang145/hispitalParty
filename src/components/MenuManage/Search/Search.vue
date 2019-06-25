@@ -17,13 +17,14 @@
         <!--<el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"/>-->
       <!--</el-select>-->
     </el-row>
-    <el-row>
-      <el-button type="primary" icon="el-icon-menu">确定菜单</el-button>
-    </el-row>
+    <!--<el-row>-->
+      <!--<el-button type="primary" icon="el-icon-menu">确定菜单</el-button>-->
+    <!--</el-row>-->
   </div>
 </template>
 
 <script>
+
   import { mapState, mapActions } from 'vuex'
   import ElRow from "element-ui/packages/row/src/row";
   import ElButton from "../../../../node_modules/element-ui/packages/button/src/button";
@@ -39,7 +40,9 @@
     ],
     data() {
       return {
-        options:[],
+        options:[
+
+        ],
         search: '',
         subject: '',
         depart: '',
@@ -58,14 +61,14 @@
     async mounted() {
       await this.getSubjectList()
       await this.getDepartList()
-      await this.getGroupList()
+      await this.getGroupListBySubjectId()
       await this.getUserGroupList()
     },
     methods: {
       ...mapActions([
         'getSubjectList',
         'getDepartList',
-        'getGroupList',
+        'getGroupListBySubjectId',
         'getUserGroupList'
       ]),
       selectSubject(val) {
@@ -87,7 +90,8 @@
     watch:{
       subject(newData, oldData){
          console.log('newData',newData);
-        this.getGroupList({subjectId:newData})
+        this.getGroupListBySubjectId({subjectId:newData})
+//        this.$ref.grade.resetField();
 
 //        GroupService.getGroup({subjectId:newData}).then((res) => {
 //          if(res.code === 200){

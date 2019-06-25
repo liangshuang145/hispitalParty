@@ -47,11 +47,23 @@ const addMenu = (param = {}) => {
  */
 const updateMenu = (param = {}) => {
   return new Promise((resolve) => {
+    param={
+      id: param.id,
+      name: param.name,
+      remark: param.remark,
+      level: param.level,
+      subjectId: param.subjectId,
+      departIds: param.departIds,
+      // groupuIds: param.groupuIds,
+      userGroupIds: param.userGroupIds,
+    };
+    console.log(param);
     http.post({
       url:'menu/modify',
       method: 'post',
       data: param
     }).then((res)=>{
+      console.log("成功",res)
       resolve(res)
     })
   })
