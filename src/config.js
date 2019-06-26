@@ -11,8 +11,8 @@ const api = {
 const env = {
   local: {
     name: 'local',
-    // base: 'http://192.168.1.3:8080/ayundao/'
-    base: 'http://192.168.1.17/'
+    base: 'http://192.168.1.3:8080/ayundao/'
+    // base: 'http://192.168.1.17/'
   },
   dev: {
     name: 'dev',

@@ -9,7 +9,7 @@
           <el-button type="success" icon="el-icon-folder-add" @click="ImportExcel" >导入表格</el-button>
         </el-col>
         <el-col :span="14">
-          <search/>
+          <!--<search/>-->
         </el-col>
       </el-row>
       <import-dialog v-model="isImportDialogShow"></import-dialog>

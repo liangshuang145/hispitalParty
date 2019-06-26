@@ -72,6 +72,7 @@
     ],
     data() {
       return {
+
           bumenzuzhi:[
             {
               createdDate: "20190621085030",
@@ -142,6 +143,9 @@
         form: {
           id: '',
           name: '',
+          father:{
+            name:''
+          },
           subjectId: '',
           subjectName: '',
           parentId: '',

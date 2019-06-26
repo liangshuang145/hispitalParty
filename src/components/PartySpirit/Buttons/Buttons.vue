@@ -9,14 +9,15 @@
           <el-button type="success" icon="el-icon-folder-add" @click="ImportExcel" >导入表格</el-button>
         </el-col>
         <el-col :span="14">
-          <search/>
         </el-col>
       </el-row>
+      <userDialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"></userDialog>
       <import-dialog v-model="isImportDialogShow"></import-dialog>
     </div>
 </template>
 
 <script>
+  import userDialog from '../UserDialog/UserDialog.vue'
   import importDialog from '../ImportDialog/ImportDialog.vue'
   import userService from '../../../services/UserService.js'
   import ElCol from "element-ui/packages/col/src/col";
@@ -54,7 +55,10 @@
           },
           // 新增
           isAdd(){
-
+            console.log('添加');
+            this.dialogType = 1;
+            this.isUserDialogShow = true;
+            this.userData = {}
           },
           // 修改
           isModify(){
@@ -91,7 +95,8 @@
         Search,
         ElRow,
           ElCol,
-        importDialog
+        importDialog,
+        userDialog
         }
     }
 </script>

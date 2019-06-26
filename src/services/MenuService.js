@@ -48,16 +48,19 @@ const addMenu = (param = {}) => {
 const updateMenu = (param = {}) => {
   return new Promise((resolve) => {
     param={
-      id: param.id,
+      id:param.id,
       name: param.name,
       remark: param.remark,
+      isPublic: param.isPublic,
+      fatherId: param.fatherId,
       level: param.level,
+      roleIds: param.roleIds,
       subjectId: param.subjectId,
       departIds: param.departIds,
-      // groupuIds: param.groupuIds,
+      groupuIds: param.groupuIds,
       userGroupIds: param.userGroupIds,
     };
-    console.log(param);
+    console.log("param",param);
     http.post({
       url:'menu/modify',
       method: 'post',
@@ -65,6 +68,8 @@ const updateMenu = (param = {}) => {
     }).then((res)=>{
       console.log("成功",res)
       resolve(res)
+    },(res)=>{
+      console.log("请求失败",res)
     })
   })
 };
