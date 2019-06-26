@@ -4,8 +4,8 @@
       <el-row>
         <el-col :span="10">
           <!--<el-button type="primary" icon="el-icon-s-order" @click="isLook" >查看</el-button>-->
-          <el-button type="primary" icon="el-icon-plus" @click="isAdd" >新增</el-button>
-          <el-button type="primary" icon="el-icon-edit" @click="isModify" >修改</el-button>
+          <!--<el-button type="primary" icon="el-icon-plus" @click="isAdd" >新增</el-button>-->
+          <!--<el-button type="primary" icon="el-icon-edit" @click="isModify" >修改</el-button>-->
           <el-button type="success" icon="el-icon-folder-add" @click="ImportExcel" >导入表格</el-button>
         </el-col>
         <el-col :span="14">

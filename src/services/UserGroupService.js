@@ -21,6 +21,7 @@ const getUserGroupList = (param = {}) => {
       method:'get',
       data: param
     }).then((res) => {
+      console.log("获取用户组成功",res);
       resolve(res.data);
     })
   })

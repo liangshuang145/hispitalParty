@@ -6,9 +6,19 @@ import http from '@/lib/http'
 
 /**  *  通过机构id 获取小组列表  *  * @param {*} param  * @return axios  */
 const getGroupListBySubjectId = (param = {}) => {
+  // 测试
   return new Promise((resolve) => {
-    http.post({url: 'groups/list', method: 'post', data: param}).then((res) => {
-      resolve(res.data);
+    param={
+      subjectId: param.subjectId,
+      type: param.type
+    }
+    http.post({
+      url:'groups/list',
+      method:'post',
+      data:param
+    }).then((res) => {
+      console.log(res);
+      resolve(res);
     }, (err) => {
       console.log(err)
     })
@@ -37,8 +47,10 @@ const getGroup = (param = {}) => {
  * @returns {Promise}
  */
 const getGroupChildById = (param = {}) =>{
-  return  new Promise((resolve) => {
-    http.post({
+  return  new Promise((resolve) => {    param={
+      id: param.id
+    }
+    http.post({
       url:'groups/childs',
       method:'post',
       data: param

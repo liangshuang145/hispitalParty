@@ -1,7 +1,7 @@
 <template>
   <div name="List" class="list-panel">
     <!--<buttons></buttons>-->
-    <el-table ref="multipleTable" :data="spiritList"   highlight-current-row @current-change="handleTableChange" height="590">
+    <el-table ref="multipleTable" :data="userList"   highlight-current-row @current-change="handleTableChange" height="590">
       <el-table-column prop="nickname" label="发起支部" />
       <el-table-column prop="gender" label="标题" />
       <el-table-column prop="status" label="发布时间" />
@@ -35,15 +35,15 @@ export default {
   },
   computed: {
     ...mapState([
-      'spiritList'
+      'userList'
     ])
   },
   mounted() {
-    this.getSpiritList()
+    this.getUserList()
   },
   methods: {
     ...mapActions([
-      'getSpiritList'
+      'getUserList'
     ]),
     // 列表选中
     handleTableChange(val) {
