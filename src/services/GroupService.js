@@ -107,11 +107,29 @@ const deleteGroup = (param = {}) => {
   });
 };
 
+/**
+ * 获取全部小组
+ * @param param
+ * @returns {Promise}
+ */
+const getGroupListIsAll = (param = {}) =>{
+  return new Promise((resolve) => {
+    http.get({
+      url:'group/all',
+      data:param,
+      method:'get'
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
   export default{
   getGroup,
   addGroup,
   updateGroup,
   deleteGroup,
   getGroupChildById,
-  getGroupListBySubjectId ,
+  getGroupListBySubjectId,
+  getGroupListIsAll
 };

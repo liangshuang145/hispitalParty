@@ -28,7 +28,7 @@
       </el-form-item>
       <el-form-item label="个人用户" prop="userId">
         <el-select v-model="form.userId" size="medium" filterable placeholder="请选择个人用户" @change="selectUserId">
-          <el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          <el-option v-for="item in userLists" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="所属年度" prop="year">
@@ -38,15 +38,15 @@
         <el-date-picker v-model="form.month" type="month" placeholder="选择指标详情所属月份" value-format="MM"></el-date-picker>
       </el-form-item>
       <el-form-item label="图片上传">
-        <el-upload class="upload-demo" action="http://192.168.1.3:8080/ayundao/work/addImage" :on-preview="handlePreviewImg" :on-remove="handleRemoveImg" :file-list="imageList"
+        <el-upload class="upload-demo" action="http://192.168.1.17/work/addImage" :on-preview="handlePreviewImg" :on-remove="handleRemoveImg" :file-list="imageList"
                    list-type="picture" :on-success="uploadImageSuccess" :on-error="uploadImageError">
           <el-button size="small" type="primary">点击上传</el-button>
           <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
         </el-upload>
       </el-form-item>
       <el-form-item label="附件上传">
-        <el-upload class="upload-demo" action="http://192.168.1.3:8080/ayundao/work/addFile" :on-preview="handlePreviewFile" :on-remove="handleRemoveFile" :file-list="fileList"
-                   list-type="picture" :on-success="uploadFileSuccess" :on-error="uploadFileError">
+        <el-upload class="upload-demo" action="http://192.168.1.17/work/addFile" :on-preview="handlePreviewFile" :on-remove="handleRemoveFile" :file-list="fileList"
+                    :on-success="uploadFileSuccess" :on-error="uploadFileError" name="file">
           <el-button size="small" type="primary">点击上传</el-button>
           <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
         </el-upload>
@@ -61,11 +61,11 @@
     </el-form>
     <!-- 操作 -->
     <span slot="footer" class="dialog-footer">
-      <el-button v-if="type == 0" size="medium" width="long" @click="cancelClick">返回</el-button>
-      <template v-else>
+      <!--<el-button v-if="type == 0" size="medium" width="long" @click="cancelClick">返回</el-button>-->
+      <!--<template v-else>-->
         <el-button size="medium" width="long" @click="cancelClick">取 消</el-button>
         <el-button size="medium" width="long" type="primary" @click="sureClick">确 定</el-button>
-      </template>
+      <!--</template>-->
     </span>
   </el-dialog>
 </template>
@@ -87,6 +87,12 @@
             type: Number,
             default: 0
           },
+          fatherWorkData:{
+              type:Object,
+            default(){
+                  return{}
+            }
+          }
         },
         //  数据定义
         data () {
@@ -98,9 +104,15 @@
                 name: '',
                 intro: '',
                 departId: '',
-                groupId: ''
+                groupId: '',
+                imageIds:[],
+                fileIds:[]
               },
               imageList:[],// 图片上传
+              fileList:[],// 附件上传
+              userLists:[],
+              subjectId:'',
+              subjectName:'',
               assessmentObject:0,
               assessmentObjectArr:[
                 {label:0,name:'组织(部门)'},
@@ -119,11 +131,14 @@
         methods: {
           ...mapActions([
             'getWorkIndicatorList',
-            'getDepartList',
-            'getGroupList'
+            'getDepartListBySubjectId',
+            'getGroupListBySubjectId',
+            'getWorkIndicatorList',
+            'getUserListByName'
           ]),
           // 上传文件成功
           uploadFileSuccess(event, file, fileList){
+            this.form.fileIds.push(event.data.id)
             console.log(event, file, fileList)
           },
           // 上传文件失败
@@ -140,6 +155,7 @@
           },
           // 上传图片成功
           uploadImageSuccess(event, file, fileList){
+              this.form.imageIds.push(event.data.id)
               console.log(event, file, fileList)
           },
           // 上传图片失败
@@ -175,31 +191,66 @@
           handleClose() {
             this.isShow = false
           },
+          // 获得当前工作信息
+          getThisWorkInfo(id){
+              WorkService.getWork({id:id}).then((res) => {
+                  if(res.code === 200){
+                      this.subjectId = res.data.subject.id;
+                    this.subjectName = res.data.subject.name;
+                    this.getWorkIndicatorList({id:res.data.id});
+                    this.getDepartListBySubjectId({subjectId:res.data.subject.id});
+                    this.getGroupListBySubjectId({subjectId:res.data.subject.id});
+                    this.getUserListByName({key:'name',value:'',page:0,size:100000})
+                  }else {
+                      this.$message.error(res.message)
+                  }
+              })
+          },
           // 取消按钮
           cancelClick() {
             this.isShow = false
           },
           // 确定按钮点击
           sureClick(){
-              switch (this.type){
-                case 1: // 新增
-                  break;
-                case 2: // 修改
-                  break;
-                default:
-                  break;
-              }
+              WorkService.addWorkIndicationParticulars(this.form).then((res) => {
+                  if(res.code === 200){
+                      this.$message.success('添加'+res.message);
+                    this.isShow = false;
+                    this.$refs['form'].resetFields();
+                    this.imageList = [];// 图片上传
+                    this.fileList = [];// 附件上传
+                  }else {
+                      this.$message.error(res.message)
+                  }
+              })
+//              switch (this.type){
+//                case 1: // 新增
+//                  break;
+//                case 2: // 修改
+//                  break;
+//                default:
+//                  break;
+//              }
           }
         },
         computed: {
           ...mapState([
             'workIndicatorList',
             'departList',
-            'groupList'
+            'groupList',
+            'userList'
           ])
         },
         // 侦听器
         watch: {
+            userList(val){
+                if (val.code === 200){
+                  this.userLists = val.data.content;
+                }else {
+                    this.$message.error(res.message)
+                }
+              console.log('userList',val)
+            },
           type(val){
               let title = '';
             switch (val) {
@@ -224,6 +275,9 @@
           isShow(data){
             this.$emit('input', data)
           },
+          fatherWorkData(data){
+            this.getThisWorkInfo(data.id)
+          }
         },
         // 依赖注入
         components: {}

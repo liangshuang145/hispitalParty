@@ -15,10 +15,10 @@
           <div id="activity" :style="{width: '550px', height: '270px'}"></div>
           <div id="financial" :style="{width: '550px', height: '270px'}"></div>
         </div>
-
     </div>
 </template>
 <script>
+
   import{option_people} from  '@/components/echarts/people.js'
   import{option_education} from  '@/components/echarts/education.js'
   import{option_pchangge} from  '@/components/echarts/pchangge.js'

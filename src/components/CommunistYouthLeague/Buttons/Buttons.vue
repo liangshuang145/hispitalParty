@@ -21,8 +21,9 @@ UserDialog#@Author: bjy @Date: 2019/6/11 10:12 #
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   import userDialog from '../UserDialog/UserDialog.vue'
-  import userService from '../../../services/UserService.js'
+  import UserInfoService from '../../../services/UserInfoService.js'
   import ElCol from "element-ui/packages/col/src/col";
   import Search from '../Search/Search.vue'
 
@@ -42,6 +43,9 @@ UserDialog#@Author: bjy @Date: 2019/6/11 10:12 #
         },
         // 页面方法
         methods: {
+          ...mapActions([
+            'getUserInfoTwList'
+          ]),
             // 查看
           look(){
             if(!this.tableData){
@@ -82,7 +86,14 @@ UserDialog#@Author: bjy @Date: 2019/6/11 10:12 #
               cancelButtonText: '取消',
               type: 'warning'
             }).then(() => {
-              this.$message.success('已删除')
+              UserInfoService.delUserInfoTw({id:this.tableData.id}).then((res) => {
+                if(res.code === 200){
+                  this.$message.success('删除'+res.message);
+                  this.getUserInfoTwList()
+                }else{
+                  this.$message.error(res.message)
+                }
+              });
             }).catch(() => {
               this.$message.info('已取消')
             })

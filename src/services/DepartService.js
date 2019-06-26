@@ -108,11 +108,29 @@ const updateDepart = (param = {}) => {
   })
 };
 
+/**
+ * 查询所有
+ * @param param
+ * @returns {Promise}
+ */
+const getDepartListIsAll = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'depart/all',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
+
 
 export default {
   getDepart,
   addDepart,
   updateDepart,
   getDepartListBySubjectId,
-  selectDepartChildById
+  selectDepartChildById,
+  getDepartListIsAll
 }

@@ -99,6 +99,7 @@
                   WorkService.addWorkIndication(this.form).then((res) => {
                     if (res.code === 200){
                         this.$message.success('添加'+res.message);
+                      this.$refs['form'].resetFields();
                         // 关闭窗口
                         this.handleClose();
                       // 重载 列表

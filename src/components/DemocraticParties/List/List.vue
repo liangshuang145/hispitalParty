@@ -1,16 +1,14 @@
 <template>
   <div name="List" class="list-panel">
-    <!--<buttons></buttons>-->
-    <el-table ref="multipleTable" :data="userList"   highlight-current-row @current-change="handleTableChange" height="520">
-      <el-table-column prop="nickname" label="姓名" width="180"/>
-      <el-table-column prop="gender" label="性别" width="180"/>
-      <el-table-column prop="yesorno" label="是否党员" width="180"/>
-      <el-table-column prop="type" label="职位" width="180"/>
-      <el-table-column prop="iphone" label="手机号" width="180"/>
-      <el-table-column prop="text010" label="科室" width="180"/>
-      <el-table-column prop="text08" label="工号" width="180"/>
+    <el-table ref="multipleTable" :data="userInfoMzdpList"   highlight-current-row @current-change="handleTableChange" height="520" width="100%">
+      <el-table-column prop="name" label="姓名" width="180"/>
+      <el-table-column prop="sex" label="性别" width="180"/>
+      <el-table-column prop="department" label="科室"/>
+      <el-table-column prop="number" label="工号" />
+      <el-table-column prop="post" label="职位" />
+      <el-table-column prop="phone" label="手机号"/>
     </el-table>
-    <el-pagination background layout="prev, pager, next" :total="1000"/>
+    <!--<el-pagination background layout="prev, pager, next" :total="1000"/>-->
     <!--<user-dialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"/>-->
   </div>
 </template>
@@ -32,15 +30,15 @@ export default {
   },
   computed: {
     ...mapState([
-      'userList'
+      'userInfoMzdpList'
     ])
   },
   mounted() {
-    this.getUserList()
+    this.getUserInfoMzdpList()
   },
   methods: {
     ...mapActions([
-      'getUserList'
+      'getUserInfoMzdpList'
     ]),
     // 列表选中
     handleTableChange(val) {

@@ -4,10 +4,10 @@
       <el-row>
         <el-col :span="24">
           <el-button type="info" icon="el-icon-document" @click="lookWork" size="small">查看工作</el-button>
-          <el-button type="info" icon="el-icon-plus" @click="lookIndicator" size="small">查看指标</el-button>
+          <el-button type="info" icon="el-icon-document" @click="lookIndicator" size="small">查看指标</el-button>
           <el-button type="primary" icon="el-icon-plus" @click="addWork" size="small">添加工作</el-button>
           <!--<el-button type="primary" icon="el-icon-plus" @click="addIndicator" size="small">添加工作指标</el-button>-->
-          <!--<el-button type="danger" icon="el-icon-delete" @click="delUser" size="small">删除工作</el-button>-->
+          <el-button type="danger" icon="el-icon-delete" @click="delWork" size="small">删除工作</el-button>
           <!--<el-button type="danger" icon="el-icon-delete" @click="delUser" size="small">删除工作指标</el-button>-->
         </el-col>
       </el-row>
@@ -81,11 +81,37 @@
             this.isWorkDialogShow = true;
             this.workData = {}
           },
+          // 删除工作
+          delWork(){
+            if(!this.tableData){
+              this.$message.error('操作错误,请先选择数据');
+              return
+            }
+            this.$confirm('此操作将永久删除该工作, 是否继续?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              WorkService.delWork({id:this.tableData.id}).then((res) => {
+                if(res.code === 200){
+                  this.$message.success('删除成功')
+                }else {
+                  this.$message.error(res.message)
+                }
+              });
+            }).catch(() => {
+              this.$message.info('已取消')
+            })
+          },
         },
 
         // 侦听器
         watch: {
+          workIndicatorList(data){
+              console.log('workIndicatorList',data)
+          },
           changeData(tableData) {
+              console.log('changeData',tableData)
               this.tableData = tableData
           }
         },

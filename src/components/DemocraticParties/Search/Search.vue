@@ -34,9 +34,9 @@
     data() {
       return {
         radioGroupArr:[
-          {label:1,name:'根据姓名搜索'},
-          {label:2,name:'根据科室搜索'},
-          {label:3,name:'根据工号搜索'}
+          {label:1,name:'姓名'},
+          {label:2,name:'科室'},
+          {label:3,name:'工号'}
         ],
         radio:1,
         search: '',

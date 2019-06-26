@@ -1,14 +1,13 @@
 <template>
   <div name="List" class="list-panel">
-    <el-table ref="multipleTable" :data="userList"   highlight-current-row @current-change="handleTableChange" height="560">
-      <el-table-column prop="number" label="行政编号" />
-      <el-table-column prop="jobNumber" label="工号" />
-      <el-table-column prop="nickname" label="姓名" />
-      <el-table-column prop="branch" label="所属支部" />
+    <el-table ref="multipleTable" :data="userInfoList"   highlight-current-row @current-change="handleTableChange" height="560">
+      <el-table-column prop="number" label="工号" />
+      <el-table-column prop="name" label="姓名" />
+      <el-table-column prop="branchName" label="所属支部" />
       <el-table-column prop="sex" label="性别" />
-      <el-table-column prop="office" label="科室" />
-      <el-table-column prop="job" label="职务" />
-      <el-table-column prop="mobilePhone" label="手机号" />
+      <el-table-column prop="department" label="科室" />
+      <el-table-column prop="post" label="职务" />
+      <el-table-column prop="phone" label="手机号" />
     </el-table>
     <el-pagination
       background
@@ -39,15 +38,15 @@
     },
     computed: {
       ...mapState([
-        'userList'
+        'userInfoList'
       ])
     },
     mounted() {
-      this.getUserList()
+      this.getUserInfoList()
     },
     methods: {
       ...mapActions([
-        'getUserList'
+        'getUserInfoList'
       ]),
       // 列表选中
       handleTableChange(val) {

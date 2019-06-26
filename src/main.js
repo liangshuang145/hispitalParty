@@ -23,7 +23,7 @@ import global_ from  './GlobalData.js'
 // 全局变量
 Vue.prototype.$http = axios;
 // Vue.prototype.$echarts = echarts
-Vue.prototype.$BASE_URL = global_.BASE_URL
+Vue.prototype.$BASE_URL = global_.BASE_URL;
 // Vue.prototype.store = store_
 Vue.prototype.$echarts = echarts;
 
