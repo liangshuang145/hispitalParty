@@ -16,8 +16,9 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   import userDialog from '../UserDialog/UserDialog.vue'
-  import userService from '../../../services/UserService.js'
+  import UserInfoService from '../../../services/UserInfoService.js'
   import ElCol from "element-ui/packages/col/src/col";
   import Search from '../Search/Search.vue'
 
@@ -37,10 +38,13 @@
         },
         // 页面方法
         methods: {
+          ...mapActions([
+            'getUserInfoGhList'
+          ]),
             // 查看
           look(){
             if(!this.tableData){
-              this.$message.error('操作错误,请先选择数据');
+              this.$message.error(' ,请先选择数据');
               return
             }
             console.log('查看');
@@ -77,7 +81,14 @@
               cancelButtonText: '取消',
               type: 'warning'
             }).then(() => {
-              this.$message.success('已删除')
+              UserInfoService.delUserInfoGh({id:this.tableData.id}).then((res) => {
+                if(res.code === 200){
+                  this.$message.success('删除'+res.message);
+                  this.getUserInfoGhList()
+                }else{
+                  this.$message.error(res.message)
+                }
+              });
             }).catch(() => {
               this.$message.info('已取消')
             })

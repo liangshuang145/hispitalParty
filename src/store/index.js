@@ -5,6 +5,7 @@ import storage from '@/lib/storage'
 // 引入数据操作类
 import UserService from '@/services/UserService'
 import UserGroupService from '@/services/UserGroupService'
+import UserInfoService from '../services/UserInfoService'
 import RoleService from '@/services/RoleService'
 import SubjectService from '@/services/SubjectService'
 import DepartService from '@/services/DepartService'
@@ -35,6 +36,20 @@ export default new Vuex.Store({
     workList: [],// 中心工作列表
     workIndicatorList: [],// 中心工作, 单个工作指标列表
     spiritList: [],//党内精神列表
+    // ----- 人事档案 -----
+    userInfoList:[],// 用户信息列表
+    // ----- 民主党派 ----
+    userInfoMzdpList: [],// 民主党派
+    // ----- 高知群体 ---
+    userInfoGzqtList:[], // 告知群体
+    // ----- 工会 ---
+    userInfoGhList:[], // 工会
+    // ----- 团委 ---
+    userInfoTwList:[], // 团委
+    // ----- 妇代会 ---
+    userInfoFdhList:[], // 妇代会
+    // ----- 离职老干部 ---
+    userInfoLtxlgbList:[], // 离职老干部
   },
   mutations: {
     // 登录
@@ -102,7 +117,36 @@ export default new Vuex.Store({
     //党内精神列表
     setSpiritList(state, data){
       state.spiritList = data
-    }
+    },
+    // ----------- 人事档案-------
+    // 用户信息列表
+    setUserInfoList(state, data){
+      state.userInfoList = data
+    },
+    // ----------- 民主党派 -------------
+    setUserInfoMzdpList(state, data){
+      state.userInfoMzdpList = data
+    },
+    // ----------- 高知群体 --------
+    setUserInfoGzqtList(state, data){
+      state.userInfoGzqtList = data
+    },
+    // ----------- 工会 --------
+    setUserInfoGhList(state, data){
+      state.userInfoGhList = data
+    },
+    // ----------- 团委 --------
+    setUserInfoTwList(state, data){
+      state.userInfoTwList = data
+    },
+    // ----------- 妇代会 -------- userInfoLtxlgbList
+    setUserInfoFdhList(state, data){
+      state.userInfoFdhList = data
+    },
+    // ----------- 离职老干部 --------
+    setUserInfoLtxlgbList(state, data){
+      state.userInfoLtxlgbList = data
+    },
   },
   actions: {
     // 获取用户列表 废弃
@@ -167,6 +211,12 @@ export default new Vuex.Store({
         commit('setDepartList', res)
       })
     },
+    // 获得所有部门列表
+    getDepartListIsAll(){
+      DepartService.getDepartListIsAll(param).then((res) => {
+        commit('setDepartList', res)
+      })
+    },
     // 获取行政(小组)列表
     getGroupList({commit}) {
       GroupService.getGroup().then((res) => {
@@ -176,6 +226,12 @@ export default new Vuex.Store({
     // 通过机构id查询行政小组列表
     getGroupListBySubjectId({commit}, param){
       GroupService.getGroupListBySubjectId(param).then((res) => {
+        commit('setGroupList', res)
+      })
+    },
+    // 获取所有行政列表
+    getGroupListIsAll({ commit }){
+      GroupService.getGroupListIsAll().then((res) => {
         commit('setGroupList', res)
       })
     },
@@ -227,11 +283,54 @@ export default new Vuex.Store({
         commit('setWorkIndicatorList', res)
       })
     },
-    //党内精神列表
+	//党内精神列表
     getSpiritList({commit}){
       SpiriService.getSpiritList().then((res) => {
         console.log('this is getSpiritList work ...')
         commit('setSpiritList', res)
+      })
+    },
+    // ---------- 人事档案----------
+    // 获取用户信息列表
+    getUserInfoList({ commit }){
+      UserInfoService.getUserInfoList().then((res) => {
+        commit('setUserInfoList',res)
+      })
+    },
+    // ---------------民主党派---------
+    getUserInfoMzdpList({ commit }){
+      UserInfoService.getUserInfoMzdpList().then((res) => {
+        commit('setUserInfoMzdpList',res)
+      })
+    },
+    // -------------- 高知群体 ------
+    getUserInfoGzqtList({ commit }){
+      UserInfoService.getUserInfoGzqtList().then((res) => {
+        commit('setUserInfoGzqtList',res)
+      })
+    },
+    // -------------- 工会 ------
+    getUserInfoGhList({ commit }){
+      UserInfoService.getUserInfoGhList().then((res) => {
+        commit('setUserInfoGhList',res)
+      })
+    },
+    // -------------- 团委 ------
+    getUserInfoTwList({ commit }){
+      UserInfoService.getUserInfoTwList().then((res) => {
+        commit('setUserInfoTwList',res)
+      })
+    },
+    // -------------- 妇代会 ------
+    getUserInfoFdhList({ commit }){
+      UserInfoService.getUserInfoFdhList().then((res) => {
+        commit('setUserInfoFdhList',res)
+      })
+    },
+    // -------------- 离职老干部 ------
+    getUserInfoLtxlgbList({ commit }){
+      UserInfoService.getUserInfoLtxlgbList().then((res) => {
+        commit('setUserInfoLtxlgbList',res)
       })
     },
   }

@@ -204,6 +204,7 @@
                   WorkService.addWork(this.form).then((res) => {
                     if (res.code === 200) {
                       this.$message.success(res.message);
+                      this.$refs['form'].resetFields();
                       // 重载列表
                       this.getWorkList();
                       // 窗口关闭

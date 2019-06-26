@@ -28,129 +28,68 @@ const getGroupListBySubjectId = (param = {}) => {
  ** @param {*} param
  * @return axios
  **/
-const getGroup = (param = {}) => {
+const getGroup = (param = {}) => {
+  return new Promise((resolve) => {
+    http.get({
+      url:'groups/manager_list',
+      method:'get',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    },(err) => {
+      console.log(err)
+    })
+  })
+};
 
-  return new Promise((resolve) => {
-
-    http.get({
-
-      url:'groups/manager_list',
-
-      method:'get',
-
-      data:param
-
-    }).then((res) => {
-
-      resolve(res.data)
-
-    },(err) => {
-
-      console.log(err)
-
-    })
-
-  })
-
-};
-
-
-
-/**
- * 通过id获取子集小组
- *
- * @param param
- *
- * @returns {Promise}
-
- */
-
-const getGroupChildById = (param = {}) =>{
-
-  return  new Promise((resolve) => {
-    param={
+/** * 通过id获取子集小组 *
+ * @param param *
+ * @returns {Promise}
+ */
+const getGroupChildById = (param = {}) =>{
+  return  new Promise((resolve) => {    param={
       id: param.id
     }
-
-    http.post({
-
-      url:'groups/childs',
-
-      method:'post',
-
-      data: param
-
-    }).then((res) => {
-
+    http.post({
+      url:'groups/childs',
+      method:'post',
+      data: param
+    }).then((res) => {
       resolve(res);
-    })
+    })
+  })
+};
 
-  })
-
-};
-
-
-
-/**
- * 添加小组
- *
-
+/** * 添加小组 *
   @param {*} param *
  @return axios
- */
-
-const addGroup = (param = {}) => {
-
-  return new Promise((resolve) => {
-
-    param = {
-
-      name:param.name,
-
-      subjectId:param.subjectId,
-
+ */
+const addGroup = (param = {}) => {
+  return new Promise((resolve) => {
+    param = {
+      name:param.name,
+      subjectId:param.subjectId,
       fatherId:param.fatherId,
-      userId:param.userId,
-
-      remark:param.remark
-
-    };
-
+      userId:param.userId,
+      remark:param.remark
+    };
     console.log(param)
-    http.post({
+    http.post({
+      url:'groups/add',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res)
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
 
-      url:'groups/add',
-
-      method:'post',
-
-      data:param
-
-    }).then((res) => {
-
-      resolve(res)
-
-    }).then((res) => {
-
-      resolve(res)
-
-    })
-
-  })
-
-};
-
-
-
-/**
- * 修改小组
- *
- *
- * @param {*} param
- *
- * @return axios
-
- */
-
+/** * 修改小组 * *
+ * @param {*} param *
+ * @return axios
+ */
 const updateGroup = (param = {}) => {
   return new Promise((resolve) => {
     param = {
@@ -170,32 +109,39 @@ const updateGroup = (param = {}) => {
   });
 }
 
-/**
- * 删除小组
-
- * @param {*} param
-
- * @return axios
-
- */
-
+/** * 删除小组
+ * @param {*} param
+ * @return axios
+ */
 const deleteGroup = (param = {}) => {
   return new Promise((resolve) => {
     resolve(true)
   });
 };
 
+/**
+ * 获取全部小组
+ * @param param
+ * @returns {Promise}
+ */
+const getGroupListIsAll = (param = {}) =>{
+  return new Promise((resolve) => {
+    http.get({
+      url:'group/all',
+      data:param,
+      method:'get'
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
   export default{
-  getGroup,
-
-  addGroup,
-
-  updateGroup,
-
-  deleteGroup,
-
-  getGroupChildById,
-
-  getGroupListBySubjectId ,
-
+  getGroup,
+  addGroup,
+  updateGroup,
+  deleteGroup,
+  getGroupChildById,
+  getGroupListBySubjectId,
+  getGroupListIsAll
 };

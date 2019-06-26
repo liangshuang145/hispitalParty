@@ -20,6 +20,7 @@
       <el-col>
         <el-button type="primary" icon="el-icon-plus" @click="addWorkIndicator" size="small">添加工作指标</el-button>
         <el-button type="primary" icon="el-icon-plus" @click="addWorkIndicatorParticulars" size="small">添加指标详情</el-button>
+        <el-button type="danger" icon="el-icon-delete" @click="delWorkIndicator" size="small">删除工作指标</el-button>
       </el-col>
     </el-row>
     <el-table ref="multipleTable" :data="IndicatorList"  border  highlight-current-row @current-change="handleTableChange" height="520">
@@ -29,7 +30,7 @@
     </el-table>
     <!-- 指标 -->
     <work-indicator-dialog :type="workIndicatorDialogType" :workData="workDataIsIndicator" v-model="workIndicatorDialogShow" :indicatorData="indicatorData"></work-indicator-dialog>
-    <work-indicator-particulars-dialog :type="workIndicatorParticularsType" v-model="workIndicatorParticularsShow"></work-indicator-particulars-dialog>
+    <work-indicator-particulars-dialog :type="workIndicatorParticularsType" v-model="workIndicatorParticularsShow" :fatherWorkData="fatherWorkData"></work-indicator-particulars-dialog>
   </el-dialog>
 </template>
 
@@ -39,6 +40,7 @@
       import ElRow from "element-ui/packages/row/src/row";
       import WorkIndicatorDialog from "../WorkIndicatorDialog/WorkIndicatorDialog";
       import WorkIndicatorParticularsDialog from "../WorkIndicatorParticulars/WorkIndicatorParticularsDialog";
+      import WorkService from '../../../services/WorkService'
         //  此处导入组件,格式,例如:import xxx名称 from "路径"
         export default{
             // 这里是name,记得填写
@@ -71,7 +73,8 @@
                   workDataIsIndicator:null,
                   // 指标详情
                   workIndicatorParticularsType:0,//  类型: 0-查看(默认),1-新增,2-修改
-                  workIndicatorParticularsShow:false
+                  workIndicatorParticularsShow:false,
+                  fatherWorkData:null,
 
                 }
             },
@@ -92,7 +95,30 @@
 //                    this.$message.error('操作错误,请先选择数据');
 //                    return
 //                  }
+                this.fatherWorkData = this.workData;
                 this.workIndicatorParticularsShow = true
+              },
+              // 删除工作指标
+              delWorkIndicator(){
+                if(!this.tableCheckedData){
+                  this.$message.error('操作错误,请先选择数据');
+                  return
+                }
+                this.$confirm('此操作将永久删除该工作指标, 是否继续?', '提示', {
+                  confirmButtonText: '确定',
+                  cancelButtonText: '取消',
+                  type: 'warning'
+                }).then(() => {
+                  WorkService.delWorkIndicator({id:this.tableCheckedData.id}).then((res) => {
+                    if(res.code === 200){
+                      this.$message.success('删除成功')
+                    }else {
+                      this.$message.error(res.message)
+                    }
+                  });
+                }).catch(() => {
+                  this.$message.info('已取消')
+                })
               },
               // 表单数据选中
               handleTableChange(data){
@@ -108,6 +134,7 @@
             // 侦听器
             watch: {
               workData(data){
+                  console.log('data',data);
                   this.workName = data.name;
                   this.workTypeName = data.typeName;
               },

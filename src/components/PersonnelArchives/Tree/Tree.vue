@@ -45,7 +45,7 @@
       ])
     },
     mounted() {
-      this.getUserGroupList()
+//      this.getUserGroupList()
     },
     methods: {
       ...mapActions([

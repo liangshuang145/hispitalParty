@@ -23,7 +23,6 @@ export const option_people = {
       data:[
         {value:335, name:'男生'},
         {value:310, name:'女生'},
-
       ],
       itemStyle: {
         emphasis: {

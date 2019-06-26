@@ -63,7 +63,7 @@
       ]),
       selectUserByName(){
           if (this.search){
-            this.getUserListByName({key:'name',value:this.search,page:1,size:20})
+            this.getUserListByName({key:'name',value:this.search,page:0,size:20})
           }
       },
       // 选择机构

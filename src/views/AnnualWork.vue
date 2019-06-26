@@ -2,10 +2,10 @@
 <template>
   <el-main name="Standardinspection">
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item to="/">首页</el-breadcrumb-item>
-      <el-breadcrumb-item to="/Index">工作管理</el-breadcrumb-item>
-      <el-breadcrumb-item to="/Index">中心工作</el-breadcrumb-item>
-      <el-breadcrumb-item to="/Index/Standardinspection">{{ pageTitle }}</el-breadcrumb-item>
+      <el-breadcrumb-item >首页</el-breadcrumb-item>
+      <el-breadcrumb-item >工作管理</el-breadcrumb-item>
+      <el-breadcrumb-item >中心工作</el-breadcrumb-item>
+      <el-breadcrumb-item >{{ pageTitle }}</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="content-panel">
       <el-row>

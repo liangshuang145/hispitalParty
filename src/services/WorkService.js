@@ -22,7 +22,6 @@ const addWork = (param = {}) => {
       departId: param.departId,
       groupId: param.groupId
     };
-    console.log(param)
     http.post({
       url:'work/add',
       method:'post',
@@ -32,6 +31,24 @@ const addWork = (param = {}) => {
     })
   })
 };
+
+/**
+ * 删除工作
+ * @param param
+ * @returns {Promise}
+ */
+const delWork = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'work/del',
+      method: 'post',
+      data: param
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
+
 
 /**
  * 查看工作
@@ -107,10 +124,60 @@ const addWorkIndication = (param = {}) => {
   })
 };
 
+/**
+ * 删除工作指标
+ * @param param
+ * @returns {Promise}
+ */
+const delWorkIndicator = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'work/delIndicator',
+      method: 'post',
+      data: param
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
+
+/**
+ *  添加工作指标详情
+ * @param param
+ * @returns {Promise}
+ */
+const addWorkIndicationParticulars = (param = {}) => {
+  return new Promise((resolve) =>{
+    param = {
+      year:param.year,
+      month:param.month,
+      completion:param.completion,
+      intro:param.intro,
+      indicatorId:param.indicatorId,
+      departId:param.departId,
+      groupId:param.groupId,
+      userId:param.userId,
+      fileIds:param.fileIds,
+      imageIds:param.imageIds,
+    };
+    console.log('添加工作指标详情',param);
+    http.post({
+      url:'work/addIndicatorInfo',
+      method:'post',
+      data:param,
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
+
 export default {
   addWork,
+  delWork,
   getWorkList,
   getWork,
   getWorkIndicatorList,
-  addWorkIndication
+  addWorkIndication,
+  delWorkIndicator,
+  addWorkIndicationParticulars
 }

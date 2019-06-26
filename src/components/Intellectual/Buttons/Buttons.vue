@@ -16,8 +16,9 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   import userDialog from '../UserDialog/UserDialog.vue'
-  import userService from '../../../services/UserService.js'
+  import UserInfoService from '../../../services/UserInfoService'
   import ElCol from "element-ui/packages/col/src/col";
   import Search from '../Search/Search.vue'
 
@@ -32,18 +33,17 @@
               userData:{}
             }
         },
-        // 页面初始化(生命周期)
-        created(){
-        },
         // 页面方法
         methods: {
+          ...mapActions([
+            'getUserInfoGzqtList'
+          ]),
             // 查看
           look(){
             if(!this.tableData){
               this.$message.error('操作错误,请先选择数据');
               return
             }
-            console.log('查看');
             this.dialogType = 0;
             this.isUserDialogShow = true;
             this.userData = this.tableData
@@ -77,7 +77,14 @@
               cancelButtonText: '取消',
               type: 'warning'
             }).then(() => {
-              this.$message.success('已删除')
+              UserInfoService.delUserInfoGzqt({id:this.tableData.id}).then((res) => {
+                if(res.code === 200){
+                  this.$message.success('删除'+res.message);
+                  this.getUserInfoGzqtList()
+                }else{
+                  this.$message.error(res.message)
+                }
+              });
             }).catch(() => {
               this.$message.info('已取消')
             })

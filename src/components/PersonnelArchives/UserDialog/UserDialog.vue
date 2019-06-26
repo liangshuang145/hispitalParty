@@ -1,4 +1,4 @@
-<template>
+`<template>
   <el-dialog :value="value" name="UserDialog" :visible="isShow" :before-close="handleClose" :title="title" width="1500px" top="5vh" center >
     <el-form ref="form" :model="form" :rules="rule" label-width="90px" label-position="right">
       <el-row>
@@ -324,80 +324,6 @@
           <el-form-item label=" 家庭地址" prop="houseAddress ">
             <el-input v-model="form.houseAddress " size="medium" :maxlength="100" auto-complete="new-account" placeholder="请输入家庭地址 " show-word-limit/>
           </el-form-item>
-        </el-col>
-      </el-row>
-      <!-- 人事信息 -->
-      <el-row>
-        <el-col :span="24">
-          <div class="grid-content bg-purple-light form-title">教育经历
-            <span style="float: right">
-              <el-button type="success " icon="el-icon-add" @click="addEducationExperience" size="mini">添加教育经历</el-button>
-            </span>
-          </div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="24">
-          <el-table :data="form.educationExperience " style="width: 100%">
-            <el-table-column prop="startDate" label="开始日期">
-              <template slot-scope="scope">
-                <el-date-picker
-                  v-model="scope.row.startDate" type="date" placeholder="开始日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd" class="i-el-date-picker">
-                </el-date-picker>
-              </template>
-            </el-table-column>
-            <el-table-column prop="graduationDate " label="毕业日期" >
-              <template slot-scope="scope">
-                <el-date-picker
-                  v-model="scope.row.graduationDate" type="date" placeholder="毕业日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd" class="i-el-date-picker">
-                </el-date-picker>
-              </template>
-            </el-table-column>
-            <el-table-column prop="schoolOfGraduation " label="毕业学校">
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.schoolOfGraduation " size="medium" :maxlength="50" auto-complete="new-account" placeholder="请输入毕业学校" />
-              </template>
-            </el-table-column>
-            <el-table-column prop="major" label="所学专业">
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.major " size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入所学专业" />
-              </template>
-            </el-table-column>
-            <el-table-column prop="educationCategory" label="教育类别">
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.educationCategory " size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入教育类别" />
-              </template>
-            </el-table-column>
-            <el-table-column prop="educationBackground " label="学历">
-              <template slot-scope="scope">
-                <el-select v-model="scope.row.educationBackground" placeholder="请选择学历">
-                  <el-option v-for="item in educationBackgroundOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                </el-select>
-              </template>
-            </el-table-column>
-            <el-table-column prop="degree" label="学位">
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.degree " size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入学位" />
-              </template>
-            </el-table-column>
-            <el-table-column prop="degreeDate" label="学位时间">
-              <template slot-scope="scope">
-                <el-date-picker
-                  v-model="scope.row.degreeDate" type="date" placeholder="选择学位时间" format="yyyy-MM-dd" value-format="yyyy-MM-dd"  class="i-el-date-picker">
-                </el-date-picker>
-              </template>
-            </el-table-column>
-            <el-table-column prop="lengthOfSchooling" label="学制(年)">
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.lengthOfSchooling " size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入学制(年) "  type="number"/>
-              </template>
-            </el-table-column>
-            <el-table-column prop="certifier" label="证明人">
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.certifier " size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入证明人 "  />
-              </template>
-            </el-table-column>
-          </el-table>
         </el-col>
       </el-row>
     </el-form>
