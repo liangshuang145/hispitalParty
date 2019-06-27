@@ -111,8 +111,9 @@ const delUserInfo = (param = {}) => {
  */
 const getUserInfoEductionList = (param = {}) => {
   return new Promise((resolve) => {
+    console.log(param);
     http.post({
-      url:'',
+      url:'userInfo/findEducationWork',
       data:param
     }).then((res) => {
       resolve(res.data)
@@ -168,7 +169,7 @@ const delUserInfoEducation = (param = {}) => {
 const getUserInfoWorkList = (param = {}) => {
   return new Promise((resolve) => {
     http.post({
-      url:'',
+      url:'userInfo/findWork',
       data:param
     }).then((res) => {
       resolve(res.data)

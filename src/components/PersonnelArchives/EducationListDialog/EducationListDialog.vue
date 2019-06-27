@@ -145,7 +145,7 @@
           },
           // 用户数据
           userInfoData(val){
-              this.getUserInfoEductionList({id:val.userinfoid})
+              this.getUserInfoEductionList({id:val.id})
           }
         },
         // 依赖注入
