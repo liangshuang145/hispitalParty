@@ -1,61 +1,22 @@
 <template>
   <el-dialog :value="value" name="UserDialog" :visible="isShow" :before-close="handleClose" :title="title" width="750px" center>
     <el-form ref="form" :model="form" :rules="rule" label-width="100px" label-position="right">
-      <tr>
-        <td><el-form-item label="编号" prop="account">
-            <el-input v-model="form.account" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入编号"/>
-          </el-form-item></td>
-        <td><el-form-item label="姓名" prop="nickname">
-          <el-input v-model="form.nickname" size="medium" :maxlength="30" placeholder="请输入姓名"/>
-        </el-form-item></td>
-      </tr>
-      <tr>
-        <td><el-form-item label="性别" prop="gender">
-          <el-radio v-model="form.gender" :label="0">女</el-radio>
-          <el-radio v-model="form.gender" :label="1">男</el-radio>
-          <el-radio v-model="form.gender" :label="-1">未知</el-radio>
-        </el-form-item></td>
-        <td><el-form-item label="是否党员" prop="gender">
-          <el-radio v-model="form.gender" :label="0">是</el-radio>
-          <el-radio v-model="form.gender" :label="1">否</el-radio>
-        </el-form-item></td>
-      </tr>
-      <tr>
-        <td><el-form-item  label="职位" prop="password">
-          <el-input  v-model="form.password" size="medium" :maxlength="30"  placeholder="请输入职位"/>
-        </el-form-item></td>
-        <td><el-form-item  label="身份证号" prop="password">
-          <el-input  v-model="form.password" size="medium" :maxlength="30"  placeholder="请输入身份证号" type="number"/>
-        </el-form-item></td>
-      </tr>
-      <tr>
-        <td><el-form-item label="工作时间" prop="gender">
-          <el-date-picker
-            v-model="form.dateOfBirth" type="date" placeholder="选择工作时间" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
-          </el-date-picker>
-          </el-form-item></td>
-        <td><el-form-item label="微信" prop="weChat ">
-          <el-input v-model="form.weChat" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入微信号"/>
-        </el-form-item></td>
-      </tr>
-      <tr>
-        <td><el-form-item label="手机" prop="weChat ">
-          <el-input v-model="form.mobilePhone" size="medium" :maxlength="11" auto-complete="new-account" placeholder="请输入手机号" type="number"/>
-        </el-form-item></td>
-        <td><el-form-item label="邮箱" prop="email">
-          <el-input v-model="form.email" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入邮箱" />
-        </el-form-item></td>
-      </tr>
-      <tr>
-        <td colspan="2"><el-form-item label="家庭住址" prop="description">
-            <el-input type="textarea" v-model="form.address" :rows="2" :maxlength="100" placeholder="请输入家庭住址" show-word-limit/>
-          </el-form-item></td>
-      </tr>
-      <tr>
-        <td colspan="2"><el-form-item label="内容" prop="description">
-            <el-input type="textarea" v-model="form.description" :rows="5" :maxlength="255" placeholder="请输入一句话的承诺" show-word-limit/>
-          </el-form-item></td>
-      </tr>
+      <el-form-item label="选择用户" prop="userInfoId">
+        <el-select v-model="form.userInfoId" size="medium" filterable placeholder="请选择用户" @change="selectGroup">
+          <el-option v-for="item in userInfoList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="时间" prop="time">
+        <el-date-picker v-model="form.time" type="date" placeholder="选择时间" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd"></el-date-picker>
+      </el-form-item>
+      <el-form-item label="党派类型" prop="democraticparties">
+        <el-select v-model="form.democraticparties" filterable size="medium" placeholder="请选择党派类型">
+          <el-option v-for="item in democraticpartiesArr" :key="item.value" :label="item.name" :value="item.value"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="职位" prop="partyPost">
+        <el-input v-model="form.partyPost" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入职位"></el-input>
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button v-if="type == 0" size="medium" width="long" @click="cancelClick">关 闭</el-button>
@@ -70,7 +31,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import Validator from '@/lib/validator'
-import UserService from '@/services/UserService'
+import UserInfoService from '@/services/UserInfoService'
 import ElFormItem from "../../../../node_modules/element-ui/packages/form/src/form-item";
 
 export default {
@@ -91,6 +52,14 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  computed: {
+    ...mapState([
+      'userInfoList'
+    ])
+  },
+  mounted() {
+    this.getUserInfoList()
   },
   watch: {
     type(val) {
@@ -119,27 +88,7 @@ export default {
     },
     userData(data) {
       this.form.id = data.id;
-      this.form.account = data.account;
-      this.form.nickname = data.nickname;
-      this.form.gender = data.gender;
-      this.form.type = data.type;
-      this.form.subject = data.subject;
-      this.form.depart = data.depart;
-      this.form.group = data.group;
-      this.form.description = data.description;
-      this.form.nation = data.nation;
-      this.form.nativePlace = data.nativePlace;
-      this.form.dateOfBirth = data.dateOfBirth;
-      this.form.education = data.education;
-      this.form.mobilePhone = data.mobilePhone;
-      this.form.telephone = data.telephone;
-      this.form.weChat = data.weChat;
-      this.form.email = data.email;
-      this.form.address = data.address;
-      this.from.idCard = data.idCard;
-      this.form.number = data.number;
-      this.form.administrative = data.administrative;
-      this.form.politicsStatus = data.politicsStatus;
+      this.form.democraticpartiesArr = data.democraticpartiesArr;
     }
   },
   data() {
@@ -147,28 +96,8 @@ export default {
       isShow: false,
       title:'',
       form: {
-        imageUrl:'',
-        id: '',
-        account: '',
-        password: '',
-        nickname: '',
-        gender: -1,
-        type: 2,
-        subject: '',
-        depart: '',
-        group: '',
-        description: '',
-        nation:'',
-        nativePlace:'',
-        dateOfBirth:'',
-        education:'',
-        mobilePhone:'',
-        telephone:'',
-        weChat:'',
-        email:'',
-        address:'',
-        administrative:'',
-        politicsStatus:''
+        userInfoId:'',
+        democraticparties:''
       },
       rule: {
         name: [{
@@ -176,26 +105,21 @@ export default {
           trigger: 'blur'
         }]
       },
+      democraticpartiesArr:[
+        {value:0,name:'中国国民党革命委员会'},
+        {value:1,name:'中国民主同盟'},
+        {value:2,name:'中国民主建国会'},
+        {value:3,name:'中国民主促进会'},
+        {value:4,name:'中国农工民主党'},
+        {value:5,name:'中国致公党'},
+        {value:6,name:'九三学社'},
+        {value:7,name:'太晚民主自治同盟'},
+      ]
     }
   },
-  computed: {
-//    ...mapState([
-//      'subjectList',
-//      'departList',
-//      'groupList'
-//    ]),
-  },
-//  async mounted() {
-//    await this.getSubjectList()
-//    await this.getDepartList()
-//    await this.getGroupList()
-//  },
   methods: {
     ...mapActions([
-      'getSubjectList',
-      'getDepartList',
-      'getGroupList',
-      'getUserList'
+      'getUserInfoList',
     ]),
     selectSubject(val) {
       this.form.subject = val

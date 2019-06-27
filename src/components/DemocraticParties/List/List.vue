@@ -1,7 +1,8 @@
 <template>
   <div name="List" class="list-panel">
     <el-table ref="multipleTable" :data="userInfoMzdpList"   highlight-current-row @current-change="handleTableChange" height="520" width="100%">
-      <el-table-column prop="name" label="姓名" width="180"/>
+      <el-table-column  prop="name" label="姓名" width="180">
+      </el-table-column>
       <el-table-column prop="sex" label="性别" width="180"/>
       <el-table-column prop="department" label="科室"/>
       <el-table-column prop="number" label="工号" />
