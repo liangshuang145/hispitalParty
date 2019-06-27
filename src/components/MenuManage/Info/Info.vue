@@ -72,7 +72,7 @@
     ],
     data() {
       return {
-
+          //写死的部落与组织等级为2
           bumenzuzhi:[
             {
               createdDate: "20190621085030",
@@ -101,6 +101,7 @@
           label: '组织',
           children:[]
         }],
+        //暂存树数据的集合
         childrenList:[],
         defaultProps: {
           children: 'child',
@@ -158,7 +159,7 @@
     },
     mounted() {
       this.getUserGroupList();
-      this.getSubjectList();
+      this.getSubjectList()
     },
     computed: {
       ...mapState([

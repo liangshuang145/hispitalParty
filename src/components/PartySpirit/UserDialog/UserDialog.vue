@@ -1,19 +1,36 @@
 <template>
   <el-dialog :value="value" name="UserDialog" :visible="isShow" :before-close="handleClose" :title="title" width="900px" center>
-    <el-form ref="form" :model="form" :rules="rule" label-width="150px" label-position="right">
+    <el-form ref="form" :model="form" :rules="rule" label-width="110px" label-position="right">
       <tr>
         <td><el-form-item label="标题" prop="nation ">
             <el-input v-model="form.nation" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入民族"/>
           </el-form-item></td>
-        <td><el-form-item label="出生日期" prop="dateOfBirth ">
+        <td><el-form-item label="发布日期" prop="dateOfBirth ">
           <el-date-picker
             v-model="form.dateOfBirth" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
           </el-date-picker>
         </el-form-item></td>
       </tr>
+      <!--<template v-for="(item,index) in form.peopletypes">-->
       <tr>
-        <td><el-form-item label="人员名称" prop="peopletype">
-          <el-select v-model="form.peopletype" placeholder="请选择类型">
+        <td><el-form-item label="审核人" prop="peopletype">
+          <el-select v-model="form.name" @change="changegive" filterable placeholder="请选择人员" filterable>
+            <el-option
+              v-for="item1 in spirituserList"
+              :key="item1.value"
+              :label="item1.name"
+              :value="item1.id">
+            </el-option>
+          </el-select>
+        </el-form-item></td>
+        <td><el-form-item label="所属组织/部门" prop="deption ">
+          <el-input v-model="form.deption" size="medium" :maxlength="30" auto-complete="new-account" disabled placeholder=""/>
+        </el-form-item></td>
+      </tr>
+      <!--</template>-->
+      <tr>
+        <td><el-form-item label="类型" prop="peopletype">
+          <el-select v-model="form.type" filterable placeholder="请选择类型">
             <el-option
               v-for="item in optionss"
               :key="item.value"
@@ -22,20 +39,22 @@
             </el-option>
           </el-select>
         </el-form-item></td>
-        <td><el-form-item label="所属组织/部门" prop="number ">
-          <el-input v-model="form.number" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入行政编号"/>
+        <td><el-form-item label="状态" prop="peopletype">
+          <el-select v-model="form.type" filterable placeholder="请选择状态">
+            <el-option
+              v-for="item in optionss"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item></td>
       </tr>
 
       <tr>
-        <td colspan="2"><el-form-item label="家庭住址" prop="description">
-            <el-input type="textarea" v-model="form.address" :rows="2" :maxlength="100" placeholder="请输入家庭住址" show-word-limit/>
-          </el-form-item></td>
-      </tr>
-      <tr>
-        <td colspan="2"><el-form-item label="一句话的承诺" prop="description">
-            <el-input type="textarea" v-model="form.description" :rows="5" :maxlength="255" placeholder="请输入一句话的承诺" show-word-limit/>
-          </el-form-item></td>
+        <td colspan="2">
+          <UEditor :config=ueConfig ref="addUeditor" id="addUeditor"></UEditor>
+        </td>
       </tr>
 
     </el-form>
@@ -54,9 +73,12 @@ import { mapState, mapActions } from 'vuex'
 import Validator from '@/lib/validator'
 import UserService from '@/services/UserService'
 import ElFormItem from "../../../../node_modules/element-ui/packages/form/src/form-item";
+import UEditor from '../NavUeditor/NavUeditor.vue'
+import SpiriService from '@/services/SpiritService'
 
 export default {
-  components: {ElFormItem},
+  components: {ElFormItem,
+    UEditor},
   name: 'UserDialog',
   props: {
     userData: { // 用户数据
@@ -75,6 +97,7 @@ export default {
     }
   },
   watch: {
+
     type(val) {
       let title = '';
       if(!val){
@@ -82,7 +105,7 @@ export default {
       }
       switch (val) {
         case 1:
-          title = '新增用户';
+          title = '新增文章';
           break;
         case 2:
           title = '修改用户';
@@ -127,11 +150,37 @@ export default {
       this.form.dateOfgo = data.dateOfgo;
       this.form.dataofshor = data.dataofshor;
       this.form.dangdate = data.dangdate;
-
     }
   },
   data() {
     return {
+      //              富文本编辑器相关
+      ueConfig: {
+        // 可以在此处定义工具栏的内容
+        toolbars: [[
+          'fullscreen',  '|', 'undo', 'redo', '|',
+          'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+          'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+          'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+          'directionalityltr', 'directionalityrtl', 'indent', '|',
+          'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+          'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+          'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'insertframe', 'pagebreak', 'template', 'background', '|',
+          'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
+          'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+          'print', 'preview', 'searchreplace', 'help', 'drafts'
+        ]],
+        zIndex:3000,
+        elementPathEnabled : false,// 隐藏下方的元素路径
+        autoHeightEnabled: false,
+        autoFloatEnabled: true,
+        initialContent:'请输入内容',   //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+        autoClearinitialContent:true, //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
+        initialFrameWidth: null,
+        initialFrameHeight: 300,
+        BaseUrl: '',
+        UEDITOR_HOME_URL: 'static/ueditor/'
+      },
       isShow: false,
       title:'新增文章',
       form: {
@@ -141,7 +190,7 @@ export default {
         password: '',
         nickname: '',
         gender: -1,
-        type: 2,
+        type: 1,
         subject: '',
         depart: '',
         group: '',
@@ -162,6 +211,11 @@ export default {
         dateOfgo:'',
         dataofshor:'',
         dangdate:'',
+        //接收的用户
+        peopletypes:[{}],
+        spirituserList:[],
+        //部门
+        deption:'',
       },
       rule: {
         name: [{
@@ -193,24 +247,39 @@ export default {
     }
   },
   computed: {
-//    ...mapState([
+   ...mapState([
 //      'subjectList',
 //      'departList',
-//      'groupList'
-//    ]),
+//      'groupList',
+      'spirituserList'
+    ]),
   },
 //  async mounted() {
 //    await this.getSubjectList()
 //    await this.getDepartList()
 //    await this.getGroupList()
 //  },
+  mounted() {
+    this.getSpiritUsers()
+//    this.spirituserList()
+  },
   methods: {
     ...mapActions([
-      'getSubjectList',
-      'getDepartList',
-      'getGroupList',
-      'getUserList'
+//      'getSubjectList',
+//      'getDepartList',
+//      'getGroupList',
+//      'getUserList',
+      'getSpiritUsers'
     ]),
+    changegive(old){
+      SpiriService.getSpirituserSubject({id:old}).then((res) => {
+        if(res.code === 200){
+           this.form.deption=res.data;
+        }else{
+          this.$message.error(res.message);
+        }
+      })
+    },
     selectSubject(val) {
       this.form.subject = val
     },
@@ -257,7 +326,8 @@ export default {
     handleAvatarSuccess(res, file) {
       this.form.imageUrl = URL.createObjectURL(file.raw);
     },
-  }
+  },
+
 }
 </script>
 

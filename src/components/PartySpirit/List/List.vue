@@ -1,12 +1,12 @@
 <template>
   <div name="List" class="list-panel">
     <!--<buttons></buttons>-->
-    <el-table ref="multipleTable" :data="spiritList"   highlight-current-row @current-change="handleTableChange" height="590">
+    <el-table ref="multipleTable" :data="myself"   highlight-current-row @current-change="handleTableChange" height="590">
       <el-table-column prop="nickname" label="发起支部" />
       <el-table-column prop="gender" label="标题" />
       <el-table-column prop="status" label="发布时间" />
-      <el-table-column prop="status" label="发布者" />
-      <el-table-column prop="status" label="类别" />
+      <el-table-column prop="status1" label="发布者" />
+      <el-table-column prop="status2" label="类别" />
       <el-table-column prop="type" label="状态" />
       <el-table-column prop="nickname" label="姓名" />
       <el-table-column prop="text010" label="科室" />
@@ -25,6 +25,19 @@ export default {
   },
   data() {
     return {
+      myself:[
+        {
+          nickname: '一支部',
+          gender:'党建获得',
+          status:'2018-12-12',
+          status1:'张三',
+          status2:'活动',
+          type:'进行中',
+          nickname:'李四',
+          text010:'101',
+          text08:'202',
+        },
+          ],
       isUserDialogShow: false,
       dialogType: 0,
       userData: {},
@@ -35,15 +48,15 @@ export default {
   },
   computed: {
     ...mapState([
-      'spiritList'
+//      'spiritList'
     ])
   },
   mounted() {
-    this.getSpiritList()
+//    this.getSpiritList()
   },
   methods: {
     ...mapActions([
-      'getSpiritList'
+//      'getSpiritList'
     ]),
     // 列表选中
     handleTableChange(val) {

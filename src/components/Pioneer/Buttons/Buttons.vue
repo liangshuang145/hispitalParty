@@ -2,14 +2,17 @@
 <template>
     <div name="buttons" class="buttons">
       <el-row>
-        <el-col :span="10">
+        <el-col :span="12">
           <!--<el-button type="primary" icon="el-icon-s-order" @click="isLook" >查看</el-button>-->
           <!--<el-button type="primary" icon="el-icon-plus" @click="isAdd" >新增</el-button>-->
           <!--<el-button type="primary" icon="el-icon-edit" @click="isModify" >修改</el-button>-->
-          <el-button type="success" icon="el-icon-folder-add" @click="ImportExcel" >导入表格</el-button>
+          <el-button type="success" icon="el-icon-folder-add" @click="ImportExcel" disabled>导入表格</el-button>
         </el-col>
-        <el-col :span="14">
-          <!--<search/>-->
+        <el-col :span="12" style="text-align: right">
+          <el-button type="primary" icon="el-icon-s-data" @click="rankingOfDay" >本日学习排行</el-button>
+          <el-button type="primary" icon="el-icon-s-data" @click="rankingOfWeek">本周学习排行</el-button>
+          <el-button type="primary" icon="el-icon-s-data" @click="rankingOfMonth">本月学习排行</el-button>
+          <el-button type="primary" icon="el-icon-s-data" @click="rankingOfYear">本年学习排行</el-button>
         </el-col>
       </el-row>
       <import-dialog v-model="isImportDialogShow"></import-dialog>
@@ -22,6 +25,8 @@
   import ElCol from "element-ui/packages/col/src/col";
   import ElRow from "element-ui/packages/row/src/row";
   import Search from "../Search/Search";
+  import Bus from '../Bus/bus'
+  import IdeologService from '../../../services/IdeologService'
 
     export default{
         name: 'buttons',
@@ -38,8 +43,28 @@
         // 页面初始化(生命周期)
         created(){
         },
+      mounted() {
+        this.getALL(1);
+      },
+
         // 页面方法
         methods: {
+          getALL(istype){
+            IdeologService.getIdeologypioneerList({type:istype}).then((res) => {
+              if(res.code === 200){
+//                this.$message.success('成功找到');
+                console.log("res.data",res.data);
+                this.tableData=res.data;
+                //拿到数据进行处理
+                for(var i=0;i<this.tableData.length;i++){
+                  this.tableData[i]['ranking']=i+1;
+                }
+                Bus.$emit('val', this.tableData);
+              }else{
+                this.$message.error(res.message)
+              }
+            });
+          },
           // 导入表格
           ImportExcel(){
               console.log('导入表格');
@@ -65,19 +90,19 @@
           },
           // 本日排行
           rankingOfDay(){
-            console.log('本日排行');
+            this.getALL(0);
           },
           // 本周排行
           rankingOfWeek(){
-              console.log('本周排行')
+            this.getALL(1);
           },
           // 本月排行
           rankingOfMonth(){
-            console.log('本月排行');
+            this.getALL(2);
           },
           // 本年排行
           rankingOfYear(){
-              console.log('本年排行')
+            this.getALL(3);
           },
         },
         // 侦听器

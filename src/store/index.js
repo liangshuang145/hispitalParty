@@ -50,6 +50,10 @@ export default new Vuex.Store({
     userInfoFdhList:[], // 妇代会
     // ----- 离职老干部 ---
     userInfoLtxlgbList:[], // 离职老干部
+    //党内用户列表
+    spirituserList:[],
+    //学习强国排名表
+    ideologycountryList:[],
   },
   mutations: {
     // 登录
@@ -147,6 +151,12 @@ export default new Vuex.Store({
     setUserInfoLtxlgbList(state, data){
       state.userInfoLtxlgbList = data
     },
+    // ----------- 获取精神用户列表 --------
+    setSpirituserList(state,data){
+      state.spirituserList = data
+    },
+
+
   },
   actions: {
     // 获取用户列表 废弃
@@ -333,5 +343,12 @@ export default new Vuex.Store({
         commit('setUserInfoLtxlgbList',res)
       })
     },
+    // -------------- 党内谨慎用户列表 ------
+  getSpiritUsers({ commit }){
+    SpiriService.getSpiritUsers().then((res) => {
+        commit('setSpirituserList',res)
+      })
+    },
+
   }
 })

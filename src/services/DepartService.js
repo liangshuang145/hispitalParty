@@ -40,7 +40,6 @@ const getDepartListBySubjectId = (params = {}) => {
       url: 'depart/list',
       data: params
     }).then((res) => {
-      console.log("res",res);
       resolve(res)
     })
   })
