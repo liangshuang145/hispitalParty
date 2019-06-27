@@ -10,7 +10,8 @@
     <div class="content-panel">
       <el-row>
         <el-col :span="4">
-          <tree @nodeDept="thisDept"/>
+          <!--<tree @nodeDept="thisDept"/>-->
+          <tree1 @nodeDept="thisDept"/>
         </el-col>
         <el-col :span="20">
           <manage :currentNode="currentNode"/>
@@ -23,6 +24,7 @@
 <script>
   import Manage from '@/components/Pioneer/Manage/Manage.vue'
   import Tree from '@/components/Pioneer/Tree/Tree.vue'
+  import Tree1 from '@/components/Pioneer/Tree1/Tree1.vue'
 
   export default{
     name: 'PartySpirit',
@@ -47,7 +49,8 @@
     watch: {},
     components: {
       Manage,
-      Tree
+      Tree,
+      Tree1
     }
   }
 </script>

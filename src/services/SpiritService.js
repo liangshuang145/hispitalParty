@@ -45,9 +45,48 @@ const getSpiritList = (param = {}) => {
   })
 };
 
+/**
+ *  获取用户列表
+ * @param param
+ * @returns {Promise}
+ */
+const getSpiritUsers = (param = {}) => {
+  return new Promise((resolve) => {
+    http.get({
+      url:'spirit/users',
+      method: 'get',
+      data: param
+    }).then((res)=> {
+      resolve(res.data);
+      console.log("res",res)
+    })
+  })
+};
 
+/**
+ *  用户所属机构
+ * @param param
+ * @returns {Promise}
+ */
+const getSpirituserSubject = (param = {}) => {
+  return new Promise((resolve) => {
+    param={
+      id: param.id,
+    };
+    http.post({
+      url:'spirit/userSubject',
+      method: 'post',
+      data: param
+    }).then((res)=> {
+      resolve(res);
+      console.log("res",res)
+    })
+  })
+};
 
 export default {
+  getSpirituserSubject,
+  getSpiritUsers,
   getPageList,
   getSpiritList,
 }

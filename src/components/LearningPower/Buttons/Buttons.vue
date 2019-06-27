@@ -3,7 +3,7 @@
     <div name="buttons" class="buttons">
       <el-row>
         <el-col :span="12">
-          <el-button type="success" icon="el-icon-delete" @click="ImportExcel" >导入表格</el-button>
+          <el-button type="success" icon="el-icon-delete" @click="ImportExcel" disabled>导入表格</el-button>
         </el-col>
         <el-col :span="12" style="text-align: right">
           <el-button type="primary" icon="el-icon-s-data" @click="rankingOfDay" >本日学习排行</el-button>
@@ -21,6 +21,8 @@
   import userService from '../../../services/UserService.js'
   import ElCol from "element-ui/packages/col/src/col";
   import ElRow from "element-ui/packages/row/src/row";
+  import IdeologService from '../../../services/IdeologService.js'
+  import Bus from '../Bus/bus'
 
     export default{
         name: 'buttons',
@@ -29,13 +31,34 @@
             return {
               isImportDialogShow:false,
               tableData:'',
+              NotableData:'',
             }
         },
         // 页面初始化(生命周期)
         created(){
         },
+      mounted() {
+          this.getALL(1);
+      },
+
         // 页面方法
         methods: {
+            getALL(istype){
+              IdeologService.getIdeologycountryList({type:istype}).then((res) => {
+                if(res.code === 200){
+//                  this.$message.success('成功找到');
+                  console.log("res.data",res.data);
+                this.tableData=res.data;
+                //拿到数据进行处理
+              for(var i=0;i<this.tableData.length;i++){
+                  this.tableData[i]['ranking']=i+1;
+              }
+                  Bus.$emit('val', this.tableData);
+                }else{
+                  this.$message.error(res.message)
+                }
+              });
+            },
           // 导入表格
           ImportExcel(){
               console.log('导入表格')
@@ -43,19 +66,19 @@
           },
           // 本日排行
           rankingOfDay(){
-            console.log('本日排行');
+            this.getALL(0);
           },
           // 本周排行
           rankingOfWeek(){
-              console.log('本周排行')
+            this.getALL(1);
           },
           // 本月排行
           rankingOfMonth(){
-            console.log('本月排行');
+            this.getALL(2);
           },
           // 本年排行
           rankingOfYear(){
-              console.log('本年排行')
+            this.getALL(3);
           },
         },
         // 侦听器

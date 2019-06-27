@@ -473,7 +473,7 @@ export default {
 
   // ------- 高知群体 ----
   getUserInfoGzqtList,// 列表
-  delUserInfoGzqt,// 删除
+  delUserInfoGzqt,// 删除1
 
   // -------- 工会 ------
   getUserInfoGhList,// 列表

@@ -436,10 +436,10 @@
       submitForm() {
         this.jsonlook.userGroupIds =[],
           this.$refs['form'].validate((valid) => {
-            if (!valid) {
-              this.$message.error('请检查字段')
-              return
-            }
+              if (!valid) {
+                this.$message.error('请检查字段')
+                return
+              }
 //          console.log("测试data",this.$refs.tree1.getCurrentNode());
             console.log("左边的树",this.$refs.tree1.getCheckedNodes());
 //          console.log("左边的树半节点",this.$refs.tree1.getHalfCheckedNodes());
