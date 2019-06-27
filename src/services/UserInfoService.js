@@ -22,6 +22,72 @@ const getUserInfoList = (param = {}) => {
 };
 
 /**
+ * 用户条件模糊查询 列表 姓名 工号 科室
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoListByNameOrNumberOrOffice = (param = {}) => {
+  return new Promise((resolve) => {
+    let params = {};
+    if (param.name){
+      params['name'] = param.name
+    }else if(param.department){
+      params['department'] = param.department
+    }else if(param.number){
+      params['number'] = param.number
+    }
+    http.post({
+      url:'userInfo/findByLike',
+      data: params,
+      method: 'post',
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 通过id获取用户详情信息
+ * @param param
+ * @returns {Promise}
+ */
+const getUserInfo = (param = {}) => {
+  return new Promise((resolve) => {
+    http. post({
+      url:'userInfo/findId',
+      data:param,
+      method:'post'
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
+
+/**
+ * 添加用户人事信息
+ * @param param
+ * @returns {Promise}
+ */
+const addUserInfo = (param ={}) => {
+  return new Promise((resolve) => {
+    param = {
+        userInfo:param.userInfo,
+        userInfoPersonnel:param.userInfoPersonnel,
+    };
+    http.post({
+      url:'userInfo/add',
+      data:param,
+      method: 'post',
+      headers:{
+        'Content-Type':'application/json;charset=UTF-8'
+      }
+    }).then((res) =>{
+      resolve(res)
+    })
+  })
+};
+
+/**
  * 删除人事档案信息
  * @param param
  * @returns {Promise}
@@ -37,6 +103,143 @@ const delUserInfo = (param = {}) => {
     })
   })
 };
+
+/**
+ * 获得用户教育经历
+ * @param param
+ * @returns {Promise}
+ */
+const getUserInfoEductionList = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 添加用户教育经历
+ * @param param
+ * @returns {Promise}
+ */
+const addUserInfoIsEducation = (param = {}) => {
+  return new Promise((resolve) => {
+    param = {
+      userInfoEducationWork:param
+    };
+    http.post({
+      url:'userInfo/add_education_work',
+      data:param,
+      method:'post',
+      headers:{
+        'Content-Type':'application/json;charset=UTF-8'
+      }
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
+
+/**
+ * 删除用户教育经历
+ * @param param
+ * @returns {Promise}
+ */
+const delUserInfoEducation = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      data:param,
+      method:'post'
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
+
+/**
+ * 获得用户工作经历
+ * @param param
+ * @returns {Promise}
+ */
+const getUserInfoWorkList = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 添加用户工作经历
+ * @param param
+ * @returns {Promise}
+ */
+const addUserInfoIsWork = (param = {}) => {
+  return new Promise((resolve) => {
+    param = {
+      UserInfoWork:param
+    };
+    http.post({
+      url:'userInfo/add_work',
+      data:param,
+      method:'post',
+      headers:{
+        'Content-Type':'application/json;charset=UTF-8'
+      }
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
+
+/**
+ * 删除用户工作经历
+ * @param param
+ * @returns {Promise}
+ */
+const delUserInfoWork = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      data:param,
+      method:'post'
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
+
+/**
+ * 添加用户合同记录
+ * @param param
+ * @returns {Promise}
+ */
+const addUserInfoIsContract = (param = {}) => {
+  return new Promise((resolve) => {
+    param = {
+      UserInfoContract:param
+    };
+    http.post({
+      url:'userInfo/add_contract',
+      data:param,
+      method:'post',
+      headers:{
+        'Content-Type':'application/json;charset=UTF-8'
+      }
+    }).then((res) => {
+      resolve(res)
+    })
+  })
+};
+
+
 
 // ----------------------------------民主党派----------------------
 /**
@@ -252,6 +455,16 @@ export default {
   // -------- 人事档案---
   getUserInfoList,// 获得人事档案列表信息
   delUserInfo,// 删除用户人事信息
+  addUserInfo,// 添加用户人事信息
+  addUserInfoIsEducation,// 添加用户教育经历
+  getUserInfoEductionList,// 获得用户教育经历
+  delUserInfoEducation,// 删除用户教育经历
+  getUserInfoWorkList,// 获取用户工作经历
+  delUserInfoWork,// 删除用户工作经历
+  addUserInfoIsWork,// 添加用户工作经历
+  addUserInfoIsContract,// 添加用户合同记录
+  selectUserInfoListByNameOrNumberOrOffice,//用户条件查询 列表 姓名 编号 科室
+  getUserInfo,// 获取用户详情信息
 
   // ------- 民主党派 ----
   getUserInfoMzdpList,// 列表

@@ -81,7 +81,7 @@ export default {
             {'name': '组织人事', 'icon': 'el-icon-location', 'index': '2-1', 'child': [
               {'name': '人事档案', 'icon': 'el-icon-location', 'index': '/Index/PersonnelArchives'},
               {'name': '党员档案', 'icon': 'el-icon-location', 'index': '/Index/MemberArchives'},
-              {'name': '建党对象', 'icon': 'el-icon-location', 'index': '/Index/MemberBuilding'},
+//              {'name': '建党对象', 'icon': 'el-icon-location', 'index': '/Index/MemberBuilding'},
               {'name': '党员发展', 'icon': 'el-icon-location', 'index': '/Index/MemberDevelopment'},
               ]
             },

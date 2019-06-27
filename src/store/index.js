@@ -38,6 +38,8 @@ export default new Vuex.Store({
     spiritList: [],//党内精神列表
     // ----- 人事档案 -----
     userInfoList:[],// 用户信息列表
+    userInfoEductionList:[],// 用户教育经历列表
+    userInfoWorkList:[],// 用户工作经历列表
     // ----- 民主党派 ----
     userInfoMzdpList: [],// 民主党派
     // ----- 高知群体 ---
@@ -122,6 +124,14 @@ export default new Vuex.Store({
     // 用户信息列表
     setUserInfoList(state, data){
       state.userInfoList = data
+    },
+    // 用户教育经历列表
+    setUserInfoEductionList(state, data){
+      state.userInfoEductionList = data
+    },
+    // 用户工作经历列表
+    setUserInfoWorkList(state, data){
+      state.userInfoWorkList = data
     },
     // ----------- 民主党派 -------------
     setUserInfoMzdpList(state, data){
@@ -295,6 +305,24 @@ export default new Vuex.Store({
     getUserInfoList({ commit }){
       UserInfoService.getUserInfoList().then((res) => {
         commit('setUserInfoList',res)
+      })
+    },
+    // 用户条件查询 列表 姓名 工号 科室
+    selectUserInfoListByNameOrNumberOrOffice({ commit },param){
+      UserInfoService.selectUserInfoListByNameOrNumberOrOffice(param).then((res) =>{
+        commit('setUserInfoList',res)
+      })
+    },
+    // 获取用户教育经历列表
+    getUserInfoEductionList({ commit },param){
+      UserInfoService.getUserInfoEductionList(param).then((res) => {
+        commit('setUserInfoEductionList',res)
+      })
+    },
+    // 获取用户工作经历列表
+    getUserInfoWorkList({ commit },param){
+      UserInfoService.getUserInfoWorkList(param).then((res) => {
+        commit('setUserInfoWorkList',res)
       })
     },
     // ---------------民主党派---------

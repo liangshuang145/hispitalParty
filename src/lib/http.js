@@ -12,7 +12,7 @@ const http = axios.create({
   // axios的header默认的Content-Type好像是'application/json;charset=UTF-8'
   // 我的项目都是用json格式传输，如果需要更改的话，可以用这种方式修改
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
   }
   // withCredentials: true // 允许携带cookie
 })
@@ -49,12 +49,22 @@ http.interceptors.request.use((option) => {
   // ) {
   //   option.headers.Authorization = Cookies.get('GroukAuth')
   // }
-
+  if (option.url.headers) {
+    option.headers = {
+      Accept: "application/json, text/plain, */*",
+      'Content-Type': 'application/json;charset=UTF-8',
+    };
+    let data = option.url.data;
+    option.data = data;
+    option.url = reqUrl;
+  }else{
+    let data = option.url.data;
+    data = Object.keys(data).map(item => `${item}=${encodeURI(data[item])}`).join('&');
+    option.data = data;
+    option.url = reqUrl;
+  }
   // let data = option.data;
-  let data = option.url.data;
-  data = Object.keys(data).map(item => `${item}=${encodeURI(data[item])}`).join('&');
-  option.data = data;
-  option.url = reqUrl;
+
   console.log(`${option.url} == request ==> `, option);
   //
   return option

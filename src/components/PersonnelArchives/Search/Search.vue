@@ -3,12 +3,7 @@
     <div class="change-search">
       <div class="radio-div">
         <el-radio-group v-model="radio" class="radio-group">
-          <el-radio
-            v-for="item in radioGroupArr"
-            :key="item.label"
-            :label="item.label"
-            class="bind-button"
-          >{{item.name}}</el-radio>
+          <el-radio v-for="item in radioGroupArr" :key="item.label" :label="item.label" class="bind-button">{{item.name}}</el-radio>
         </el-radio-group>
       </div>
       <div>
@@ -22,7 +17,7 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
-  import UserService from '../../../services/UserService'
+  import UserInfoService from '../../../services/UserInfoService'
 
   export default {
     name: 'search',
@@ -58,16 +53,21 @@
       }
     },
     methods: {
+        ...mapActions([
+          'selectUserInfoListByNameOrNumberOrOffice',
+        ]),
       // 搜索
       selectSearch(){
         switch (this.radio){
-          case 1:
-            // 根据姓名搜索
+          case 1: //根据姓名搜索
+            this.selectUserInfoListByNameOrNumberOrOffice({name:this.search,department:'',number:''});
             break;
           case 2:
+            this.selectUserInfoListByNameOrNumberOrOffice({department:this.search,name:'',number:''});
             // 根据科室搜索
             break;
           case 3:
+            this.selectUserInfoListByNameOrNumberOrOffice({number:this.search,name:'',department:''});
             // 根据工号搜索
             break;
         }

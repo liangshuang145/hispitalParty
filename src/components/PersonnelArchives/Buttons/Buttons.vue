@@ -7,7 +7,7 @@
             <el-col :span="24">
               <el-button type="primary " icon="el-icon-document" @click="look" size="small">查看</el-button>
               <el-button type="primary" icon="el-icon-plus" @click="addUser" size="small">添加人事信息</el-button>
-              <el-button type="success" icon="el-icon-edit" @click="updateUser" size="small">修改人事信息</el-button>
+              <!--<el-button type="success" icon="el-icon-edit" @click="updateUser" size="small">修改人事信息</el-button>-->
               <el-button type="danger" icon="el-icon-delete" @click="delUser" size="small">删除人事信息</el-button>
             </el-col>
           </el-row>
@@ -33,8 +33,8 @@
       <!--<search/>-->
       <!--</div>-->
       <userDialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"></userDialog>
-      <education-list-dialog v-model="isEducationListDialog" :type="educationListDialogType" :educationData="educationList"></education-list-dialog>
-      <work-list-dialog v-model="isWorkListDialog"></work-list-dialog>
+      <education-list-dialog v-model="isEducationListDialog" :type="educationListDialogType" :userInfoData="userInfoData" ></education-list-dialog>
+      <work-list-dialog v-model="isWorkListDialog" :userInfoData="userInfoDataIsWork"></work-list-dialog>
       <contract-record-dialog v-model="isContractRecordDialog"></contract-record-dialog>
       <medical-care-dialog v-model="isMedicalCareDialog"></medical-care-dialog>
       <job-title-dialog v-model="isJobTitleDialog"></job-title-dialog>
@@ -67,7 +67,8 @@
               isContractRecordDialog: false, //合同记录
               isMedicalCareDialog:false,//医务医理
               isJobTitleDialog:false,// 职务职称
-              educationList:[],
+              userInfoDataIsWork:{},
+              userInfoData:null,
 
               tableData:'',
               userData:{}
@@ -87,24 +88,21 @@
               this.$message.error('操作错误,请先选择数据');
               return
             }
-//            console.log('查看');
-//            this.dialogType = 0;
-//            this.isUserDialogShow = true;
-//            this.userData = this.tableData;
-            this.$router.push({
-              path: '/Index/PersonnelArchives/Info',
-              params:{
-                dialogType:0,
-                userData:this.tableData
-              }
+            UserInfoService.getUserInfo({id:this.tableData.id}).then((res) => {
+                if (res.code === 200){
+                    console.log(res.data)
+                }else {
+                    this.$message.error(res.message)
+                }
             })
           },
           // 查看教育经历
           lookEducation(){
-//            if(!this.tableData){
-//              this.$message.error('操作错误,请先选择数据');
-//              return
-//            }
+            if(!this.tableData){
+              this.$message.error('操作错误,请先选择数据');
+              return
+            }
+            this.userInfoData = this.tableData;
             this.isEducationListDialog = true
           },
           // 查看合同记录
@@ -121,6 +119,11 @@
           },
           // 查看工作经历
           lookWork(){
+            if(!this.tableData){
+              this.$message.error('操作错误,请先选择数据');
+              return
+            }
+              this.userInfoDataIsWork = this.tableData;
               this.isWorkListDialog = true
           },
           // 添加人事信息

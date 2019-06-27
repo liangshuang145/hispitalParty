@@ -88,6 +88,7 @@
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex'
   import UserInfoService from '../../../services/UserInfoService'
   import Validator from '@/lib/validator'
     //  此处导入组件,格式,例如:import xxx名称 from "路径"
@@ -103,9 +104,9 @@
             type:Number,
             default:0
           },
-          jobTitleData:{
+          userInfoData:{
             type:Object,
-            default(){
+            default() {
               return {}
             }
           }

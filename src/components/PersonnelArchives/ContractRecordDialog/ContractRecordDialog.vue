@@ -5,23 +5,26 @@
       <el-form-item label="合同编号" prop="contractNumber">
         <el-input v-model="form.contractNumber" size="medium" :maxlength="30" placeholder="请输入合同编号"></el-input>
       </el-form-item>
-      <el-form-item label="合同类别" prop="contractType">
-        <el-input v-model="form.contractType" size="medium" :maxlength="30" placeholder="请输入合同类别"></el-input>
+      <el-form-item label="合同类别" prop="contracttype">
+        <el-input v-model="form.contracttype" size="medium" :maxlength="30" placeholder="请输入合同类别"></el-input>
       </el-form-item>
-      <el-form-item label="鉴定次数" prop="identificationNumber">
-        <el-input v-model="form.identificationNumber" size="medium" :maxlength="30" placeholder="请输入鉴定次数" type="number"></el-input>
+      <el-form-item label="鉴定次数" prop="frequency">
+        <el-input v-model="form.frequency" size="medium" :maxlength="30" placeholder="请输入鉴定次数" type="number"></el-input>
       </el-form-item>
-      <el-form-item label="签订类型" prop="concludeType">
-        <el-input v-model="form.concludeType" size="medium" :maxlength="30" placeholder="请输入签订类型" ></el-input>
+      <el-form-item label="签订类型" prop="signaturetype">
+        <el-input v-model="form.signaturetype" size="medium" :maxlength="30" placeholder="请输入签订类型" ></el-input>
       </el-form-item>
-      <el-form-item label="档案管理单位" prop="archivesUnit">
-        <el-input v-model="form.archivesUnit" size="medium" :maxlength="30" placeholder="请输入档案管理单位" ></el-input>
+      <el-form-item label="档案管理单位" prop="archivesmanagementunit">
+        <el-input v-model="form.archivesmanagementunit" size="medium" :maxlength="30" placeholder="请输入档案管理单位" ></el-input>
       </el-form-item>
-      <el-form-item label="合同期限" prop="contractPeriod">
-        <el-input v-model="form.contractPeriod" size="medium" :maxlength="30" placeholder="请输入合同期限" ></el-input>
+      <el-form-item label="合同期限" prop="contractperiod">
+        <el-input v-model="form.contractperiod" size="medium" :maxlength="30" placeholder="请输入合同期限" ></el-input>
       </el-form-item>
-      <el-form-item label="合同周期" prop="workCycle">
-        <el-date-picker v-model="form.workCycle" type="daterange" value-format="yyyyMMddHHmmss" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']">
+      <el-form-item label="合同开始日期" prop="contractstarttime">
+        <el-date-picker v-model="form.contractstarttime" type="date" placeholder="选择开始日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd" class="i-el-date-picker"></el-date-picker>
+      </el-form-item>
+      <el-form-item label="合同结束日期" prop="contractendtime">
+        <el-date-picker v-model="form.contractendtime" type="date" placeholder="选择结束日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd" class="i-el-date-picker">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="备注" prop="remark">
@@ -80,7 +83,29 @@
         methods: {
             // 按钮确定
           sureClick(){
-
+            this.$refs['form'].validate((valid) => {
+              if(valid) {
+                switch (this.type) {
+                  case 1: // 新增
+                    delete this.form.id;
+                    UserInfoService.addUserInfoIsEducation(this.form).then((res) => {
+                      if(res.code === 200){
+                        this.$message.success('添加'+res.message);
+                        this.$refs['form'].resetFields();
+                        this.getUserInfoEductionList();
+                        this.isShow = false
+                      }else{
+                        this.$message.error(res.message)
+                      }
+                    });
+                    break;
+                  case 2: // 修改
+                    break;
+                  default:
+                    break
+                }
+              }
+            })
           },
           // 取消按钮
           cancelClick() {

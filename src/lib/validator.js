@@ -148,6 +148,127 @@ const checkWorkCycle = (rule, value, callback) => {
   }
 };
 
+/**
+ * 校验行政编号
+ * @param rule
+ * @param value
+ * @param callback
+ * @returns {*}
+ */
+const checkNumber = (rule, value, callback) => {
+  if(!value){
+    return callback(new Error('请输入行政编号'))
+  }else{
+    callback()
+  }
+};
+
+/**
+ * 校验支部
+ * @param rule
+ * @param value
+ * @param callback
+ * @returns {*}
+ */
+const checkBranchName = (rule, value, callback) => {
+  if(!value){
+    return callback(new Error('请输入支部'))
+  }else{
+    callback()
+  }
+};
+
+/**
+ * 校验科室
+ * @param rule
+ * @param value
+ * @param callback
+ * @returns {*}
+ */
+const checkDepartment = (rule, value, callback) => {
+  if(!value){
+    return callback(new Error('请输入所在科室'))
+  }else{
+    callback()
+  }
+};
+
+/**
+ * 校验出生日期
+ * @param rule
+ * @param value
+ * @param callback
+ * @returns {*}
+ */
+const checkBirthday = (rule, value, callback) => {
+  if(!value){
+    return callback(new Error('请输入出生日期'))
+  }else{
+    callback()
+  }
+};
+
+/**
+ * 校验学历
+ * @param rule
+ * @param value
+ * @param callback
+ * @returns {*}
+ */
+const checkEducation = (rule, value, callback) => {
+  if(!value){
+    return callback(new Error('请输入学历'))
+  }else{
+    callback()
+  }
+};
+
+/**
+ * 校验籍贯
+ * @param rule
+ * @param value
+ * @param callback
+ * @returns {*}
+ */
+const checkPlace = (rule, value, callback) => {
+  if(!value){
+    return callback(new Error('请输入籍贯'))
+  }else{
+    callback()
+  }
+};
+
+/**
+ * 校验民族
+ * @param rule
+ * @param value
+ * @param callback
+ * @returns {*}
+ */
+const checkNation = (rule, value, callback) => {
+  if(!value){
+    return callback(new Error('请输入民族'))
+  }else{
+    callback()
+  }
+};
+
+/**
+ * 校验职务
+ * @param rule
+ * @param value
+ * @param callback
+ * @returns {*}
+ */
+const checkPost = (rule, value, callback) => {
+  if(!value){
+    return callback(new Error('请输入职务'))
+  }else{
+    callback()
+  }
+};
+
+
 
 export default {
   checkUsername,
@@ -158,5 +279,13 @@ export default {
   checkAccount,
   checkSubjectId,
   checkYear,
-  checkWorkCycle
+  checkWorkCycle,
+  checkNumber,
+  checkBranchName,
+  checkDepartment,
+  checkBirthday,
+  checkEducation,
+  checkPlace,
+  checkNation,
+  checkPost
 }
