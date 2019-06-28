@@ -84,9 +84,64 @@ const getSpirituserSubject = (param = {}) => {
   })
 };
 
+
+/**
+ *  加添党内精神
+ * @param param
+ * @returns {Promise}
+ */
+const getSpiritadd = (param = {}) => {
+  return new Promise((resolve) => {
+    param={
+      name: param.name,
+      time: param.time,
+      content: param.content,
+      fileIds: param.fileIds,
+      imageIds: param.imageIds,
+      userId: param.userId,
+    };
+    console.log("发起请求的param",param)
+    http.post({
+      url:'spirit/add',
+      method: 'post',
+      data: param,
+    }).then((res)=> {
+      resolve(res);
+      console.log("res",res)
+    },(res)=>{
+      console.log("添加党内精神失败",res)
+    })
+  })
+};
+
+/**
+ *  查看精神列表
+ * @param param
+ * @returns {Promise}
+ */
+const getSpiritAll = (param = {}) => {
+  return new Promise((resolve) => {
+    console.log("发起请求的param",param)
+    http.post({
+      url:'spirit/list',
+      method: 'post',
+      data: param,
+    }).then((res)=> {
+      resolve(res);
+      console.log("res",res)
+    },(res)=>{
+      console.log("添加党内精神失败",res)
+    })
+  })
+};
+
+
 export default {
   getSpirituserSubject,
   getSpiritUsers,
   getPageList,
   getSpiritList,
+  getSpiritadd,
+  getSpiritAll,
+
 }

@@ -3,11 +3,11 @@
     <el-form ref="form" :model="form" :rules="rule" label-width="110px" label-position="right">
       <tr>
         <td><el-form-item label="标题" prop="nation ">
-            <el-input v-model="form.nation" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入民族"/>
+            <el-input v-model="form.nation" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入标题"/>
           </el-form-item></td>
         <td><el-form-item label="发布日期" prop="dateOfBirth ">
           <el-date-picker
-            v-model="form.dateOfBirth" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd">
+            v-model="form.dateOfBirth" type="datetime" placeholder="选择日期" >
           </el-date-picker>
         </el-form-item></td>
       </tr>
@@ -40,7 +40,7 @@
           </el-select>
         </el-form-item></td>
         <td><el-form-item label="状态" prop="peopletype">
-          <el-select v-model="form.type" filterable placeholder="请选择状态">
+          <el-select v-model="form.state" filterable placeholder="请选择状态">
             <el-option
               v-for="item in optionss"
               :key="item.value"
@@ -75,10 +75,11 @@ import UserService from '@/services/UserService'
 import ElFormItem from "../../../../node_modules/element-ui/packages/form/src/form-item";
 import UEditor from '../NavUeditor/NavUeditor.vue'
 import SpiriService from '@/services/SpiritService'
-
+import Utils from '../Utils/utils'
+import Bus from '../Bus/bus'
 export default {
   components: {ElFormItem,
-    UEditor},
+    UEditor,Utils,Bus},
   name: 'UserDialog',
   props: {
     userData: { // 用户数据
@@ -157,18 +158,19 @@ export default {
       //              富文本编辑器相关
       ueConfig: {
         // 可以在此处定义工具栏的内容
+
         toolbars: [[
           'fullscreen',  '|', 'undo', 'redo', '|',
           'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
           'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
           'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
           'directionalityltr', 'directionalityrtl', 'indent', '|',
-          'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
-          'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-          'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'insertframe', 'pagebreak', 'template', 'background', '|',
-          'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
-          'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
-          'print', 'preview', 'searchreplace', 'help', 'drafts'
+//          'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+//          'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+//          'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'insertframe', 'pagebreak', 'template', 'background', '|',
+//          'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
+//          'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+//          'print', 'preview', 'searchreplace', 'help', 'drafts'
         ]],
         zIndex:3000,
         elementPathEnabled : false,// 隐藏下方的元素路径
@@ -216,6 +218,22 @@ export default {
         spirituserList:[],
         //部门
         deption:'',
+
+        //新建的几个数据
+        nation:'',
+        dateOfBirth:'',
+        name:'',
+        deption:'',
+        type:'',
+        state:'',
+      },
+      jsonlook:{
+        name:'',
+        time:'',
+        content:'',
+        fileIds:'',
+        imageIds:'',
+        userId:'',
       },
       rule: {
         name: [{
@@ -233,11 +251,8 @@ export default {
         {label:'博士',value:7},
       ],
       optionss:[
-        {label:'正式党员',value:1},
-        {label:'预备党员',value:2},
-        {label:'入党积极分子',value:3},
-        {label:'入党申请人',value:4},
-        {label:'未知',value:5},
+        {label:'未审核',value:1},
+        {label:'已审核',value:2},
       ],
       politicsStatus:[
         {label:'群众',value:1},
@@ -269,7 +284,7 @@ export default {
 //      'getDepartList',
 //      'getGroupList',
 //      'getUserList',
-      'getSpiritUsers'
+      'getSpiritUsers',
     ]),
     changegive(old){
       SpiriService.getSpirituserSubject({id:old}).then((res) => {
@@ -292,20 +307,45 @@ export default {
     // 确定按钮
     sureClick() {
       switch (this.type) {
-        case 1: // 新增`
-          UserService.addUser(this.form).then((res) => {
-            this.$message.success('已添加');
+        case 1:
+//            // 新增`
+//          UserService.addUser(this.form).then((res) => {
+//            this.$message.success('已添加');
+//
+//            this.getUserList();
+//            this.isShow = false
+//          });
+//          break;
+//          this.
 
-            this.getUserList();
-            this.isShow = false
-          });
-          break;
+          let _this = this;
+          // 获取富文本中的信息
+          let contentHtml = this.$refs.addUeditor.getUEContent();// html格式
+          let content = this.$refs.addUeditor.getContentTxt();//纯文本形式
+          this.jsonlook.name = this.form.nation;
+          this.jsonlook.time = Utils.formatTime11111(this.form.dateOfBirth);
+          this.jsonlook.content = contentHtml;
+          this.jsonlook.fileIds = '';
+          this.jsonlook.imageIds = '';
+          this.jsonlook.userId = this.form.name;
+          console.log("发起请求前的jsonlook",this.jsonlook);
+
+          SpiriService.getSpiritadd(this.jsonlook).then((res)=>{
+            if(res.code ===200){
+              this.$message.success(res.message);
+              //只是作为一个触发时间
+              Bus.$emit('val', "1");
+            }else{
+                this.$message.error(res.message);
+            }
+          })
+
         case 2: // 修改
           // 注意不要修改密码
           UserService.updateUser(this.form).then((res) => {
             this.$message.success('已修改');
 
-            this.getUserList();
+//            this.getUserList();
             this.isShow = false
           });
           break;

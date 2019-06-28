@@ -59,6 +59,8 @@ export default new Vuex.Store({
     spirituserList:[],
     //学习强国排名表
     ideologycountryList:[],
+    //党内谨慎列表
+    spiritAll:[],
   },
   mutations: {
     // 登录
@@ -175,6 +177,10 @@ export default new Vuex.Store({
     // ----------- 获取精神用户列表 --------
     setSpirituserList(state,data){
       state.spirituserList = data
+    },
+    // ----------- 获取精神table列表 --------
+    setSpiritAll(state,data){
+      state.spiritAll = data
     },
 
 
@@ -398,6 +404,13 @@ export default new Vuex.Store({
   getSpiritUsers({ commit }){
     SpiriService.getSpiritUsers().then((res) => {
         commit('setSpirituserList',res)
+      })
+    },
+
+    // -------------- 党内精神table表 ------
+    getSpiritAll({ commit }){
+      SpiriService.getSpiritAll().then((res) => {
+        commit('setSpiritAll',res)
       })
     },
 
