@@ -22,6 +22,7 @@
   import { mapState, mapActions } from 'vuex'
   import Buttons from '../Buttons/Buttons.vue'
   import UserService from '../../../services/UserService'
+  import UserInfoService from '../../../services/UserInfoService'
 
   export default {
     name: 'search',
@@ -67,6 +68,7 @@
         switch (this.radio){
           case 1: //根据姓名搜索
             this.selectUserInfoGzqtListByNameOrNumberOrOffice({name:this.search,department:'',number:''});
+          
             break;
           case 2:
             this.selectUserInfoGzqtListByNameOrNumberOrOffice({department:this.search,name:'',number:''});

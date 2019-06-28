@@ -27,8 +27,8 @@
     </span>
   </el-dialog>
 </template>
-
 <script>
+
 import { mapState, mapActions } from 'vuex'
 import Validator from '@/lib/validator'
 import UserInfoService from '../../../services/UserInfoService'

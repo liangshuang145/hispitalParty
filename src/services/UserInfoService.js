@@ -494,6 +494,7 @@ const getUserInfoGzqtList = (param = {}) => {
       data:param,
       method:'get'
     }).then((res) => {
+      console.log("fsadasdasdsadasd",res);
       resolve(res.data)
     })
   })
@@ -582,6 +583,13 @@ const delUserInfoGzqt = (param = {}) => {
  */
 const addUserInfoGzqt = (param ={}) => {
   return new Promise((resolve) => {
+    param={
+      userinfoid: param.userInfo,
+      education: param.education,
+      title: param.title,
+      userinfoid: param.userinfoid
+    };
+    console.log("萨达萨达萨达撒asdas",param);
     http.post({
       url:'userInfoGzqt/add_gzqt',
       data: param,
@@ -693,6 +701,11 @@ const delUserInfoGh = (param = {}) => {
  */
 const addUserInfoGh = (param ={}) => {
   return new Promise((resolve) => {
+    param={
+    post:param.post,
+      time:param.time,
+      userinfoid: param.userinfoid
+    };
     http.post({
       url:'userInfoGh/add_gh',
       data: param,
@@ -804,6 +817,11 @@ const delUserInfoTw = (param = {}) => {
  */
 const addUserInfoTw = (param ={}) => {
   return new Promise((resolve) => {
+    param={
+      post: param.post,
+      time: param.time,
+      userinfoid: param.userinfoid
+    },
     http.post({
       url:'userInfoTw/add_tw',
       data: param,
@@ -909,12 +927,17 @@ const delUserInfoFdh = (param = {}) => {
 };
 
 /**
- * 添加团委信息
+ * 添加妇代会信息
  * @param param
  * @returns {Promise}
  */
 const addUserInfoFdh = (param ={}) => {
   return new Promise((resolve) => {
+    param={
+      post:param.post,
+      time: param.time,
+      userinfoid: param.userinfoid,
+    }
     http.post({
       url:'userInfoFdh/add_fdh',
       data: param,
@@ -1026,6 +1049,11 @@ const delUserInfoLtxlgb = (param = {}) => {
  */
 const addUserInfoLtxlgb = (param ={}) => {
   return new Promise((resolve) => {
+    param={
+      post: param.post,
+      time: param.time,
+      userinfoid: param.userinfoid
+    }
     http.post({
       url:'userInfoLtxlgb/add_ltxlgb',
       data: param,
