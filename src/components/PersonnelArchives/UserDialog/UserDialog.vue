@@ -562,12 +562,6 @@ export default {
       'getUserListByName',
       'getUserInfoList'
     ]),
-    // 添加教育经历
-    addEducationExperience(){
-        this.form.educationExperience.push({
-          id:this.form.educationExperience.length+1
-        })
-    },
     selectUserByName(val){
       this.getUserListByName({key:'name',value:val,page:0,size:1000})
     },

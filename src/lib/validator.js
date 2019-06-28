@@ -268,6 +268,21 @@ const checkPost = (rule, value, callback) => {
   }
 };
 
+/**
+ * 校验民主党派
+ * @param rule
+ * @param value
+ * @param callback
+ * @returns {*}
+ */
+const checkdemocraticparties = (rule, value, callback) => {
+  if(!value){
+    return callback(new Error('请选择民主党派'))
+  }else{
+    callback()
+  }
+};
+
 
 
 export default {
@@ -287,5 +302,6 @@ export default {
   checkEducation,
   checkPlace,
   checkNation,
-  checkPost
+  checkPost,
+  checkdemocraticparties
 }

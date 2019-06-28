@@ -2,7 +2,7 @@
   <el-dialog :value="value" name="UserDialog" :visible="isShow" :before-close="handleClose" :title="title" width="750px" center>
     <el-form ref="form" :model="form" :rules="rule" label-width="100px" label-position="right">
       <el-form-item label="选择用户" prop="userName">
-        <el-select v-model="userName" size="medium" filterable placeholder="请选择用户" @change="selectUser">
+        <el-select v-model="userName" size="medium" filterable :filter-method="selectUserByName" placeholder="请选择用户" @change="selectUser">
           <el-option v-for="item in userInfoList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
@@ -31,7 +31,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import Validator from '@/lib/validator'
-import UserInfoService from '@/services/UserInfoService'
+import UserInfoService from '../../../services/UserInfoService'
 import ElFormItem from "../../../../node_modules/element-ui/packages/form/src/form-item";
 
 export default {
@@ -57,9 +57,6 @@ export default {
     ...mapState([
       'userInfoList'
     ])
-  },
-  mounted() {
-    this.getUserInfoList()
   },
   watch: {
     type(val) {
@@ -103,8 +100,8 @@ export default {
         time:'',
       },
       rule: {
-        name: [{
-          validator: Validator.checkName,
+        democraticparties: [{
+          validator: Validator.checkdemocraticparties,
           trigger: 'blur'
         }]
       },
@@ -122,43 +119,40 @@ export default {
   },
   methods: {
     ...mapActions([
-      'getUserInfoList',
+      'selectUserInfoListByNameOrNumberOrOffice',
+      'getUserInfoMzdpList'
     ]),
+    selectUserByName(search){
+      this.selectUserInfoListByNameOrNumberOrOffice({name:search,department:'',number:''});
+    },
     selectUser(val){
         this.form.userinfoid = val
     },
-    selectSubject(val) {
-      this.form.subject = val
-    },
-    selectDepart(val) {
-      this.form.depart = val
-    },
-    selectGroup(val) {
-      this.form.group = val
-    },
     // 确定按钮
     sureClick() {
-      switch (this.type) {
-        case 1: // 新增
-          UserService.addUser(this.form).then((res) => {
-            this.$message.success('已添加');
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          switch (this.type) {
+            case 1: // 新增
+              UserInfoService.addUserInfoMzdp(this.form).then((res) => {
+                if(res.code == 200){
+                  this.$message.success('添加'+res.message);
+                  this.$refs['form'].resetFields();
+                  this.getUserInfoMzdpList();
+                  this.isShow = false
+                }else{
+                  this.$message.error(res.message);
+                }
 
-            this.getUserList();
-            this.isShow = false
-          });
-          break;
-        case 2: // 修改
-          // 注意不要修改密码
-          UserService.updateUser(this.form).then((res) => {
-            this.$message.success('已修改');
-
-            this.getUserList();
-            this.isShow = false
-          });
-          break;
-        default:
-          break
-      }
+              });
+              break;
+            case 2: // 修改
+              break;
+            default:
+              break
+          }
+        }
+      })
     },
 
     // 取消按钮

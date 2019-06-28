@@ -20,13 +20,11 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
-  import Buttons from '../Buttons/Buttons.vue'
   import UserService from '../../../services/UserService'
 
   export default {
     name: 'search',
     components: {
-      Buttons
     },
     props: [
       'currentNode'
@@ -90,6 +88,6 @@
     margin-right: 5px;
   }
   .el-input.search-input {
-    width: 350px;
+    width: 250px;
   }
 </style>
