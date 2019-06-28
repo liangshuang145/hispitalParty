@@ -33,7 +33,8 @@
         // 服务器统一请求接口路径
         // , serverUrl: "https://operationgwdev.bgycc.com/zuul/phantom-service-storage/ueditor/exec"
         // , serverUrl: URL + "jsp/controller.jsp"
-        , serverUrl: "https://www.ydyy.online/frame/sys/ueditor/exec"
+        // , serverUrl: "https://www.ydyy.online/frame/sys/ueditor/exec"
+      // , serverUrl:" https://localhost:8080/ayundao"
       // , serverUrl: "http://129.211.47.17:8080/frame/sys/ueditor/exec"
       // , serverUrl: "http://192.168.1.101:8081/sys/ueditor/exec"
 

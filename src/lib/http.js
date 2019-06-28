@@ -13,6 +13,7 @@ const http = axios.create({
   // 我的项目都是用json格式传输，如果需要更改的话，可以用这种方式修改
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    // 'Access-Control-Allow-Origin':"http://192.168.1.3"
   }
   // withCredentials: true // 允许携带cookie
 })
