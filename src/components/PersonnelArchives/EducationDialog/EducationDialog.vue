@@ -92,9 +92,9 @@
         },
         // 页面方法
         methods: {
-//          ...mapActions([
-//            'getUserInfoEductionList'
-//          ]),
+          ...mapActions([
+            'getUserInfoEductionList'
+          ]),
           // 确定按钮
           sureClick() {
             this.$refs['form'].validate((valid) => {
@@ -102,11 +102,11 @@
                 switch (this.type) {
                   case 1: // 新增
                     delete this.form.id;
-                    UserInfoService.addUserInfoIsContract(this.form).then((res) => {
+                    UserInfoService.addUserInfoIsEducation(this.form).then((res) => {
                       if(res.code === 200){
                         this.$message.success('添加'+res.message);
                         this.$refs['form'].resetFields();
-//                        this.getUserInfoEductionList();
+                        this.getUserInfoEductionList({id:this.userInfoData.id});
                         this.isShow = false
                       }else{
                           this.$message.error(res.message)
@@ -172,7 +172,7 @@
             this.title = title
           },
           userInfoData(val){
-            this.form.userinfoid = val.userinfoid;
+            this.form.userinfoid = val.id;
           },
         },
         // 依赖注入

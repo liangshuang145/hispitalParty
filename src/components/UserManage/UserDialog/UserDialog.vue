@@ -193,7 +193,6 @@ export default {
   },
   async mounted() {
     await this.getSubjectList();
-    await this.getRoleList();
     await this.getDepartListBySubjectId({subjectId:this.form.subjectId});
     await this.getGroupListBySubjectId({subjectId:this.form.subjectId});
   },
@@ -241,7 +240,6 @@ export default {
           // 注意不要修改密码
           UserService.updateUser(this.form).then((res) => {
             this.$message.success('已修改');
-
             this.getUserList();
             this.isShow = false
           });

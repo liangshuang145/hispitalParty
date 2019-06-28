@@ -52,7 +52,18 @@ export default {
       }
     }
   },
+  created(){
+    this.keyupSubmit();
+  },
   methods: {
+    keyupSubmit(){
+      document.onkeydown = e => {
+        let _key = window.event.keyCode;
+        if (_key === 13) {
+          this.submitForm('loginForm')
+        }
+      }
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

@@ -8,17 +8,23 @@ import http from '@/lib/http'
 const getGroupListBySubjectId = (param = {}) => {
   // 测试
   return new Promise((resolve) => {
-    param={
-      subjectId: param.subjectId,
-      type: param.type
+    console.log('param',param);
+    if (param.type === 1){
+      param ={
+        subjectId: param.subjectId,
+        type: param.type
+      }
+    }else {
+      param= {
+        subjectId: param.subjectId,
+      }
     }
     http.post({
       url:'groups/list',
       method:'post',
       data:param
     }).then((res) => {
-      console.log(res);
-      resolve(res);
+      resolve(res.data);
     }, (err) => {
       console.log(err)
     })

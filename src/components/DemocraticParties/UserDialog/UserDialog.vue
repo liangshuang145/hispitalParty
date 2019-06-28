@@ -1,8 +1,8 @@
 <template>
   <el-dialog :value="value" name="UserDialog" :visible="isShow" :before-close="handleClose" :title="title" width="750px" center>
     <el-form ref="form" :model="form" :rules="rule" label-width="100px" label-position="right">
-      <el-form-item label="选择用户" prop="userInfoId">
-        <el-select v-model="form.userInfoId" size="medium" filterable placeholder="请选择用户" @change="selectGroup">
+      <el-form-item label="选择用户" prop="userName">
+        <el-select v-model="userName" size="medium" filterable placeholder="请选择用户" @change="selectUser">
           <el-option v-for="item in userInfoList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
@@ -95,9 +95,12 @@ export default {
     return {
       isShow: false,
       title:'',
-      form: {
-        userInfoId:'',
-        democraticparties:''
+      userName:'',
+      form:{
+        userinfoid:'',
+        democraticparties:'',
+        partyPost:'',
+        time:'',
       },
       rule: {
         name: [{
@@ -121,6 +124,9 @@ export default {
     ...mapActions([
       'getUserInfoList',
     ]),
+    selectUser(val){
+        this.form.userinfoid = val
+    },
     selectSubject(val) {
       this.form.subject = val
     },

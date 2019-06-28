@@ -7,7 +7,12 @@
     <div class="main-div-middle">
       <div class="main-div-middle-div">
         <div class="main-div-middle-div-title">
-          <span style="font-size: 32px; color: #ff0100">杭州市富阳区第一人民医院智慧党建系统</span>
+          <div style="font-size: 32px; color: #ff0100">
+            杭州市富阳区第一人民医院医共体
+          </div>
+          <div style="text-align: left;font-size: 32px; color: #ff0100;padding-left:250px">
+            智慧大党建平台
+          </div>
         </div>
         <div class="main-div-middle-div-content">
           <div class="main-div-middle-div-content-login">
@@ -18,7 +23,15 @@
     </div>
     <div class="main-div-bottom">
       <div class="main-div-bottom-title">
-
+        <div class="main-div-foot">
+          <div>
+            <img src="../../static/images/logo.png" class="img" />
+          </div>
+          <div>
+            <div>杭州市富阳区第一人民医院</div>
+            <div>杭州云稻信息技术有限公司  合作研发</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -27,10 +40,14 @@
 <script>
 import LoginForm from '@/components/LoginForm/LoginForm'
 import LoginService from '@/services/LoginService'
+import ElRow from "element-ui/packages/row/src/row";
+import ElCol from "element-ui/packages/col/src/col";
 
 export default {
   name: 'Login',
   components: {
+    ElCol,
+    ElRow,
     LoginForm
   },
   data() {
@@ -168,7 +185,7 @@ export default {
     justify-content: center;
   }
   .main-div-bottom-title{
-    width: 70%;
+    width: 20%;
     height: 200px;
     color: white;
     display: -webkit-flex; /*在webkit内核的浏览器上使用要加前缀*/
@@ -179,5 +196,14 @@ export default {
   }
   .main-div-bottom-title-content{
     padding-top: 10px;
+  }
+  .main-div-foot{
+    width: 400px;
+    display: flex;
+    justify-content: space-around;
+  }
+  .img{
+    width: 50px;
+    height: 50px;
   }
 </style>

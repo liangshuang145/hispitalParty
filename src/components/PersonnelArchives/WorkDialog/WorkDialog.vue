@@ -90,7 +90,7 @@
                   if(res.code === 200){
                     this.$message.success('添加'+res.message);
                     this.$refs['form'].resetFields();
-                    this.getUserInfoWorkList();
+                    this.getUserInfoWorkList({id:this.userInfoData.id});
                     this.isShow = false
                   }else{
                     this.$message.error(res.message)
@@ -152,7 +152,6 @@
         this.title = title
       },
       userInfoData(val){
-          console.log('userInfoData',val)
         this.form.userinfoid = val.id;
       },
     },

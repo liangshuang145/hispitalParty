@@ -5,7 +5,7 @@
         <div>
           <el-button type="info" icon="el-icon-document" @click="look" >查看</el-button>
           <el-button type="primary" icon="el-icon-plus" @click="addUser">添加</el-button>
-          <el-button type="success" icon="el-icon-edit" @click="updateUser">修改</el-button>
+          <!--<el-button type="success" icon="el-icon-edit" @click="updateUser">修改</el-button>-->
           <el-button type="danger" icon="el-icon-delete" @click="delUser">删除</el-button>
         </div>
         <!--<div>-->
@@ -16,8 +16,9 @@
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex'
   import userDialog from '../UserDialog/UserDialog.vue'
-  import userService from '../../../services/UserService.js'
+  import UserInfoService from '../../../services/UserInfoService'
   import ElCol from "element-ui/packages/col/src/col";
   import Search from '../Search/Search.vue'
 
@@ -37,6 +38,9 @@
         },
         // 页面方法
         methods: {
+          ...mapActions([
+            'getUserInfoPartyList'
+          ]),
             // 查看
           look(){
             if(!this.tableData){
@@ -50,6 +54,10 @@
           },
           // 添加
           addUser(){
+            if(!this.tableData){
+              this.$message.error('操作错误,请先选择数据');
+              return
+            }
             console.log('添加');
             this.dialogType = 1;
             this.isUserDialogShow = true;
@@ -77,7 +85,14 @@
               cancelButtonText: '取消',
               type: 'warning'
             }).then(() => {
-              this.$message.success('已删除')
+              UserInfoService.delUserInfoParty({id:this.tableData.id}).then((res) => {
+                  if(res.code === 200){
+                    this.$message.success('删除'+res.message);
+                    this.getUserInfoPartyList()
+                  }else {
+                      this.$message.error(res.message)
+                  }
+              });
             }).catch(() => {
               this.$message.info('已取消')
             })
