@@ -57,10 +57,6 @@
           },
           // 添加
           addUser(){
-            if(!this.tableData){
-              this.$message.error('操作错误,请先选择数据');
-              return
-            }
             this.dialogType = 1;
             this.isUserDialogShow = true;
             this.userData = {}
@@ -90,7 +86,7 @@
               UserInfoService.delUserInfoParty({id:this.tableData.id}).then((res) => {
                 if(res.code === 200){
                   this.$message.success('删除'+res.message);
-                  this.getUserInfoPartyList()
+                  this.getUserInfoPartyList({type:'党员'})
                 }else {
                   this.$message.error(res.message)
                 }

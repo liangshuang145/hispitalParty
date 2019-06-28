@@ -177,7 +177,30 @@
               isShow:false,
               title:'',
               form:{
-
+                postname:'',
+                administrationpost:'',
+                servingyears:'',
+                administrationlevel:'',
+                servingdate:'',
+                servingstopdate:'',
+                beforeadministrationpost:'',
+                beforeservingdate:'',
+                beforeservingstopdate:'',
+                qualificationtitle:'',
+                qualificationgetdate:'',
+                engagetitle:'',
+                engagetitledate:'',
+                engagetime:'',
+                beforequalificationtitle:'',
+                beforequalificationgetdate:'',
+                beforeengagetitle:'',
+                beforeengagetitledate:'',
+                beforeengagetime:'',
+                beforeengagestoptime:'',
+                technicallevel:'',
+                personnelcategory:'',
+                weijicategory:'',
+                userinfoid:''
               },
               rule:{
 
@@ -256,30 +279,30 @@
             this.form.userinfoid = val.id
           },
           jobTitleData(val){
-              this.form.id = val.id;
-            this.form.postname = val.postname;
-            this.form.administrationpost = val.administrationpost;
-            this.form.servingyears = val.servingyears;
-            this.form.administrationlevel = val.administrationlevel;
-            this.form.servingdate = val.servingdate;
-            this.form.servingstopdate = val.servingstopdate;
-            this.form.beforeadministrationpost = val.beforeadministrationpost;
-            this.form.beforeservingdate = val.beforeservingdate;
-            this.form.beforeservingstopdate = val.beforeservingstopdate;
-            this.form.qualificationtitle = val.qualificationtitle;
-            this.form.qualificationgetdate = val.qualificationgetdate;
-            this.form.engagetitle = val.engagetitle;
-            this.form.engagetitledate = val.engagetitledate;
-            this.form.engagetime = val.engagetime;
-            this.form.beforequalificationtitle = val.beforequalificationtitle;
-            this.form.beforequalificationgetdate = val.beforequalificationgetdate;
-            this.form.beforeengagetitle = val.beforeengagetitle;
-            this.form.beforeengagetitledate = val.beforeengagetitledate;
-            this.form.beforeengagetime = val.beforeengagetime;
-            this.form.beforeengagestoptime = val.beforeengagestoptime;
-            this.form.technicallevel = val.technicallevel;
-            this.form.personnelcategory = val.personnelcategory;
-            this.form.weijicategory = val.weijicategory;
+                this.form.id = val.id;
+                this.form.postname = val.postname;
+                this.form.administrationpost = val.administrationpost;
+                this.form.servingyears = val.servingyears;
+                this.form.administrationlevel = val.administrationlevel;
+                this.form.servingdate = val.servingdate;
+                this.form.servingstopdate = val.servingstopdate;
+                this.form.beforeadministrationpost = val.beforeadministrationpost;
+                this.form.beforeservingdate = val.beforeservingdate;
+                this.form.beforeservingstopdate = val.beforeservingstopdate;
+                this.form.qualificationtitle = val.qualificationtitle;
+                this.form.qualificationgetdate = val.qualificationgetdate;
+                this.form.engagetitle = val.engagetitle;
+                this.form.engagetitledate = val.engagetitledate;
+                this.form.engagetime = val.engagetime;
+                this.form.beforequalificationtitle = val.beforequalificationtitle;
+                this.form.beforequalificationgetdate = val.beforequalificationgetdate;
+                this.form.beforeengagetitle = val.beforeengagetitle;
+                this.form.beforeengagetitledate = val.beforeengagetitledate;
+                this.form.beforeengagetime = val.beforeengagetime;
+                this.form.beforeengagestoptime = val.beforeengagestoptime;
+                this.form.technicallevel = val.technicallevel;
+                this.form.personnelcategory = val.personnelcategory;
+                this.form.weijicategory = val.weijicategory;
           }
         },
         // 依赖注入

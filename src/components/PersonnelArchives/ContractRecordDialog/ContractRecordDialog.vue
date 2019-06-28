@@ -68,7 +68,14 @@
               title:'合同记录',
               isShow:false,
               form:{
-
+                contracttype:'',
+                contractnumber:'',
+                contractstarttime:'',
+                contractendtime:'',
+                signaturetype:'',
+                contractperiod:'',
+                frequency:'',
+                userinfoid:''
               },
               rule: {
                 name: [{
@@ -146,6 +153,9 @@
             }
             this.title = title
           },
+          userInfoData(val){
+              this.form.userinfoid = val.id
+          }
         },
         // 依赖注入
         components: {}

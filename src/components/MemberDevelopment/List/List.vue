@@ -37,7 +37,7 @@ export default {
     ])
   },
   mounted() {
-    this.getUserInfoPartyList()
+    this.getUserInfoPartyList({type:'未入党'})
   },
   methods: {
     ...mapActions([

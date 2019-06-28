@@ -10,8 +10,8 @@
           <el-form-item label="上传头像" prop="imgUrl">
             <template>
               <div class="div-upload">
-                <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess">
-                  <img v-if="form.imageUrl" :src="form.imageUrl" class="avatar">
+                <el-upload class="avatar-uploader" action="http://192.168.1.108:8030/userInfo/upload_image" :show-file-list="false" :on-success="handleAvatarSuccess">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar" name="file">
                   <i v-else class="el-icon-plus uploader-icon"></i>
                 </el-upload>
               </div>
@@ -379,54 +379,49 @@ export default {
       this.$emit('input', val)
     },
     userData(data) {
-          let userInfo = {},userInfoPersonnel ={}
-          if(this.type != 1){
-            userInfo.name = data.name; // 姓名
-            userInfo.sex = Number(data.sex);// 性别
-            userInfo.number = data.number;// 行政编号
-            userInfo.branchName = data.branchName;// 所在支部
-            userInfo.department = data.department;// 所在科室
-            userInfo.birthday = data.birthday;// 出生日期
-            userInfo.education = data.education;// 学历
-            userInfo.place = data.place;// 籍贯
-            userInfo.nation = data.nation;// 民族
-            userInfo.post = data.post;// 职务
-            userInfo.title = data.title;// 职称
-            userInfo.idEntity = data.idEntity;// 个人身份
-            userInfo.workDate = data.workDate;// 工作时间
-            userInfo.partyDate = data.partyDate;// 入党时间
-            userInfo.correctionDate = data.correctionDate;// 转正时间
-            userInfo.phone = data.phone;// 联系电话
-            userInfo.idcard = data.idcard;// 身份证号
+//          let userInfo = {},userInfoPersonnel ={}
+      this.form.userInfo.name = data.userInfo.name; // 姓名
+      this.form.userInfo.sex = Number(data.userInfo.sex);// 性别
+      this.form. userInfo.number = data.number;// 行政编号
+      this.form.userInfo.branchName = data.userInfo.branchName;// 所在支部
+      this.form.userInfo.department = data.userInfo.department;// 所在科室
+      this.form.userInfo.birthday = data.userInfo.birthday;// 出生日期
+      this.form.userInfo.education = data.userInfo.education;// 学历
+      this.form.userInfo.place = data.userInfo.place;// 籍贯
+      this.form.userInfo.nation = data.userInfo.nation;// 民族
+      this.form. userInfo.post = data.userInfo.post;// 职务
+      this.form.userInfo.title = data.userInfo.title;// 职称
+      this.form.userInfo.idEntity = data.userInfo.idEntity;// 个人身份
+      this.form.userInfo.workDate = data.userInfo.workDate;// 工作时间
+      this.form.userInfo.partyDate = data.userInfo.partyDate;// 入党时间
+      this.form.userInfo.correctionDate = data.userInfo.correctionDate;// 转正时间
+      this.form. userInfo.phone = data.userInfo.phone;// 联系电话
+      this.form.userInfo.idcard = data.userInfo.idcard;// 身份证号
+//            this.form.userInfo = userInfo; //userInfo 表信息
 
-            this.form.userInfo = userInfo; //userInfo 表信息
-
-            userInfoPersonnel.workyear = data.workyear;// 工龄(年)
-            userInfoPersonnel.workmonth = data.workmonth;// 工龄(月)
-            userInfoPersonnel.partypost = data.partypost; // 党内职务
-            userInfoPersonnel.servingdate = data.servingdate;// 任命时间
-            userInfoPersonnel.otherpost = data.otherpost;// 其他职务
-            userInfoPersonnel.jianpingpost = data.jianpingpost;// 兼评职称
-            userInfoPersonnel.jianpingdate = data.jianpingdate;// 兼评时间
-            userInfoPersonnel.politicalappearance = data.politicalappearance;// 政治面貌
-            userInfoPersonnel.partydate = data.partydate;// 入党团日期
-            userInfoPersonnel.branchname = data.branchname;// 所在支部
-            userInfoPersonnel.typeworker = data.typeworker;// 工人工种
-            userInfoPersonnel.gradeworker = data.gradeworker;// 工人等级
-            userInfoPersonnel.appointmenttime = data.appointmenttime;// 聘任时间
-            userInfoPersonnel.maritalstatus = data.maritalstatus;// 婚姻状况
-            userInfoPersonnel.hukounature = data.hukounature;// 户口性质
-            userInfoPersonnel.hukouwhere = data.hukouwhere;// 户口所在地
-            userInfoPersonnel.beforecompany = data.beforecompany;// 调入前单位
-            userInfoPersonnel.reserveleavedate = data.reserveleavedate;// 预订离院日期
-            userInfoPersonnel.firstcontractdate = data.firstcontractdate;// 首次合同开始日期
-            userInfoPersonnel.familyaddr = data.familyaddr;// 家庭地址
-            userInfoPersonnel.personneltype = data.personneltype;// 人员类别
-            userInfoPersonnel.fanpinenddate = data.fanpinenddate;// 返聘日期
-
-            this.form.userInfoPersonnel = userInfoPersonnel; // userInfoPersonnel 表信息
-
-          }
+      this.form.userInfoPersonnel.workyear = data.userInfoPersonnel.workyear;// 工龄(年)
+      this.form.userInfoPersonnel.workmonth = data.userInfoPersonnel.workmonth;// 工龄(月)
+      this.form.userInfoPersonnel.partypost = data.userInfoPersonnel.partypost; // 党内职务
+      this.form.userInfoPersonnel.servingdate = data.userInfoPersonnel.servingdate;// 任命时间
+      this.form.userInfoPersonnel.otherpost = data.userInfoPersonnel.otherpost;// 其他职务
+      this.form.userInfoPersonnel.jianpingpost = data.userInfoPersonnel.jianpingpost;// 兼评职称
+      this.form.userInfoPersonnel.jianpingdate = data.userInfoPersonnel.jianpingdate;// 兼评时间
+      this.form.userInfoPersonnel.politicalappearance = data.userInfoPersonnel.politicalappearance;// 政治面貌
+      this.form.userInfoPersonnel.partydate = data.userInfoPersonnel.partydate;// 入党团日期
+      this.form.userInfoPersonnel.branchname = data.userInfoPersonnel.branchname;// 所在支部
+      this.form.userInfoPersonnel.typeworker = data.userInfoPersonnel.typeworker;// 工人工种
+      this.form. userInfoPersonnel.gradeworker = data.userInfoPersonnel.gradeworker;// 工人等级
+      this.form.userInfoPersonnel.appointmenttime = data.userInfoPersonnel.appointmenttime;// 聘任时间
+      this.form.userInfoPersonnel.maritalstatus = data.userInfoPersonnel.maritalstatus;// 婚姻状况
+      this.form.userInfoPersonnel.hukounature = data.userInfoPersonnel.hukounature;// 户口性质
+      this.form.userInfoPersonnel.hukouwhere = data.userInfoPersonnel.hukouwhere;// 户口所在地
+      this.form.userInfoPersonnel.beforecompany = data.userInfoPersonnel.beforecompany;// 调入前单位
+      this.form.userInfoPersonnel.reserveleavedate = data.userInfoPersonnel.reserveleavedate;// 预订离院日期
+      this.form.userInfoPersonnel.firstcontractdate = data.userInfoPersonnel.firstcontractdate;// 首次合同开始日期
+      this.form.userInfoPersonnel.familyaddr = data.userInfoPersonnel.familyaddr;// 家庭地址
+      this.form.userInfoPersonnel.personneltype = data.userInfoPersonnel.personneltype;// 人员类别
+      this.form.userInfoPersonnel.fanpinenddate = data.userInfoPersonnel.fanpinenddate;// 返聘日期
+//            this.form.userInfoPersonnel = userInfoPersonnel; // userInfoPersonnel 表信息
     }
   },
   data() {
@@ -434,7 +429,10 @@ export default {
       isShow: false,
       title:'',
       userLists: [],
+      imageUrl:[],
       form: {
+        imageid:'',
+        fileid:[],
         userInfo:{
           userid:'',
           number:'',
@@ -574,6 +572,7 @@ export default {
               UserInfoService.addUserInfo(this.form).then((res) => {
                 if (res.code === 200){
                   this.$message.success('添加'+res.message);
+                  this.$refs['form'].resetFields();
                   this.getUserInfoList();
                   this.isShow = false
                 }else {
@@ -618,7 +617,9 @@ export default {
     },
     // 上传拖
     handleAvatarSuccess(res, file) {
-      this.form.imageUrl = URL.createObjectURL(file.raw);
+        console.log('上传拖',res);
+        this.form.imageid = res.data.id;
+      this.imageUrl = URL.createObjectURL(file.raw);
     },
   }
 }

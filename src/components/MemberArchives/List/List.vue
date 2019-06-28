@@ -38,7 +38,7 @@ export default {
     ])
   },
   mounted() {
-    this.getUserInfoPartyList();
+    this.getUserInfoPartyList({type:'党员'});
 
   },
   methods: {

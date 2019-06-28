@@ -165,19 +165,18 @@
             this.title = title
           },
           medicalCareData(val){
-              console.log('medicalCareData',val);
               this.form.id = val.id;
               this.form.parcticelevel = val.parcticelevel;
-            this.form.practicenumber = val.practicenumber;
-            this.form.parcticebookobtaindate = val.parcticebookobtaindate;
-            this.form.technologynumber = val.technologynumber;
-            this.form.technologybookobtaindate = val.technologybookobtaindate;
-            this.form.nurseshoesize = val.nurseshoesize;
-            this.form.practicerange = val.practicerange;
-            this.form.registrationtime = val.registrationtime;
-            this.form.practiceyears = val.practiceyears;
-            this.form.practicecategory = val.practicecategory;
-            this.form.interruptpractice = val.interruptpractice;
+              this.form.practicenumber = val.practicenumber;
+              this.form.parcticebookobtaindate = val.parcticebookobtaindate;
+              this.form.technologynumber = val.technologynumber;
+              this.form.technologybookobtaindate = val.technologybookobtaindate;
+              this.form.nurseshoesize = val.nurseshoesize;
+              this.form.practicerange = val.practicerange;
+              this.form.registrationtime = val.registrationtime;
+              this.form.practiceyears = val.practiceyears;
+              this.form.practicecategory = val.practicecategory;
+              this.form.interruptpractice = val.interruptpractice;
           }
         },
         // 依赖注入

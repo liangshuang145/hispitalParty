@@ -2,14 +2,14 @@
   <div name="Search" class="search-panel">
     <div class="change-search">
       <div>
-        <el-select v-model="searchIsSelect" placeholder="请选择党员类型">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+        <el-select v-model="searchIsSelect" placeholder="请选择党员类型" @change="selectPartyList">
+          <el-option v-for="item in options" :key="item" :label="item" :value="item">
           </el-option>
         </el-select>
         <el-radio-group v-model="radio" class="radio-group">
           <el-radio v-for="item in radioGroupArr" :key="item.label" :label="item.label" class="bind-button">{{item.name}}</el-radio>
         </el-radio-group>
-        <el-input class="search-input" size="medium" v-model="search" :placeholder="inputPlaceholder" :type="radio === 1 ? 'text': 'number'" @input="selectSearch">
+        <el-input class="search-input" size="medium" v-model="search" :placeholder="inputPlaceholder"  @input="selectSearch">
           <el-button slot="append" icon="el-icon-search" @click="selectSearch"></el-button>
         </el-input>
       </div>
@@ -38,12 +38,7 @@
           {label:3,name:'工号'}
         ],
         options:[
-          {label:'未入党',value:0},
-          {label:'党员',value:1},
-          {label:'入党申请人',value:2},
-          {label:'建档对象',value:3},
-          {label:'入党积极分子',value:4},
-          {label:'预备党员',value:5},
+            '入党申请人','建档对象','入党积极分子','预备党员'
         ],
         radio:1,
         search: '',
@@ -67,16 +62,26 @@
         }
     },
     methods: {
-        // 搜索
+      ...mapActions([
+        'getUserInfoPartyList',
+        'selectUserInfoPartyListByNameOrNumberOrOffice'
+      ]),
+        // 下拉查询
+      selectPartyList(val){
+        this.getUserInfoPartyList({type:val});
+      },
+      // 搜索
       selectSearch(){
         switch (this.radio){
-          case 1:
-            // 根据姓名搜索
+          case 1: //根据姓名搜索
+            this.selectUserInfoPartyListByNameOrNumberOrOffice({name:this.search,department:'',number:'',type:this.searchIsSelect});
             break;
           case 2:
+            this.selectUserInfoPartyListByNameOrNumberOrOffice({department:this.search,name:'',number:'',type:this.searchIsSelect});
             // 根据科室搜索
             break;
           case 3:
+            this.selectUserInfoPartyListByNameOrNumberOrOffice({number:this.search,name:'',department:'',type:this.searchIsSelect});
             // 根据工号搜索
             break;
         }

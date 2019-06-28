@@ -340,6 +340,18 @@ export default new Vuex.Store({
         commit('setUserInfoList',res)
       })
     },
+    // 通过部门id查询用户详情
+    selectUserInfoListByDepartId({ commit },param){
+      UserInfoService.selectUserInfoListByDepartId(param).then((res) => {
+        commit('setUserInfoList', res)
+      })
+    },
+    // 通过行政id查询用户详情
+    selectUserInfoListByGroupId({ commit },param){
+      UserInfoService.selectUserInfoListByGroupId(param).then((res) => {
+        commit('setUserInfoList', res)
+      })
+    },
     // 获取用户教育经历列表
     getUserInfoEductionList({ commit },param){
       UserInfoService.getUserInfoEductionList(param).then((res) => {
@@ -364,9 +376,45 @@ export default new Vuex.Store({
         commit('setUserInfoMzdpList',res)
       })
     },
+    // 通过组织id 获得民主党派列表
+    selectUserInfoMzdpListByDepartId({ commit },param){
+      UserInfoService.selectUserInfoMzdpListByDepartId(param).then((res) => {
+        commit('setUserInfoMzdpList',res)
+      })
+    },
+    // 通过行政id 获得民主党派列表
+    selectUserInfoMzdpListByGroupId({ commit },param){
+      UserInfoService.selectUserInfoMzdpListByGroupId(param).then((res) => {
+        commit('setUserInfoMzdpList',res)
+      })
+    },
+    // 民主党派 用户条件查询 列表 姓名 工号 科室
+    selectUserInfoMzdpListByNameOrNumberOrOffice({ commit },param){
+      UserInfoService.selectUserInfoMzdpListByNameOrNumberOrOffice(param).then((res) => {
+        commit('setUserInfoMzdpList',res)
+      })
+    },
     // -------------- 高知群体 ------
     getUserInfoGzqtList({ commit }){
       UserInfoService.getUserInfoGzqtList().then((res) => {
+        commit('setUserInfoGzqtList',res)
+      })
+    },
+    // 通过组织id 获得列表
+    selectUserInfoGzqtListByDepartId({ commit },param){
+      UserInfoService.selectUserInfoGzqtListByDepartId(param).then((res) => {
+        commit('setUserInfoGzqtList',res)
+      })
+    },
+    // 通过行政id 获得列表
+    selectUserInfoGzqtListByGroupId({ commit },param){
+      UserInfoService.selectUserInfoGzqtListByGroupId(param).then((res) => {
+        commit('setUserInfoGzqtList',res)
+      })
+    },
+    // 用户条件查询 列表 姓名 工号 科室
+    selectUserInfoGzqtListByNameOrNumberOrOffice({ commit },param){
+      UserInfoService.selectUserInfoGzqtListByNameOrNumberOrOffice(param).then((res) => {
         commit('setUserInfoGzqtList',res)
       })
     },
@@ -376,9 +424,45 @@ export default new Vuex.Store({
         commit('setUserInfoGhList',res)
       })
     },
+    // 通过组织id 获得列表
+    selectUserInfoGhListByDepartId({ commit },param){
+      UserInfoService.selectUserInfoGhListByDepartId(param).then((res) => {
+        commit('setUserInfoGhList',res)
+      })
+    },
+    // 通过行政id 获得列表
+    selectUserInfoGhListByGroupId({ commit },param){
+      UserInfoService.selectUserInfoGhListByGroupId(param).then((res) => {
+        commit('setUserInfoGhList',res)
+      })
+    },
+    // 用户条件查询 列表 姓名 工号 科室
+    selectUserInfoGhListByNameOrNumberOrOffice({ commit },param){
+      UserInfoService.selectUserInfoGhListByNameOrNumberOrOffice(param).then((res) => {
+        commit('setUserInfoGhList',res)
+      })
+    },
     // -------------- 团委 ------
     getUserInfoTwList({ commit }){
       UserInfoService.getUserInfoTwList().then((res) => {
+        commit('setUserInfoTwList',res)
+      })
+    },
+    // 通过组织id 获得列表
+    selectUserInfoTwListByDepartId({ commit },param){
+      UserInfoService.selectUserInfoTwListByDepartId(param).then((res) => {
+        commit('setUserInfoTwList',res)
+      })
+    },
+    // 通过行政id 获得列表
+    selectUserInfoTwListByGroupId({ commit },param){
+      UserInfoService.selectUserInfoTwListByGroupId(param).then((res) => {
+        commit('setUserInfoTwList',res)
+      })
+    },
+    // 用户条件查询 列表 姓名 工号 科室
+    selectUserInfoTwListByNameOrNumberOrOffice({ commit },param){
+      UserInfoService.selectUserInfoTwListByNameOrNumberOrOffice(param).then((res) => {
         commit('setUserInfoTwList',res)
       })
     },
@@ -388,15 +472,69 @@ export default new Vuex.Store({
         commit('setUserInfoFdhList',res)
       })
     },
+    // 通过组织id 获得列表
+    selectUserInfoFdhListByDepartId({ commit },param){
+      UserInfoService.selectUserInfoFdhListByDepartId(param).then((res) => {
+        commit('setUserInfoFdhList',res)
+      })
+    },
+    // 通过行政id 获得列表
+    selectUserInfoFdhListByGroupId({ commit },param){
+      UserInfoService.selectUserInfoFdhListByGroupId(param).then((res) => {
+        commit('setUserInfoFdhList',res)
+      })
+    },
+    // 用户条件查询 列表 姓名 工号 科室
+    selectUserInfoFdhListByNameOrNumberOrOffice({ commit },param){
+      UserInfoService.selectUserInfoFdhListByNameOrNumberOrOffice(param).then((res) => {
+        commit('setUserInfoFdhList',res)
+      })
+    },
     // -------------- 离职老干部 ------
     getUserInfoLtxlgbList({ commit }){
       UserInfoService.getUserInfoLtxlgbList().then((res) => {
         commit('setUserInfoLtxlgbList',res)
       })
     },
+    // 通过组织id 获得列表
+    selectUserInfoLtxlgbListByDepartId({ commit },param){
+      UserInfoService.selectUserInfoLtxlgbListByDepartId(param).then((res) => {
+        commit('setUserInfoLtxlgbList',res)
+      })
+    },
+    // 通过行政id 获得列表
+    selectUserInfoLtxlgbListByGroupId({ commit },param){
+      UserInfoService.selectUserInfoLtxlgbListByGroupId(param).then((res) => {
+        commit('setUserInfoLtxlgbList',res)
+      })
+    },
+    // 用户条件查询 列表 姓名 工号 科室
+    selectUserInfoLtxlgbListByNameOrNumberOrOffice({ commit },param){
+      UserInfoService.selectUserInfoLtxlgbListByNameOrNumberOrOffice(param).then((res) => {
+        commit('setUserInfoLtxlgbList',res)
+      })
+    },
     // ------------- 党员发展列表 -------
-    getUserInfoPartyList({ commit }){
-      UserInfoService.getUserInfoPartyList().then((res) => {
+    getUserInfoPartyList({ commit },param){
+      UserInfoService.getUserInfoPartyList(param).then((res) => {
+        commit('setUserInfoPartyList',res)
+      })
+    },
+    // 通过组织id 获得列表
+    selectUserInfoPartyListByDepartId({ commit },param){
+      UserInfoService.selectUserInfoPartyListByDepartId(param).then((res) => {
+        commit('setUserInfoPartyList',res)
+      })
+    },
+    // 通过行政id 获得列表
+    selectUserInfoPartyListByGroupId({ commit },param){
+      UserInfoService.selectUserInfoPartyListByGroupId(param).then((res) => {
+        commit('setUserInfoPartyList',res)
+      })
+    },
+    // 用户条件查询 列表 姓名 工号 科室
+    selectUserInfoPartyListByNameOrNumberOrOffice({ commit },param){
+      UserInfoService.selectUserInfoPartyListByNameOrNumberOrOffice(param).then((res) => {
         commit('setUserInfoPartyList',res)
       })
     },

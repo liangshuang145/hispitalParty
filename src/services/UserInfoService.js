@@ -47,6 +47,40 @@ const selectUserInfoListByNameOrNumberOrOffice = (param = {}) => {
 };
 
 /**
+ * 通过部门id查询用户信息
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoListByDepartId  = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      data:param,
+      method:'post'
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 通过行政id查询用户信息
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoListByGroupId  = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      data:param,
+      method:'post'
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
  * 通过id获取用户详情信息
  * @param param
  * @returns {Promise}
@@ -71,6 +105,8 @@ const getUserInfo = (param = {}) => {
 const addUserInfo = (param ={}) => {
   return new Promise((resolve) => {
     param = {
+      imageid:param.imageid,
+      fileid:param.fileid,
         userInfo:param.userInfo,
         userInfoPersonnel:param.userInfoPersonnel,
     };
@@ -152,7 +188,7 @@ const addUserInfoIsEducation = (param = {}) => {
 const delUserInfoEducation = (param = {}) => {
   return new Promise((resolve) => {
     http.post({
-      url:'',
+      url:'userInfo/del_edu',
       data:param,
       method:'post'
     }).then((res) => {
@@ -208,7 +244,7 @@ const addUserInfoIsWork = (param = {}) => {
 const delUserInfoWork = (param = {}) => {
   return new Promise((resolve) => {
     http.post({
-      url:'',
+      url:'userInfo/del_work',
       data:param,
       method:'post'
     }).then((res) => {
@@ -242,7 +278,7 @@ const addUserInfoIsContract = (param = {}) => {
 const delUserInfoIsContract = (param = {}) => {
   return new Promise((resolve) => {
     http.post({
-      url:'',
+      url:'userInfo/del_contract',
       data:param,
       method:'post',
     }).then((res) => {
@@ -353,6 +389,65 @@ const getUserInfoMzdpList = (param = {}) => {
 };
 
 /**
+ * 通过组织id获得民主党派列表
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoMzdpListByDepartId = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 通过组织id获得民主党派列表
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoMzdpListByGroupId = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ *  民主 条件用户条件模糊查询 列表 姓名 工号 科室
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoMzdpListByNameOrNumberOrOffice = (param = {}) => {
+  return new Promise((resolve) => {
+    let params = {};
+    if (param.name){
+      params['name'] = param.name
+    }else if(param.department){
+      params['department'] = param.department
+    }else if(param.number){
+      params['number'] = param.number
+    }
+    http.post({
+      url:'userInfoMzdp/findByLike',
+      data: params,
+      method: 'post',
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
  * 删除民主党派信息
  * @param param
  * @returns {Promise}
@@ -398,6 +493,65 @@ const getUserInfoGzqtList = (param = {}) => {
       url:'userInfoGzqt/list',
       data:param,
       method:'get'
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 通过组织id获得列表
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoGzqtListByDepartId = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 通过组织id获得列表
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoGzqtListByGroupId = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 条件用户条件模糊查询 列表 姓名 工号 科室
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoGzqtListByNameOrNumberOrOffice = (param = {}) => {
+  return new Promise((resolve) => {
+    let params = {};
+    if (param.name){
+      params['name'] = param.name
+    }else if(param.department){
+      params['department'] = param.department
+    }else if(param.number){
+      params['number'] = param.number
+    }
+    http.post({
+      url:'userInfoGzqt/findByLike',
+      data: params,
+      method: 'post',
     }).then((res) => {
       resolve(res.data)
     })
@@ -457,6 +611,65 @@ const getUserInfoGhList = (param = {}) => {
 };
 
 /**
+ * 通过组织id获得列表
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoGhListByDepartId = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 通过组织id获得列表
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoGhListByGroupId = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 条件用户条件模糊查询 列表 姓名 工号 科室
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoGhListByNameOrNumberOrOffice = (param = {}) => {
+  return new Promise((resolve) => {
+    let params = {};
+    if (param.name){
+      params['name'] = param.name
+    }else if(param.department){
+      params['department'] = param.department
+    }else if(param.number){
+      params['number'] = param.number
+    }
+    http.post({
+      url:'userInfoGh/findByLike',
+      data: params,
+      method: 'post',
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
  * 删除工会信息
  * @param param
  * @returns {Promise}
@@ -502,6 +715,65 @@ const getUserInfoTwList = (param = {}) => {
       url:'userInfoTw/list',
       data:param,
       method:'get'
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 通过组织id获得列表
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoTwListByDepartId = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 通过组织id获得列表
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoTwListByGroupId = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 条件用户条件模糊查询 列表 姓名 工号 科室
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoTwListByNameOrNumberOrOffice = (param = {}) => {
+  return new Promise((resolve) => {
+    let params = {};
+    if (param.name){
+      params['name'] = param.name
+    }else if(param.department){
+      params['department'] = param.department
+    }else if(param.number){
+      params['number'] = param.number
+    }
+    http.post({
+      url:'userInfoTw/findByLike',
+      data: params,
+      method: 'post',
     }).then((res) => {
       resolve(res.data)
     })
@@ -561,6 +833,65 @@ const getUserInfoFdhList = (param = {}) => {
 };
 
 /**
+ * 通过组织id获得列表
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoFdhListByDepartId = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 通过组织id获得列表
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoFdhListByGroupId = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 条件用户条件模糊查询 列表 姓名 工号 科室
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoFdhListByNameOrNumberOrOffice = (param = {}) => {
+  return new Promise((resolve) => {
+    let params = {};
+    if (param.name){
+      params['name'] = param.name
+    }else if(param.department){
+      params['department'] = param.department
+    }else if(param.number){
+      params['number'] = param.number
+    }
+    http.post({
+      url:'userInfoFdh/findByLike',
+      data: params,
+      method: 'post',
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
  * 删除妇代会信息
  * @param param
  * @returns {Promise}
@@ -613,6 +944,65 @@ const getUserInfoLtxlgbList = (param = {}) => {
 };
 
 /**
+ * 通过组织id获得列表
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoLtxlgbListByDepartId = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 通过组织id获得列表
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoLtxlgbListByGroupId = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 条件用户条件模糊查询 列表 姓名 工号 科室
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoLtxlgbListByNameOrNumberOrOffice = (param = {}) => {
+  return new Promise((resolve) => {
+    let params = {};
+    if (param.name){
+      params['name'] = param.name
+    }else if(param.department){
+      params['department'] = param.department
+    }else if(param.number){
+      params['number'] = param.number
+    }
+    http.post({
+      url:'userInfoLtxlgb/findByLike',
+      data: params,
+      method: 'post',
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
  * 删除离退休老干部信息
  * @param param
  * @returns {Promise}
@@ -654,10 +1044,72 @@ const addUserInfoLtxlgb = (param ={}) => {
  */
 const getUserInfoPartyList = (param = {}) => {
   return new Promise((resolve) => {
-    http.get({
+    http.post({
       url:'userInfoParty/list',
       data:param,
-      method:'get'
+      method:'post'
+    }).then((res) => {
+      console.log('获得党员发展列表',res);
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 通过组织id获得列表
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoPartyListByDepartId = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 通过组织id获得列表
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoPartyListByGroupId = (param = {}) => {
+  return new Promise((resolve) => {
+    http.post({
+      url:'',
+      method:'post',
+      data:param
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+};
+
+/**
+ * 条件用户条件模糊查询 列表 姓名 工号 科室
+ * @param param
+ * @returns {Promise}
+ */
+const selectUserInfoPartyListByNameOrNumberOrOffice = (param = {}) => {
+  return new Promise((resolve) => {
+    let params = {};
+    let type = param.type;
+    if (param.name){
+      params['name'] = param.name
+    }else if(param.department){
+      params['department'] = param.department
+    }else if(param.number){
+      params['number'] = param.number
+    }
+    params['type'] = type;
+    http.post({
+      url:'userInfoParty/findByLike',
+      data: params,
+      method: 'post',
     }).then((res) => {
       resolve(res.data)
     })
@@ -718,39 +1170,62 @@ export default {
   addUserInfoTitlePost,// 添加用户职务职称
   selectUserInfoListByNameOrNumberOrOffice,//用户条件查询 列表 姓名 编号 科室
   getUserInfo,// 获取用户详情信息
+  selectUserInfoListByDepartId,// 通过组织id获得用户信息列表
+  selectUserInfoListByGroupId,// 通过行政id获得用户信息列表
 
   // ------- 民主党派 ----
   getUserInfoMzdpList,// 列表
+  selectUserInfoMzdpListByDepartId,// 通过组织id获得用户信息列表
+  selectUserInfoMzdpListByGroupId,// 通过行政id获得用户信息列表
+  selectUserInfoMzdpListByNameOrNumberOrOffice,//用户条件查询 列表 姓名 编号 科室
   delUserInfoMzdp,// 删除
   addUserInfoMzdp,// 新增
 
   // ------- 高知群体 ----
   getUserInfoGzqtList,// 列表
+  selectUserInfoGzqtListByDepartId,// 通过组织id获得用户信息列表
+  selectUserInfoGzqtListByGroupId,// 通过行政id获得用户信息列表
+  selectUserInfoGzqtListByNameOrNumberOrOffice,//用户条件查询 列表 姓名 编号 科室
   delUserInfoGzqt,// 删除
   addUserInfoGzqt,// 新增
 
   // -------- 工会 ------
   getUserInfoGhList,// 列表
+  selectUserInfoGhListByDepartId,// 通过组织id获得用户信息列表
+  selectUserInfoGhListByGroupId,// 通过行政id获得用户信息列表
+  selectUserInfoGhListByNameOrNumberOrOffice,//用户条件查询 列表 姓名 编号 科室
   delUserInfoGh,// 删除
   addUserInfoGh,//新增
 
   // -------- 团委 ------
   getUserInfoTwList,// 列表
+  selectUserInfoTwListByDepartId,// 通过组织id获得用户信息列表
+  selectUserInfoTwListByGroupId,// 通过行政id获得用户信息列表
+  selectUserInfoTwListByNameOrNumberOrOffice,//用户条件查询 列表 姓名 编号 科室
   delUserInfoTw,// 删除
   addUserInfoTw,// 新增团委
 
   // -------- 妇代会 ------
   getUserInfoFdhList,// 列表
+  selectUserInfoFdhListByDepartId,// 通过组织id获得用户信息列表
+  selectUserInfoFdhListByGroupId,// 通过行政id获得用户信息列表
+  selectUserInfoFdhListByNameOrNumberOrOffice,//用户条件查询 列表 姓名 编号 科室
   delUserInfoFdh,// 删除
   addUserInfoFdh,// 新增
 
   // -------- 离退休老干部 ------
   getUserInfoLtxlgbList,// 列表
+  selectUserInfoLtxlgbListByDepartId,// 通过组织id获得用户信息列表
+  selectUserInfoLtxlgbListByGroupId,// 通过行政id获得用户信息列表
+  selectUserInfoLtxlgbListByNameOrNumberOrOffice,//用户条件查询 列表 姓名 编号 科室
   delUserInfoLtxlgb,// 删除
   addUserInfoLtxlgb,// 新增
 
   // --------- 党员发展 ------
   getUserInfoPartyList,
+  selectUserInfoPartyListByDepartId,// 通过组织id获得用户信息列表
+  selectUserInfoPartyListByGroupId,// 通过行政id获得用户信息列表
+  selectUserInfoPartyListByNameOrNumberOrOffice,//用户条件查询 列表 姓名 编号 科室
   addUserInfoParty,
   delUserInfoParty
   // getUserInfoIsBasics,// 通过id 获得人事基本信息+人事信息

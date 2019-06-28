@@ -10,7 +10,7 @@
             class="bind-button"
           >{{item.name}}</el-radio>
         </el-radio-group>
-        <el-input class="search-input" size="medium" v-model="search" :placeholder="inputPlaceholder" :type="radio === 1 ? 'text': 'number'" @input="selectSearch">
+        <el-input class="search-input" size="medium" v-model="search" :placeholder="inputPlaceholder"  @input="selectSearch">
           <el-button slot="append" icon="el-icon-search" @click="selectSearch"></el-button>
         </el-input>
       </div>
@@ -34,9 +34,9 @@
     data() {
       return {
         radioGroupArr:[
-          {label:1,name:'根据姓名搜索'},
-          {label:2,name:'根据科室搜索'},
-          {label:3,name:'根据工号搜索'}
+          {label:1,name:'姓名'},
+          {label:2,name:'科室'},
+          {label:3,name:'工号'}
         ],
         radio:1,
         search: '',
@@ -59,16 +59,21 @@
         }
     },
     methods: {
-        // 搜索
+      ...mapActions([
+        'selectUserInfoGzqtListByNameOrNumberOrOffice',
+      ]),
+      // 搜索
       selectSearch(){
         switch (this.radio){
-          case 1:
-            // 根据姓名搜索
+          case 1: //根据姓名搜索
+            this.selectUserInfoGzqtListByNameOrNumberOrOffice({name:this.search,department:'',number:''});
             break;
           case 2:
+            this.selectUserInfoGzqtListByNameOrNumberOrOffice({department:this.search,name:'',number:''});
             // 根据科室搜索
             break;
           case 3:
+            this.selectUserInfoGzqtListByNameOrNumberOrOffice({number:this.search,name:'',department:''});
             // 根据工号搜索
             break;
         }

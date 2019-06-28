@@ -77,7 +77,54 @@
               jobTitleData:{},
               userInfoDataIsM:{},
               tableData:'',
-              userData:{}
+              userData:{},
+              form: {
+                imageid: '',
+                fileid: [],
+                userInfo: {
+                  userid: '',
+                  number: '',
+                  name: '',
+                  branchName: '',
+                  department: '',
+                  birthday: '',
+                  education: '',
+                  place: '',
+                  nation: '',
+                  post: '',
+                  title: '',
+                  idEntity: '',
+                  workDate: '',
+                  partyDate: '',
+                  correctionDate: '',
+                  phone: '',
+                  idcard: ''
+                },
+                userInfoPersonnel: {
+                  workyear: '',
+                  workmonth: '',
+                  partypost: '',
+                  servingdate: '',
+                  otherpost: '',
+                  jianpingpost: '',
+                  jianpingdate: '',
+                  politicalappearance: '',
+                  partydate: '',
+                  branchname: '',
+                  typeworker: '',
+                  gradeworker: '',
+                  appointmenttime: '',
+                  maritalstatus: '',
+                  hukounature: '',
+                  hukouwhere: '',
+                  beforecompany: '',
+                  reserveleavedate: '',
+                  firstcontractdate: '',
+                  familyaddr: '',
+                  personneltype: '',
+                  fanpinenddate: ''
+                }
+              }
             }
         },
         // 页面初始化(生命周期)
@@ -96,7 +143,9 @@
             }
             UserInfoService.getUserInfo({id:this.tableData.id}).then((res) => {
                 if (res.code === 200){
-                    console.log(res.data)
+                  this.userData = res.data[0];
+                  this.isUserDialogShow = true;
+                  this.dialogType = 0;// 类型: 0-查看(默认),1-新增,2-修改
                 }else {
                     this.$message.error(res.message)
                 }
@@ -129,8 +178,7 @@
             UserInfoService.getUserInfoMedicalCare({id:this.tableData.id}).then((res)  => {
               if(res.code === 200 ){
 //                this.medicalCareData = res.data;
-                if(res.data[0].id){ // 查看
-                  console.log('查看医务护理',res.data);
+                if(res.data[0]){ // 查看
                   this.isMedicalCareDialogType = 0;
                   this.medicalCareData = res.data[0];
                 }else{ // 新增
@@ -181,7 +229,7 @@
           addUser(){
             this.dialogType = 1;
             this.isUserDialogShow = true;
-            this.userData = {}
+            this.userData = this.form
           },
           // 修改人事信息
           updateUser(){

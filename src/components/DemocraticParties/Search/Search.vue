@@ -10,7 +10,7 @@
             class="bind-button"
           >{{item.name}}</el-radio>
         </el-radio-group>
-        <el-input class="search-input" size="medium" v-model="search" :placeholder="inputPlaceholder" :type="radio === 1 ? 'text': 'number'" @input="selectSearch">
+        <el-input class="search-input" size="medium" v-model="search" :placeholder="inputPlaceholder"  @input="selectSearch">
           <el-button slot="append" icon="el-icon-search" @click="selectSearch"></el-button>
         </el-input>
       </div>
@@ -57,16 +57,21 @@
         }
     },
     methods: {
-        // 搜索
+      ...mapActions([
+        'selectUserInfoMzdpListByNameOrNumberOrOffice',
+      ]),
+      // 搜索
       selectSearch(){
         switch (this.radio){
-          case 1:
-            // 根据姓名搜索
+          case 1: //根据姓名搜索
+            this.selectUserInfoMzdpListByNameOrNumberOrOffice({name:this.search,department:'',number:''});
             break;
           case 2:
+            this.selectUserInfoMzdpListByNameOrNumberOrOffice({department:this.search,name:'',number:''});
             // 根据科室搜索
             break;
           case 3:
+            this.selectUserInfoMzdpListByNameOrNumberOrOffice({number:this.search,name:'',department:''});
             // 根据工号搜索
             break;
         }

@@ -63,20 +63,20 @@
         this.$refs.tree.filter(val)
       }
     },
+
     computed: {
       ...mapState([
-        'userGroupList',
         'subjectList',
       ])
     },
     mounted() {
-      this.getUserGroupList(),
-        this.getSubjectList()
+      this.getSubjectList()
     },
     methods: {
       ...mapActions([
-        'getUserGroupList',
-        'getSubjectList'
+        'getSubjectList',
+        'selectUserInfoPartyListByDepartId',
+        'selectUserInfoPartyListByGroupId'
       ]),
       filterNode(value, data) {
         if (!value) return true;
@@ -86,9 +86,9 @@
       nodeClick(data, node) {
         if(node.level >= 3){ // 判断节点等级
           if(node.data.type === '部门'){ // 部门
-
+            this.selectUserInfoPartyListByDepartId({id:node.data.id})
           }else if(node.data.type === '行政'){// 行政
-
+            this.selectUserInfoPartyListByGroupId({id:node.data.id})
           }
         }
         data['parentData'] = node.parent.data;
