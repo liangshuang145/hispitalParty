@@ -22,6 +22,7 @@
   import { mapState, mapActions } from 'vuex'
   import Buttons from '../Buttons/Buttons.vue'
   import UserService from '../../../services/UserService'
+  import UserInfoService from '../../../services/UserInfoService'
 
   export default {
     name: 'search',
@@ -64,6 +65,14 @@
         switch (this.radio){
           case 1:
             // 根据姓名搜索
+            UserInfoService.selectUserInfoListByNameOrNumberOrOffice({name:""}).then((res)=>{
+                if(res.data===200){
+                    this.$message.success();
+
+                }else{
+                    this.$message.error(res.message);
+                }
+            });
             break;
           case 2:
             // 根据科室搜索
