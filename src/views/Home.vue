@@ -14,9 +14,9 @@
               <i class="el-icon-arrow-down"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>
-                <router-link to="/index/user">修改密码</router-link>
-              </el-dropdown-item>
+              <!--<el-dropdown-item>-->
+                <!--<router-link to="/index/user">修改密码</router-link>-->
+              <!--</el-dropdown-item>-->
               <el-dropdown-item>
                 <span @click="outLogin">退出登录</span>
               </el-dropdown-item>
@@ -192,23 +192,23 @@ export default {
         this.userName = userInfo.name;
     },
     outLogin() {
-        LoginService.outLogin().then( (res) => {
-          if(res.code === 200){
+//        LoginService.outLogin().then( (res) => {
+//          if(res.code === 200){
             this.$router.push('/Login');
-            this.$notify.success({
-              title: res.message,
-              duration: 5000
-            });
-          }else {
-            this.$notify.error({
-              title: "错误码："+res.code,
-              message: res.message,
-              duration: 5000
-            });
-          }
-        },err => {
-            console.error(err)
-        });
+//            this.$notify.success({
+//              title: res.message,
+//              duration: 5000
+//            });
+//          }else {
+//            this.$notify.error({
+//              title: "错误码："+res.code,
+//              message: res.message,
+//              duration: 5000
+//            });
+//          }
+//        },err => {
+//            console.error(err)
+//        });
 //      this.$http({
 //        url: this.$BASE_URL + 'api/user/outLogin',
 //        headers: {

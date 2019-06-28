@@ -5,7 +5,7 @@
         <div>
           <el-button type="info" icon="el-icon-document" @click="look" >查看</el-button>
           <el-button type="primary" icon="el-icon-plus" @click="addUser">添加</el-button>
-          <el-button type="success" icon="el-icon-edit" @click="updateUser">修改</el-button>
+          <!--<el-button type="success" icon="el-icon-edit" @click="updateUser">修改</el-button>-->
           <el-button type="danger" icon="el-icon-delete" @click="delUser">删除</el-button>
         </div>
         <!--<div>-->

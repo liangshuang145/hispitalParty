@@ -35,9 +35,9 @@
       <userDialog v-model="isUserDialogShow" :type="dialogType" :userData="userData"></userDialog>
       <education-list-dialog v-model="isEducationListDialog" :type="educationListDialogType" :userInfoData="userInfoData" ></education-list-dialog>
       <work-list-dialog v-model="isWorkListDialog" :userInfoData="userInfoDataIsWork"></work-list-dialog>
-      <contract-record-dialog v-model="isContractRecordDialog"></contract-record-dialog>
-      <medical-care-dialog v-model="isMedicalCareDialog"></medical-care-dialog>
-      <job-title-dialog v-model="isJobTitleDialog"></job-title-dialog>
+      <contract-record-list-dialog v-model="isContractRecordListDialog" :userInfoData = 'userInfoDataIsC'></contract-record-list-dialog>
+      <medical-care-dialog v-model="isMedicalCareDialog" :userInfoData="userInfoDataIsM" :medicalCareData="medicalCareData" :type="isMedicalCareDialogType"></medical-care-dialog>
+      <job-title-dialog v-model="isJobTitleDialog" :type="isJobTitleDialogType" :jobTitleData="jobTitleData" :userInfoData="userInfoDataIsJ"></job-title-dialog>
     </div>
 </template>
 
@@ -50,9 +50,9 @@
   import Search from "../Search/Search";
   import EducationListDialog from "../EducationListDialog/EducationListDialog";
   import WorkListDialog from "../WorkListDialog/WorkListDialog";
-  import ContractRecordDialog from "../ContractRecordDialog/ContractRecordDialog";
   import MedicalCareDialog from "../MedicalCareDialog/MedicalCareDialog";
   import JobTitleDialog from "../JobTitleDialog/JobTitleDialog";
+  import ContractRecordListDialog from "../ContractRecordListDialog/ContractRecordListDialog";
 
     export default{
         name: 'buttons',
@@ -64,12 +64,18 @@
               isEducationListDialog:false,// 教育经历
               educationListDialogType:0,// 类型: 0-查看(默认),1-新增,2-修改
               isWorkListDialog:false,// 工作经历
-              isContractRecordDialog: false, //合同记录
+              isContractRecordListDialog: false, //合同记录
               isMedicalCareDialog:false,//医务医理
+              isMedicalCareDialogType:0,
               isJobTitleDialog:false,// 职务职称
+              isJobTitleDialogType:0,
               userInfoDataIsWork:{},
+              userInfoDataIsC:{},
+              userInfoDataIsJ:{},
+              medicalCareData:{},
               userInfoData:null,
-
+              jobTitleData:{},
+              userInfoDataIsM:{},
               tableData:'',
               userData:{}
             }
@@ -107,15 +113,60 @@
           },
           // 查看合同记录
           lookContractRecord(){
-              this.isContractRecordDialog = true
+            if(!this.tableData){
+              this.$message.error('操作错误,请先选择数据');
+              return
+            }
+            this.userInfoDataIsC = this.tableData;
+              this.isContractRecordListDialog = true
           },
           // 查看医务护理
           lookMedicalCare(){
-              this.isMedicalCareDialog = true
+            if(!this.tableData){
+              this.$message.error('操作错误,请先选择数据');
+              return
+            }
+            UserInfoService.getUserInfoMedicalCare({id:this.tableData.id}).then((res)  => {
+              if(res.code === 200 ){
+//                this.medicalCareData = res.data;
+                if(res.data[0].id){ // 查看
+                  console.log('查看医务护理',res.data);
+                  this.isMedicalCareDialogType = 0;
+                  this.medicalCareData = res.data[0];
+                }else{ // 新增
+                  this.isMedicalCareDialogType = 1;
+                  this.medicalCareData = {}
+                }
+                this.userInfoDataIsM = this.tableData;
+                this.isMedicalCareDialog = true
+              }else {
+                this.$message.error(res.message)
+              }
+            });
+
           },
           // 查看职务职称
           lookJobTitle(){
-            this.isJobTitleDialog = true
+            if(!this.tableData){
+              this.$message.error('操作错误,请先选择数据');
+              return
+            }
+            UserInfoService.getUserInfoTitlePost({id:this.tableData.id}).then((res)  => {
+              if(res.code === 200 ){
+                console.log('查看职务职称',res.data);
+                if(res.data[0]){// 查看
+                  this.isJobTitleDialogType = 0;
+                  this.jobTitleData = res.data[0]
+                }else{
+                  this.isJobTitleDialogType = 1;
+                  this.jobTitleData = {}
+                }
+                this.userInfoDataIsJ = this.tableData;
+                this.isJobTitleDialog = true
+              }else {
+                this.$message.error(res.message)
+              }
+            });
           },
           // 查看工作经历
           lookWork(){
@@ -128,7 +179,6 @@
           },
           // 添加人事信息
           addUser(){
-            console.log('添加');
             this.dialogType = 1;
             this.isUserDialogShow = true;
             this.userData = {}
@@ -147,7 +197,7 @@
           // 删除人事信息
           delUser(){
             if(!this.tableData){
-              this.$message.error('操作错误,请先选择数据')
+              this.$message.error('操作错误,请先选择数据');
               return
             }
             this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
@@ -176,9 +226,9 @@
         },
         // 依赖注入
         components: {
+          ContractRecordListDialog,
           JobTitleDialog,
           MedicalCareDialog,
-          ContractRecordDialog,
           WorkListDialog,
           EducationListDialog,
           Search,

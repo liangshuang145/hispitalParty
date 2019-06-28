@@ -22,7 +22,7 @@ const getSubject = (param = {}) => {
     }).then((res) => {
       // res = JSON.parse(res);
       // res.data = JSON.parse(res.data)
-      console.log('获取机构',res);
+      // console.log('获取机构',res);
       resolve(res.data)
     },err =>{
       reject(err)

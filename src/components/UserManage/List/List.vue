@@ -52,7 +52,7 @@ export default {
     ])
   },
   mounted() {
-    this.getUserList({page:this.page})
+//    this.getUserList({page:this.page})
   },
   methods: {
     ...mapActions([

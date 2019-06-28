@@ -49,6 +49,11 @@
         'groupList'
       ])
     },
+    watch:{
+      departList(val){
+          console.log('departList',val)
+      }
+    },
     async mounted() {
       await this.getSubjectList();
     },
@@ -74,12 +79,12 @@
       },
       // 选择部门
       selectDepart(val) {
-          this.getUserListByDepartId({departId:val,page:1,size:20});
+          this.getUserListByDepartId({departId:val,page:0,size:20});
         this.depart = val
       },
       //选择行政
       selectGroup(val) {
-          this.getUserListByGroupId({groupId:val,page:1,size:20});
+          this.getUserListByGroupId({groupId:val,page:0,size:20});
         this.group = val
       },
     }

@@ -34,8 +34,7 @@
         childrenList:[],
         //写死的部落与组织等级为2
         bumenzuzhi:[
-          {
-            createdDate: "20190621085030",
+          {createdDate: "20190621085030",
             id: "402881836b749ac5016b77836f770001",
             lastModifiedDate: "20190621085030",
             name: "部门",

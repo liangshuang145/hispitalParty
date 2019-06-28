@@ -31,16 +31,22 @@ const getDepart = (param = {}) => {
  */
 const getDepartListBySubjectId = (params = {}) => {
   return new Promise((resolve) => {
-    params={
-      subjectId: params.subjectId,
-      type: params.type
+    if (params.type === 1){
+      params ={
+        subjectId: params.subjectId,
+        type: params.type
+      }
+    }else {
+      params= {
+        subjectId: params.subjectId,
+      }
     }
     http.post({
       method: 'post',
       url: 'depart/list',
       data: params
     }).then((res) => {
-      resolve(res)
+      resolve(res.data)
     })
   })
 };

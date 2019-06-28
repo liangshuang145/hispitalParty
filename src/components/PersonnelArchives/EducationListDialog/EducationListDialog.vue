@@ -10,8 +10,8 @@
     </el-row>
     <el-table :data="userInfoEductionList" style="width: 100%" border highlight-current-row @current-change="handleTableChange">
       <el-table-column prop="startdate" label="开始日期" width="157px"></el-table-column>
-      <el-table-column prop="enddate " label="毕业日期" width="157px"></el-table-column>
-      <el-table-column prop="graduationschool " label="毕业学校"></el-table-column>
+      <el-table-column prop="enddate" label="毕业日期" width="157px"></el-table-column>
+      <el-table-column prop="graduationschool" label="毕业学校"></el-table-column>
       <el-table-column prop="major" label="所学专业"></el-table-column>
       <el-table-column prop="educationcategory" label="教育类别"></el-table-column>
       <el-table-column prop="education" label="学历" width="100px"></el-table-column>

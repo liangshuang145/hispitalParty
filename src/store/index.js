@@ -40,6 +40,7 @@ export default new Vuex.Store({
     userInfoList:[],// 用户信息列表
     userInfoEductionList:[],// 用户教育经历列表
     userInfoWorkList:[],// 用户工作经历列表
+    userInfoContractList:[],// 用户合同记录列表
     // ----- 民主党派 ----
     userInfoMzdpList: [],// 民主党派
     // ----- 高知群体 ---
@@ -52,6 +53,8 @@ export default new Vuex.Store({
     userInfoFdhList:[], // 妇代会
     // ----- 离职老干部 ---
     userInfoLtxlgbList:[], // 离职老干部
+    // ----- 党员发展 ---
+    userInfoPartyList:[], //党员发展
     //党内用户列表
     spirituserList:[],
     //学习强国排名表
@@ -139,6 +142,10 @@ export default new Vuex.Store({
     setUserInfoWorkList(state, data){
       state.userInfoWorkList = data
     },
+    // 用户合同记录列表
+    setUserInfoContractList(state, data){
+      state.userInfoContractList = data
+    },
     // ----------- 民主党派 -------------
     setUserInfoMzdpList(state, data){
       state.userInfoMzdpList = data
@@ -162,6 +169,10 @@ export default new Vuex.Store({
     // ----------- 离职老干部 --------
     setUserInfoLtxlgbList(state, data){
       state.userInfoLtxlgbList = data
+    },
+    // ----------- 党员发展列表 ----
+    setUserInfoPartyList(state, data){
+      state.userInfoPartyList = data
     },
     // ----------- 获取精神用户列表 --------
     setSpirituserList(state,data){
@@ -341,6 +352,12 @@ export default new Vuex.Store({
         commit('setUserInfoWorkList',res)
       })
     },
+    // 获取用户合同记录列表
+    getUserInfoContractList({ commit },param){
+      UserInfoService.getUserInfoContractList(param).then((res) =>{
+        commit('setUserInfoContractList',res)
+      })
+    },
     // ---------------民主党派---------
     getUserInfoMzdpList({ commit }){
       UserInfoService.getUserInfoMzdpList().then((res) => {
@@ -375,6 +392,12 @@ export default new Vuex.Store({
     getUserInfoLtxlgbList({ commit }){
       UserInfoService.getUserInfoLtxlgbList().then((res) => {
         commit('setUserInfoLtxlgbList',res)
+      })
+    },
+    // ------------- 党员发展列表 -------
+    getUserInfoPartyList({ commit }){
+      UserInfoService.getUserInfoPartyList().then((res) => {
+        commit('setUserInfoPartyList',res)
       })
     },
     // -------------- 党内谨慎用户列表 ------
