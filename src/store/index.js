@@ -183,7 +183,6 @@ export default new Vuex.Store({
       state.spiritAll = data
     },
 
-
   },
   actions: {
     // 获取用户列表 废弃

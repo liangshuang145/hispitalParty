@@ -49,7 +49,6 @@ export default {
       var vm = this
       // 用$on事件来接收参数
       Bus.$on('val', (data) => {
-        console.log("父组件拿到的值",data)
         this.qiangguo = data
       });
     },

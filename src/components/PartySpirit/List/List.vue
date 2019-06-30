@@ -2,11 +2,11 @@
   <div name="List" class="list-panel">
     <!--<buttons></buttons>-->
     <el-table ref="multipleTable" :data="myself"   highlight-current-row @current-change="handleTableChange" height="590">
-      <el-table-column prop="hots" label="热度" />
       <el-table-column prop="name" label="标题" />
+      <el-table-column prop="spiritSubject.user.name" label="发布者" />
       <el-table-column prop="time" label="发布时间" />
-      <!--<el-table-column prop="status1" label="发布者" />-->
-      <!--<el-table-column prop="status2" label="类别" />-->
+      <el-table-column prop="content" label="简介" />
+      <el-table-column prop="hots" label="热度" />
       <!--<el-table-column prop="type" label="状态" />-->
       <!--<el-table-column prop="nickname" label="姓名" />-->
       <!--<el-table-column prop="text010" label="科室" />-->
@@ -20,6 +20,7 @@
 import { mapState, mapActions } from 'vuex'
 import SpiritService from "../../../services/SpiritService"
 import Bus from '../Bus/bus'
+import Utils from '../Utils/utils'
 
 export default {
   name: 'List',
@@ -72,6 +73,12 @@ export default {
           if(res.code === 200){
             console.log("res",res);
             this.myself=res.data.content;
+            for(let i=0;i<this.myself.length;i++){
+              //转换日期格式
+              this.myself[i].time=Utils.formatTime111111111(this.myself[i].time);
+              //转换简介内容到纯文本
+              this.myself[i].content= Utils.Convert(this.myself[i].content);
+            }
           }else {
               this.$message.error(res.message);
           }

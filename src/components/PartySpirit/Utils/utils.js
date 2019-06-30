@@ -14,7 +14,7 @@ const formatTime = dateString =>{
   return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 };
 
-// 时间格式转换 yyyy-mm-dd hh:mm:ss
+// 时间格式转换 yyyymmddhhmmss
 const formatTime11111 = dateString =>{
   const date = new Date(dateString);
   const year = date.getFullYear();
@@ -54,15 +54,11 @@ const formatTime11111 = dateString =>{
   }else{
     ee=second;
   }
-
   return ""+year+aa+bb+cc+dd+ee+"";
   // return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 };
 
-const formatNumber = n => {
-  n = n.toString();
-  return n[1] ? n : '0' + n
-};
+
 
 // 获取富文本html内容中的第一张图片
 const getFirstImageByContentHtml = contentHtml =>{
@@ -91,8 +87,65 @@ const getFirstImageByContentHtml = contentHtml =>{
 };
 
 
+//  yyyymmddhhmmss转换为时间格式转换
+const formatTime111111111 = dateString =>{
+  var date = new Date(1381442400000);
+  var year = date.getFullYear();
+  var month = date.getMonth()+1;
+
+  var aa;
+  var bb;
+  var cc;
+  var dd;
+  var ee;
+  if( month< 10){
+    aa = '0'+month;
+  }else{
+    aa = month;
+  }
+  const day = date.getDate();
+  if( day < 10){
+    bb = '0'+day;
+  }else{
+    bb = day;
+  }
+  const hour = date.getHours();
+  if( hour <10 ){
+    cc ='0'+hour;
+  }else {
+    cc = hour;
+  }
+  const minute = date.getMinutes();
+  if( minute <10){
+    dd ='0'+minute;
+  }else {
+    dd = minute;
+  }
+  const second = date.getSeconds();
+  if( second <10 ){
+    ee ='0'+second;
+  }else{
+    ee=second;
+  }
+  return year+'-'+aa+'-'+bb+' '+cc+':'+dd+':'+ee+""
+};
+
+const formatNumber = n => {
+  n = n.toString();
+  return n[1] ? n : '0' + n
+};
+
+//转换成简内容
+const Convert  = dateString =>{
+  var str = dateString.replace(/<\/?[^>]+>/gi, '')
+  var stt = str.replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?]/g,"");
+  return stt;
+};
+
 export default {
   formatTime: formatTime,
   getFirstImageByContentHtml:getFirstImageByContentHtml,
   formatTime11111: formatTime11111,
+  formatTime111111111: formatTime111111111,
+  Convert: Convert,
 }
