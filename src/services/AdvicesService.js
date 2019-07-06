@@ -56,7 +56,7 @@ const addAdvices = (param = {}) => {
       console.log("添加消息成功",res)
       resolve(res)
     },(res)=>{
-      console.log("添加消息失败",res)
+     
     })
   })
 };
