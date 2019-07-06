@@ -16,6 +16,8 @@ import FieldService from '@/services/FieldService'
 import PageService from  '@/services/PageService'
 import WorkService from '../services/WorkService'
 import SpiriService from '@/services/SpiritService'
+import TaskService from '@/services/TaskService'
+import AdvicesService from '@/services/AdvicesService'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -61,6 +63,10 @@ export default new Vuex.Store({
     ideologycountryList:[],
     //党内谨慎列表
     spiritAll:[],
+    //任务列表
+    taskList:[],
+    //消息列表
+    advicesList:[],
   },
   mutations: {
     // 登录
@@ -182,7 +188,14 @@ export default new Vuex.Store({
     setSpiritAll(state,data){
       state.spiritAll = data
     },
-
+    // ----------- 获取任务列表 --------
+    setTaskList(state,data){
+      state.taskList = data
+    },
+    //-----------获取消息列表-------------
+    setAdvicesList(state,data){
+     state.advicesList = data
+    },
   },
   actions: {
     // 获取用户列表 废弃
@@ -551,5 +564,18 @@ export default new Vuex.Store({
       })
     },
 
+    // -------------- 任务table表 ------
+    getTaskList({ commit }){
+      TaskService.getTaskList().then((res) => {
+        commit('setTaskList',res)
+      })
+    },
+
+    // -------------- 消息table表 ------
+    getAdvicesList({ commit }){
+      AdvicesService.getAdvicesList().then((res) => {
+        commit('setAdvicesList',res)
+      })
+    },
   }
 })

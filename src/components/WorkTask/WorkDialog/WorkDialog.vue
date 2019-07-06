@@ -3,38 +3,52 @@
   <el-dialog :value="value" name="WorkDialog" :visible.sync="isShow" :before-close="handleClose" :title="title" width="750px"
              :modal-append-to-body='false' append-to-body center>
     <el-form ref="form" :model="form" :rules="rule" label-width="100px" label-position="right">
-      <el-form-item label="工作名称" prop="name">
-        <el-input v-model="form.name" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入工作名称"></el-input>
+      <el-form-item label="任务标题" prop="name">
+        <el-input v-model="form.title" size="medium" :maxlength="30" auto-complete="new-account" placeholder="请输入工作名称"></el-input>
       </el-form-item>
-      <el-form-item label="工作类型" prop="workType">
-        <el-select v-model="form.workType" placeholder="请选择工作类型">
-          <el-option v-for="item in workTypeArr" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="所在机构" prop="subjectId">
-        <el-select v-model="form.subjectId" size="medium" filterable placeholder="请选择所在机构" @change="selectSubject">
-          <el-option v-for="item in subjectList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-        </el-select>
-      </el-form-item>
+      <tr>
+       <td> <el-form-item label="任务类型" prop="workType">
+          <el-select v-model="form.workType" placeholder="请选择工作类型">
+            <el-option v-for="item in workTypeArr" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          </el-select>
+        </el-form-item></td>
+        <td>
+        <el-form-item label="所在机构" prop="subjectId">
+          <el-select v-model="form.subjectId" size="medium" filterable placeholder="请选择所在机构" @change="selectSubject">
+            <el-option v-for="item in subjectList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+        </el-form-item></td>
+      </tr>
+    <tr>
+      <td>
       <el-form-item label="组织部门" prop="departId">
         <el-select v-model="form.departId" size="medium" filterable placeholder="请选择组织部门" @change="selectDepart">
           <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item></td>
+      <td>
       <el-form-item label="行政小组" prop="groupId">
         <el-select v-model="form.groupId" size="medium" filterable placeholder="请选择行政小组" @change="selectGroup">
           <el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="工作年度" prop="year">
-        <el-date-picker v-model="form.year" type="year" placeholder="选择工作年度" value-format="yyyy"></el-date-picker>
-      </el-form-item>
-      <el-form-item label="工作周期" prop="workCycle">
-        <el-date-picker v-model="form.workCycle" type="daterange" value-format="yyyyMMddHHmmss" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']">
-        </el-date-picker>
-      </el-form-item>
+      </td>
+    </tr>
+      <tr>
+        <td><el-form-item label="开始日期" prop="beagntime ">
+          <el-date-picker
+            v-model="form.issuertime" type="datetime" placeholder="选择日期" >
+          </el-date-picker>
+        </el-form-item></td>
+        <td><el-form-item label="结束日期" prop="dateOfBirth1 ">
+          <el-date-picker
+            v-model="form.dateOfBirth1" type="datetime" placeholder="选择日期" >
+          </el-date-picker>
+        </el-form-item></td>
+      </tr>
+
       <el-form-item label="描述" prop="remark">
-        <el-input type="textarea" v-model="form.remark" :rows="5" :maxlength="255" placeholder="请输入描述" show-word-limit></el-input>
+        <el-input type="textarea" v-model="form.tasktext" :rows="5" :maxlength="255" placeholder="请输入描述" show-word-limit></el-input>
       </el-form-item>
     </el-form>
     <!-- 操作 -->
@@ -53,6 +67,8 @@
   import Validator from '@/lib/validator'
   import WorkService from  '../../../services/WorkService'
   import ElFormItem from "../../../../node_modules/element-ui/packages/form/src/form-item";
+  import TaskService from '../../../services/TaskService'
+  import Utils from '../Utils/utils'
 
     export default{
       components: {ElFormItem},
@@ -79,30 +95,34 @@
               title:'',
               isShow:false,
               form:{
+                id:'',
+                title:'',
                 name:'',
                 workType:'',
-                startTime:'',
-                endTime:'',
-                year:'',
-                workCycle:[],
+                tasktext:'',
+                subjectId:'',
+                departId:'',
+                groupId:'',
+                issuertime:'',
+                dateOfBirth1:'',
               },
               rule: {
-                name: [{
-                  validator: Validator.checkName,
-                  trigger: 'blur'
-                }],
-                subjectId:[{
-                  validator: Validator.checkSubjectId,
-                  trigger: 'blur'
-                }],
-                year:[{
-                  validator: Validator.checkYear,
-                  trigger: 'blur'
-                }],
-                workCycle:[{
-                  validator: Validator.checkWorkCycle,
-                  trigger: 'blur'
-                }]
+//                name: [{
+//                  validator: Validator.checkName,
+//                  trigger: 'blur'
+//                }],
+//                subjectId:[{
+//                  validator: Validator.checkSubjectId,
+//                  trigger: 'blur'
+//                }],
+//                year:[{
+//                  validator: Validator.checkYear,
+//                  trigger: 'blur'
+//                }],
+//                workCycle:[{
+//                  validator: Validator.checkWorkCycle,
+//                  trigger: 'blur'
+//                }]
               },
               // 0 医共体建设 1 等级医院评审 2 最多跑一次 3 优质服务专项行动 4 核心业务指标
               workTypeArr:[
@@ -116,7 +136,7 @@
         },
         computed: {
           ...mapState([
-            'subjectList',
+              'subjectList',
             'departList',
             'groupList'
           ])
@@ -125,15 +145,14 @@
           workData(data){
               if(this.type != 1){
                 this.form.id = data.id;
+                this.form.title = data.title;
                 this.form.name = data.name;
                 this.form.workType = data.workType;
-                this.form.startTime = data.startTime;
-                this.form.endTime = data.endTime;
-                this.form.year = data.year;
-//                this.form.subjectId = data.subject.id;
-//                this.getGroupListBySubjectId({subjectId:data.subject.id});
-//                this.getDepartListBySubjectId({subjectId:data.subject.id});
-                this.form.workCycle = [data.startTime,data.endTime];
+                this.form.subjectId = data.subjectId;
+                this.form.departId = data.departId;
+                this.form.groupId = data.groupId;
+                this.form.tasktext = data.tasktext;
+                this.form.issuertime = data.issuertime;
               }else {
                 this.form.workType = 0;
               }
@@ -147,16 +166,16 @@
             let title = '';
             switch (val) {
               case 1:
-                title = '新增工作';
+                title = '新增任务';
                 break;
               case 2:
-                title = '修改工作';
+                title = '修改任务';
                 break;
               case 0:
-                title = '查看工作';
+                title = '查看任务';
                 break;
               default:
-                  title = '查看工作';
+                  title = '查看任务';
                 break;
             }
             this.title = title
@@ -169,7 +188,7 @@
           },
         },
         mounted() {
-            this.getSubjectList()
+            this.getSubjectList();
         },
         // 页面方法
         methods: {
@@ -177,7 +196,8 @@
             'getGroupListBySubjectId',
             'getDepartListBySubjectId',
             'getSubjectList',
-            'getWorkList'
+            'getWorkList',
+            'getTaskList'
           ]),
           // 选择机构
           selectSubject(subjectId){
@@ -201,12 +221,15 @@
                   if (!this.form.workType) {
                     this.form.workType = 0
                   }
-                  WorkService.addWork(this.form).then((res) => {
+                  this.form.issuertime=Utils.formatTime(this.form.issuertime);
+                  let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+                  this.form.id = userInfo.id;
+                  TaskService.addTask(this.form).then((res) => {
                     if (res.code === 200) {
                       this.$message.success(res.message);
                       this.$refs['form'].resetFields();
                       // 重载列表
-                      this.getWorkList();
+                      this.getTaskList();
                       // 窗口关闭
                       this.handleClose();
                     } else {

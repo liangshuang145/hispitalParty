@@ -73,7 +73,7 @@ const updateSubject = (param = {}) => {
         url: 'subject/modify',
       data: param,
       method: 'post'
-  ``}).then((res)=>{
+  }).then((res)=>{
       resolve(res)
     })
   })
