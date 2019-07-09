@@ -14,9 +14,9 @@
               <i class="el-icon-arrow-down"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <!--<el-dropdown-item>-->
-                <!--<router-link to="/index/user">修改密码</router-link>-->
-              <!--</el-dropdown-item>-->
+              <el-dropdown-item>
+                <router-link to="/index/user">修改密码</router-link>
+              </el-dropdown-item>
               <el-dropdown-item>
                 <span @click="outLogin">退出登录</span>
               </el-dropdown-item>
@@ -81,7 +81,7 @@ export default {
             {'name': '组织人事', 'icon': 'el-icon-location', 'index': '2-1', 'child': [
               {'name': '人事档案', 'icon': 'el-icon-location', 'index': '/Index/PersonnelArchives'},
               {'name': '党员档案', 'icon': 'el-icon-location', 'index': '/Index/MemberArchives'},
-//              {'name': '建党对象', 'icon': 'el-icon-location', 'index': '/Index/MemberBuilding'},
+              {'name': '建党对象', 'icon': 'el-icon-location', 'index': '/Index/MemberBuilding'},
               {'name': '党员发展', 'icon': 'el-icon-location', 'index': '/Index/MemberDevelopment'},
               ]
             },
@@ -112,9 +112,12 @@ export default {
           },
             {'name': '力量图谱', 'icon': 'el-icon-location','index': '3-3', 'child': [
               {'name': '党组织力量图谱', 'icon': 'el-icon-location', 'index':  '/Index/PartyOrganizationalStrength'},
-              {'name': '群团力量图谱', 'icon': 'el-icon-location', 'index':  '/Index/PeopleStrength'},
-              {'name': '统战力量图谱', 'icon': 'el-icon-location', 'index':  '/Index/UnitedFrontStrength'},
-              {'name': '老干部力量图谱', 'icon': 'el-icon-location', 'index':  '/Index/VeteranCadreStrength'},
+              {'name': '高知群体图形比例', 'icon': 'el-icon-location', 'index':  '/Index/PeopleStrength'},
+              {'name': '工会图形比例', 'icon': 'el-icon-location', 'index':  '/Index/LaborUnionStrength'},
+              {'name': '妇代会力量图谱', 'icon': 'el-icon-location', 'index':  '/Index/LadyStrength'},
+              {'name': '民主党派图形比例', 'icon': 'el-icon-location', 'index':  '/Index/DemocraticParty'},
+              {'name': '团委图形比例', 'icon': 'el-icon-location', 'index':  '/Index/YounthLeague'},
+             {'name': '离退休老干部力量图谱', 'icon': 'el-icon-location', 'index':  '/Index/VeteranCadreStrength'},
               ]
             },
 //            {'name': '党务公开', 'icon': 'el-icon-location','index': '3-4', 'child': [
@@ -192,23 +195,23 @@ export default {
         this.userName = userInfo.name;
     },
     outLogin() {
-//        LoginService.outLogin().then( (res) => {
-//          if(res.code === 200){
+        LoginService.outLogin().then( (res) => {
+          if(res.code === 200){
             this.$router.push('/Login');
-//            this.$notify.success({
-//              title: res.message,
-//              duration: 5000
-//            });
-//          }else {
-//            this.$notify.error({
-//              title: "错误码："+res.code,
-//              message: res.message,
-//              duration: 5000
-//            });
-//          }
-//        },err => {
-//            console.error(err)
-//        });
+            this.$notify.success({
+              title: res.message,
+              duration: 5000
+            });
+          }else {
+            this.$notify.error({
+              title: "错误码："+res.code,
+              message: res.message,
+              duration: 5000
+            });
+          }
+        },err => {
+            console.error(err)
+        });
 //      this.$http({
 //        url: this.$BASE_URL + 'api/user/outLogin',
 //        headers: {

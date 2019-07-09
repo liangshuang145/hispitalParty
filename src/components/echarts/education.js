@@ -1,13 +1,13 @@
 export const option_education = {
-  title : {
+  title: {
     text: '学历统计',
-    x:'center'
+    x: 'center'
   },
   color: ['#3398DB'],
-  tooltip : {
+  tooltip: {
     trigger: 'axis',
-    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-      type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+    axisPointer: { // 坐标轴指示器，坐标轴触发有效
+      type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
     }
   },
   grid: {
@@ -16,26 +16,24 @@ export const option_education = {
     bottom: '3%',
     containLabel: true
   },
-  xAxis : [
-    {
-      type : 'category',
-      data: ['小学','初中','高中','大专','本科','硕士','博士'],
-      axisTick: {
-        alignWithLabel: true
-      }
+  xAxis: [{
+    type: 'category',
+    data: ['高中', '大专', '本科', '硕士', '博士'],
+    // data: names,
+    // data: [],s
+    axisTick: {
+      alignWithLabel: true
     }
-  ],
-  yAxis : [
-    {
-      type : 'value'
-    }
-  ],
-  series : [
-    {
-      name:'直接访问',
-      type:'bar',
-      barWidth: '60%',
-      data:[10, 52, 200, 334, 390, 330, 220]
-    }
-  ]
+  }],
+  yAxis: [{
+    type: 'value'
+  }],
+  series: [{
+    name: '学历情况',
+    type: 'bar',
+    barWidth: '55%',
+    data: []
+    // data: nums
+    // data: ['45', '23', '67', '98', '34']
+  }]
 }

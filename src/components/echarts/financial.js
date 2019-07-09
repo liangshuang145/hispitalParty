@@ -1,64 +1,39 @@
-export const option_financial= {
-  title: { text: ' 财政统计', x:'center'},
-  tooltip : {
-    trigger: 'axis',
-    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-      type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+export const option_financial = {
+  title: {
+    text: ' 户籍统计',
+    x: 'center'
+  },
+  itemStyle: {
+    emphasis: {
+      shadowBlur: 10,
+      shadowOffsetX: 0,
+      shadowColor: 'rgba(0, 0, 0, 0.5)'
     }
   },
-
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
+  tooltip: {
+    trigger: 'item',
+    formatter: '{a} <br/>{b} : {c} ({d}%)'
   },
-  xAxis : [
-    {
-      type : 'value'
-    }
-  ],
-  yAxis : [
-    {
-      type : 'category',
-      axisTick : {show: false},
-      data : ['周一','周二','周三','周四','周五','周六','周日']
-    }
-  ],
-  series : [
-    {
-      name:'利润',
-      type:'bar',
-      label: {
-        normal: {
-          show: true,
-          position: 'inside'
-        }
+  legend: {
+    orient: 'vertical',
+    left: 'left',
+    data: ['杭州', '非杭州']
+  },
+  series: [{
+    name: '访问来源',
+    type: 'pie',
+    radius: '55%',
+    center: ['50%', '60%'],
+    data: [{
+        // value: 320,
+        // option_financial.series[0].data[0] = res.data[0].place[0],
+        // name: '杭州'
       },
-      data:[200, 170, 240, 244, 200, 220, 210]
-    },
-    {
-      name:'收入',
-      type:'bar',
-      stack: '总量',
-      label: {
-        normal: {
-          show: true
-        }
-      },
-      data:[320, 302, 341, 374, 390, 450, 420]
-    },
-    {
-      name:'支出',
-      type:'bar',
-      stack: '总量',
-      label: {
-        normal: {
-          show: true,
-          position: 'left'
-        }
-      },
-      data:[-120, -132, -101, -134, -190, -230, -210]
-    }
-  ]
+      {
+        // value: 240,
+        // value: res.data[0].place[1],
+        // name: '非杭州'
+      }
+    ]
+  }]
 }

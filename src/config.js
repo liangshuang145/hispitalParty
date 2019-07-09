@@ -11,9 +11,9 @@ const api = {
 const env = {
   local: {
     name: 'local',
-    // base: 'http://192.168.1.3:8080/ayundao/'
+    base: 'http://192.168.1.3:8080/ayundao/'
     // base: 'http://192.168.1.108:8030/'
-    base: 'http://localhost:8030/'
+    // base: 'http://localhost:8030/'
     // base: 'http://192.168.1.17/'
     // base:'http://localhost/iyundao/'
     // base: 'http://localhost:8080/iyundao/'
@@ -33,7 +33,7 @@ const env = {
 };
 
 // 环境判断
-(function name (params) {
+(function name(params) {
   let href = window.location.href;
   if (href.indexOf('local') > -1) { // 本地
     api.name = env.local.name;
