@@ -38,8 +38,6 @@
           <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-
-      <el-radio v-model="radio" label="2"></el-radio>
       <el-form-item label="组织" prop="groupId">
         <el-select filterable placeholder="请选择" v-model="form.groupId" @change="selectGroup">
           <!-- v-if="!isShow" -->
@@ -49,7 +47,7 @@
       <el-form-item label="用户" prop="userId">
         <el-col :span="12">
           <el-select
-            v-model="form.userName"
+            v-model="form.userId"
             filterable
             reserve-keyword
             placeholder="请输入用户名称"
@@ -219,7 +217,6 @@ export default {
       "groupList", //组织列表
       "subjectList", //机构列表
       "departList", //部门列表
-      "userList" //用户列表
     ])
   },
   mounted() {
@@ -234,7 +231,8 @@ export default {
       "getDepartList",
       "getGroupListBySubjectId",
       "getDepartListBySubjectId",
-      "getUserListByName"
+      "getUserListByName",
+//      'getUserListByGroupId'
     ]),
     //附件ID集合
     // onSuccess(res, file, fileList) {
@@ -266,7 +264,7 @@ export default {
     },
     // 通过用户名称进行搜索
     selectUserList(val) {
-      UserService.getUserListByName({
+      UserService.getUserListByGroupId({
         key: "name",
         value: val,
         page: 0,
@@ -281,7 +279,6 @@ export default {
       });
       console.log(val);
     },
-
     //对用户组过滤判断
     getUserList(queryString, cb) {
       var words = this.words;
@@ -291,11 +288,9 @@ export default {
       // 调用 callback 返回建议列表的数据
       cb(result);
     },
-
     handleChange(file, fileList) {
       console.log(file, fileList);
     },
-
     // 关闭按钮
     handleClose() {
       this.isShow = false;
@@ -310,7 +305,6 @@ export default {
       this.getDepartListBySubjectId({ subjectId: subjectId });
       this.form.subjectId = subjectId;
     },
-
     //选择部门
     selectDepart(departId) {
       this.form.departId = departId;
@@ -318,9 +312,9 @@ export default {
 
     //选择组织
     selectGroup(groupId) {
+      this.getUserListByGroupId({groupId: groupId})
       this.form.groupId = groupId;
     },
-
     //选择用户
     selectUser(userId) {
       this.form.userId = userId;

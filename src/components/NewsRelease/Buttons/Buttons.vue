@@ -9,7 +9,7 @@
           <!--<el-button type="primary" icon="el-icon-plus" @click="addIndicator" size="small">添加工作指标</el-button>-->
           <el-button type="danger" icon="el-icon-delete" @click="delWork" size="small">删除任务</el-button>
           <!--<el-button type="info" icon="el-icon-document" @click="lookIndicator" size="small">发送消息</el-button>-->
-
+          <el-button type="info" icon="el-icon-document" @click="lookIndicator" size="small">发送任务</el-button>
         </el-col>
       </el-row>
       <work-dialog v-model="isWorkDialogShow" :type="workDialogType" :workData="workData"></work-dialog>

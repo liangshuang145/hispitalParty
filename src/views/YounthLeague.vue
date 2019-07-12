@@ -1,18 +1,18 @@
 <template>
   <div class="i-div">
     <div style="float: left">
-      <div id="people" :style="{width: '550px', height: '270px'}"></div>
-      <div id="education" :style="{width: '550px', height: '270px'}"></div>
-      <div id="pchangge" :style="{width: '550px', height: '270px'}"></div>
+      <div id="people" :style="{width: '520px', height: '270px'}"></div>
+      <div id="education" :style="{width: '520px', height: '270px'}"></div>
+      <div id="pchangge" :style="{width: '520px', height: '270px'}"></div>
     </div>
     <div style="float: left">
-      <div id="faceof" :style="{width: '550px', height: '270px'}"></div>
-      <div id="ages" :style="{width: '550px', height: '270px'}"></div>
+      <div id="faceof" :style="{width: '520px', height: '270px'}"></div>
+      <div id="ages" :style="{width: '520px', height: '270px'}"></div>
     </div>
     <div style="float: left">
-      <div id="city" :style="{width: '550px', height: '270px'}"></div>
-      <div id="activity" :style="{width: '550px', height: '270px'}"></div>
-      <div id="financial" :style="{width: '550px', height: '270px'}"></div>
+      <div id="city" :style="{width: '520px', height: '270px'}"></div>
+      <div id="activity" :style="{width: '520px', height: '270px'}"></div>
+      <div id="financial" :style="{width: '520px', height: '270px'}"></div>
     </div>
   </div>
 </template>
@@ -188,4 +188,4 @@ export default {
   }
 };
 </script>
-<style lang="postcss" scoped>
+<style lang="postcss" scoped></style>

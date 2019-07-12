@@ -70,20 +70,16 @@ import LearningPower from '../views/LearningPower.vue'
 import Pioneer from '../views/Pioneer.vue'
 //党组织力量图谱
 import PartyOrganizationalStrength from '../views/PartyOrganizationalStrength.vue'
-
 //群团力量图谱
 import PeopleStrength from '../views/PeopleStrength.vue'
-
 //老干部力量图谱
 import VeteranCadreStrength from '../views/VeteranCadreStrength.vue'
 //工会力量图谱
 import LaborUnionStrength from '../views/LaborUnionStrength.vue'
 //妇代会力量图谱
 import LadyStrength from '../views/LadyStrength.vue'
-
 //民主党派力量图谱
 import DemocraticParty from '../views/DemocraticParty.vue'
-
 //团委力量图谱
 import YounthLeague from '../views/YounthLeague.vue'
 
@@ -101,6 +97,16 @@ import DemocraticAppraisal from '../views/DemocraticAppraisal.vue'
 import PartyMembersAnnualReports from '../views/PartyMembersAnnualReports.vue'
 // ------------活动管理
 import ActivityManage from '../views/ActivityManage.vue'
+
+// ------------通知消息
+//工作任务
+import WorkTask from '../views/WorkTask.vue'
+//消息发布
+import NewsRelease from '../views/NewsRelease.vue'
+//活动报名
+import ActivityRegistration from '../views/ActivityRegistration.vue'
+//在线考试
+// import OnlineExamination from '../views/OnlineExamination.vue'
 
 // 百度编辑器
 import UEditorDemo from '../views/UEditorDemo.vue'
@@ -340,6 +346,21 @@ export default new Router({
           name: 'PartyMembersAnnualReports',
           component: PartyMembersAnnualReports
         }, //党员年报
+        {
+          path: 'WorkTask',
+          name: 'WorkTask',
+          component: WorkTask
+        }, //工作任务
+        {
+          path: 'NewsRelease',
+          name: 'NewsRelease',
+          component: NewsRelease
+        }, //消息发布
+        {
+          path: 'ActivityRegistration',
+          name: 'ActivityRegistration',
+          component: ActivityRegistration
+        }, //活动报名
       ]
     }
   ]

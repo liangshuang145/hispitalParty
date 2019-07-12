@@ -29,7 +29,7 @@
 
 
 <script>
-  import ElFormItem from "../../../../node_modules/element-ui/packages/form/src/form-item";
+  import ElFormItem from '../../../../node_modules/element-ui/packages/form/src/form-item';
   import ElForm from "../../../../node_modules/element-ui/packages/form/src/form";
   import ElButton from "../../../../node_modules/element-ui/packages/button/src/button";
     //  此处导入组件,格式,例如:import xxx名称 from "路径"

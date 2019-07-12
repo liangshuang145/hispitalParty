@@ -1,7 +1,7 @@
 <template>
   <div name="List" class="list-panel">
     <el-table ref="multipleTable" :data="advicesList"   highlight-current-row @current-change="handleTableChange" height="520">
-      <el-table-column prop="id" label="消息id" />
+      <el-table-column prop="id" label="消息" />
       <el-table-column prop="title" label="标题" />
       <el-table-column prop="type" label="类型" />
       <el-table-column prop="username" label="发送人" />

@@ -70,8 +70,7 @@ const getUserListByGroupId = (param = {}) => {
       method: 'post',
       data: param
     }).then((res) => {
-      console.log(888)
-      resolve(res)
+      resolve(res.data)
     })
   })
 };
@@ -93,7 +92,7 @@ const getUserListByDepartId = (param = {}) => {
       method: 'post',
       data: param
     }).then((res) => {
-      resolve(res)
+      resolve(res.data)
     })
   })
 };

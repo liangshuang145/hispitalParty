@@ -91,16 +91,15 @@ const getWorkList = (param = {}) =>{
  */
 const getWorkIndicatorList = (param = {}) => {
   return new Promise((resolve) => {
-    http.get({
-      url:'work/indicatorList',
-      data:param,
-      method:'get'
+    http.post({
+      url: 'work/indicatorList',
+      method: 'post',
+      data: param
     }).then((res) => {
       resolve(res.data)
     })
   })
-};
-
+}
 /**
  *  添加工作指标
  * @param param
@@ -140,7 +139,6 @@ const delWorkIndicator = (param = {}) => {
     })
   })
 };
-
 /**
  *  添加工作指标详情
  * @param param

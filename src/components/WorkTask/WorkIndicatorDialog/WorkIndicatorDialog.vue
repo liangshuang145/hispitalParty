@@ -86,6 +86,7 @@
           ...mapActions([
             'getWorkIndicatorList',
           ]),
+
           // 选择上级指标
           selectIndicatorId(id){
             this.form.fatherId = id
@@ -115,6 +116,25 @@
                   break;
               }
             });
+
+            this.$refs['form'].validate((valid) => {
+                switch (this.type) {
+                  case 1: //新增
+                        console.log(this.form)
+                        WorkService.addWorkIndication(this.form).then((res) => {
+                      if(res.code === 200) {
+                          this.$message.success('添加' + res.message)
+                        this.$refs['form'].resetFields()
+                          //关闭窗口
+                        this.handleClose();
+                        // 重载 列表
+                        this.getWorkIndicatorList({id:this.workId})
+                      }else {
+                          this.$message.error(res.message)
+                      }
+                        })
+                }
+            })
           },
           // 关闭按钮
           handleClose() {

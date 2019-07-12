@@ -1,4 +1,4 @@
-#@Author: bjy @Date: 2019/6/22 16:04 #
+  #@Author: bjy @Date: 2019/6/22 16:04 #
 <template>
   <el-dialog :value="value" name="WorkDialog" :visible.sync="isShow" :before-close="handleClose" :title="title" width="750px"
              :modal-append-to-body='false' append-to-body center>

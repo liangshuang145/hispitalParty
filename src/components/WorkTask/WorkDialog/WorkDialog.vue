@@ -33,16 +33,29 @@
         </el-select>
       </el-form-item>
       </td>
-    </tr>
+      <tr>
+        <el-form-item label="用户" prop="userids">
+          <el-select v-model="form.userids" size="medium" filterable placeholder="请选择用户" multiple>
+            <el-option v-for="item in userList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+          <!--<el-select v-model="form.departId" size="medium" filterable placeholder="请选择用户" @change="selectDepart" v-else>-->
+            <!--<el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id"></el-option>-->
+          <!--</el-select>-->
+        </el-form-item>
+      </tr>
       <tr>
         <td><el-form-item label="开始日期" prop="beagntime ">
-          <el-date-picker
-            v-model="form.issuertime" type="datetime" placeholder="选择日期" >
+          <el-date-picker v-model="form.issuertime" type="datetime"
+                          placeholder="选择日期" :picker-options="issuertime"
+                          value-format="yyyy-MM-dd"
+          >
           </el-date-picker>
         </el-form-item></td>
         <td><el-form-item label="结束日期" prop="dateOfBirth1 ">
-          <el-date-picker
-            v-model="form.dateOfBirth1" type="datetime" placeholder="选择日期" >
+          <el-date-picker v-model="form.dateOfBirth1" type="datetime"
+                          placeholder="选择日期" :picker-options="dateOfBirth1"
+                          value-format="yyyy-MM-dd"
+          >
           </el-date-picker>
         </el-form-item></td>
       </tr>
@@ -68,6 +81,7 @@
   import WorkService from  '../../../services/WorkService'
   import ElFormItem from "../../../../node_modules/element-ui/packages/form/src/form-item";
   import TaskService from '../../../services/TaskService'
+  import UserService from '../../../services/UserService'
   import Utils from '../Utils/utils'
 
     export default{
@@ -97,32 +111,24 @@
               form:{
                 id:'',
                 title:'',
-                name:'',
-                workType:'',
-                tasktext:'',
-                subjectId:'',
-                departId:'',
-                groupId:'',
+                type:'',
+                tasktext: '',
+                subjectIds: '',
+                departIds: '',
+                userids: [],
+                groupIds:'',
                 issuertime:'',
                 dateOfBirth1:'',
               },
               rule: {
-//                name: [{
-//                  validator: Validator.checkName,
-//                  trigger: 'blur'
-//                }],
-//                subjectId:[{
-//                  validator: Validator.checkSubjectId,
-//                  trigger: 'blur'
-//                }],
-//                year:[{
-//                  validator: Validator.checkYear,
-//                  trigger: 'blur'
-//                }],
-//                workCycle:[{
-//                  validator: Validator.checkWorkCycle,
-//                  trigger: 'blur'
-//                }]
+                title: [{
+                  validator: Validator.checkTitle,
+                  trigger: 'blur'
+                }],
+                userid:[{
+                  validator: Validator.checkUserid,
+                  trigger: 'blur'
+                }],
               },
               // 0 医共体建设 1 等级医院评审 2 最多跑一次 3 优质服务专项行动 4 核心业务指标
               workTypeArr:[
@@ -131,14 +137,37 @@
                 {value:2,label:'最多跑一次'},
                 {value:3,label:'优质服务专项行动'},
                 {value:4,label:'核心业务指标'},
-              ]
+              ],
+              issuertime: {
+                  disabledDate: (time) => {
+                      if(this.form.dateOfBirth1){
+                          return (
+                              time.getTime() < new Date(this.dateOfBirth1).getTime()
+                          )
+                      }else {
+                          return time.getTime() > Date.now()
+                      }
+                  }
+              },
+              dateOfBirth1: {
+                disableDate: (time) => {
+                  if (this.form.issuertime) {
+                    return (
+                      time.getTime() > Date.now() || time.getTime() < new Date(this.form.issuertime).getTime() -8.64e7  //加上8.64e7包含当天
+                    )
+                  } else {
+                    return time.getTime() < Date.now()
+                  }
+                }
+              }
             }
         },
         computed: {
           ...mapState([
-              'subjectList',
-            'departList',
-            'groupList'
+               'subjectList',
+               'departList',
+               'groupList',
+                'userList'
           ])
         },
         watch:{
@@ -146,11 +175,11 @@
               if(this.type != 1){
                 this.form.id = data.id;
                 this.form.title = data.title;
-                this.form.name = data.name;
                 this.form.workType = data.workType;
-                this.form.subjectId = data.subjectId;
-                this.form.departId = data.departId;
-                this.form.groupId = data.groupId;
+                this.form.subjectIds = data.subjectIds;
+                this.form.departIds = data.departIds;
+                this.form.groupIds = data.groupIds;
+                this.form.userids = data.userids;
                 this.form.tasktext = data.tasktext;
                 this.form.issuertime = data.issuertime;
               }else {
@@ -187,12 +216,14 @@
             this.$emit('input', val)
           },
         },
-        mounted() {
-            this.getSubjectList();
-        },
+//        mounted() {
+//            this.getSubjectList();
+//        },
         // 页面方法
         methods: {
           ...mapActions([
+            'getUserListByGroupId',
+            'getUserListByDepartId',
             'getGroupListBySubjectId',
             'getDepartListBySubjectId',
             'getSubjectList',
@@ -207,11 +238,13 @@
           },
           // 选择部门
           selectDepart(departId){
+              this.getUserListByDepartId({departId: departId,page:0,size:1000})
             this.form.departId = departId
           },
           // 选择行政
           selectGroup(groupId){
-            this.form.groupId = groupId
+              this.getUserListByGroupId({groupId: groupId,page:0,size:1000});
+              this.form.groupId = groupId
           },
           // 确定按钮
           sureClick() {
@@ -223,6 +256,7 @@
                   }
                   this.form.issuertime=Utils.formatTime(this.form.issuertime);
                   let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+                  console.log('用户信息-----', userInfo)
                   this.form.id = userInfo.id;
                   TaskService.addTask(this.form).then((res) => {
                     if (res.code === 200) {

@@ -14,7 +14,9 @@ import ButtonService from '@/services/ButtonService'
 import FieldService from '@/services/FieldService'
 import PageService from '@/services/PageService'
 import MedicalService from '@/services/MedicalService'
-import AppendService from '@/services/AppendService';
+import AppendService from '@/services/AppendService'
+import WorkService from '@/services/WorkService'
+import TaskService from '@/services/TaskService'
 
 
 Vue.use(Vuex);
@@ -35,7 +37,10 @@ export default new Vuex.Store({
     pageList: [], // 页面列表
     menuInfo: {}, // 单个菜单信息
     addDocument: [], // 新增医德档案
-    addAppend: [] //上传附件
+    addAppend: [], //上传附件
+    workList: [], //工作列表
+    workIndicator: [], //指标列表
+    taskList: [], //任务列表
 
   },
   mutations: {
@@ -104,7 +109,19 @@ export default new Vuex.Store({
     //上传附件
     setAppend(state, data) {
       state.addAppend = data
-    }
+    },
+    //工作列表
+    setWorkList(state, data) {
+      state.workList = data
+    },
+    //指标列表
+    setWorkIndicatorList(state, data) {
+      state.workIndicator = data
+    },
+//任务列表
+    setTaskList(state, data) {
+      state.taskList = data
+    },
 
   },
   actions: {
@@ -118,37 +135,42 @@ export default new Vuex.Store({
       })
     },
 
+    //指标列表
+    getWorkIndicatorList({ commit }) {
+      WorkService.getWorkIndicatorList(param).then((res) => {
+        console.log('this is getWorkIndicatorList work ...')
+        commit('setWorkIndicatorList', res)
+      })
+    },
+    //获取工作列表
+    getWorkList({ commit }) {
+      WorkService.getWorkList().then((res) => {
+        console.log('this is gerWorkList work ...')
+        commit('setWorkList', res)
+    })
+    },
     // 通过部门id获取用户列表-分页
-    getUserListByDepartId({
-      commit
-    }, param) {
+    getUserListByDepartId({ commit}, param) {
       UserService.getUserListByDepartId(param).then((res) => {
         commit('setUserList', res)
       })
     },
     // 通过小组id获取用户列表-分页
-    getUserListByGroupId({
-      commit
-    }, param) {
+    getUserListByGroupId({commit}, param) {
       UserService.getUserListByGroupId(param).then((res) => {
         commit('setUserList', res)
       })
     },
     // 通过名称获取用户列表-分页
-    getUserListByName({
-      commit
-    }, param) {
+    getUserListByName({commit}, param) {
       UserService.getUserListByName(param).then((res) => {
         commit('setUserList', res)
       })
     },
     // 获取用户组列表
-    getUserGroupList({
-      commit
-    }) {
+    getUserGroupList({commit}) {
       UserGroupService.getUserGroupList().then((res) => {
         console.log('this is getUserGroupList work ...')
-
         commit('setUserGroupList', res)
       })
     },
@@ -172,9 +194,7 @@ export default new Vuex.Store({
       })
     },
     // 获取组织(部门)列表
-    getDepartList({
-      commit
-    }) {
+    getDepartList({ commit }) {
       DepartService.getDepart().then((res) => {
         console.log('this is getDepartList work ...');
         commit('setDepartList', res)
@@ -205,9 +225,7 @@ export default new Vuex.Store({
       })
     },
     // 获取菜单列表
-    getMenuList({
-      commit
-    }) {
+    getMenuList({ commit }) {
       MenuService.getMenuList().then((res) => {
         console.log('this is getMenuList work ...');
         commit('setMenuList', res)
@@ -267,7 +285,15 @@ export default new Vuex.Store({
     }) {
       AppendService.getAppend().then(res => {
         console.log('this is addDocument work ...')
-        console.log('setAppend', res)
+        commit('setAppend', res)
+      })
+    },
+
+    //任务列表
+    getTaskList({ commit }) {
+      TaskService.getTaskList().then(res => {
+        console.log('this is getTaskList work ...')
+        commit('setTaskList', res)
       })
     }
   }

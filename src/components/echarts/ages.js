@@ -17,7 +17,7 @@ export const option_age = {
     data: [],
     itemStyle: {
       normal: {
-        color: 'hotpink'
+        color: 'darkpink'
       }
     }
   }]

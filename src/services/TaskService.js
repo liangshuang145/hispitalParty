@@ -20,6 +20,7 @@ const getTaskList = (param = {}) => {
       method:'get',
       data:param
     }).then((res) => {
+      console.log('列表的参数:', res)
       resolve(res.data)
     })
   })
@@ -33,15 +34,16 @@ const getTaskList = (param = {}) => {
 const addTask = (param = {}) => {
   return new Promise((resolve) => {
     param={
-      name: param.title,
-      type: param.workType,
+      title: param.title,
+      workType: param.workType,
       issuertime: param.issuertime,
       tasktext: param.tasktext,
       // userid: "402881916ba10b8a016ba113adbc0006",
       userid: param.id,
-      subjectId: param.subjectId,
-      departId: param.departId,
-      groupId: param.groupId,
+      subjectIds: param.subjectId,
+      departIds: !param.departId? '' :param.departId,
+      groupIds: !param.groupId? '' : param.groupId,
+      userids: param.userids
     };
     console.log("添加任务发送的param",param);
     http.post({
