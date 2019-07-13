@@ -41,6 +41,7 @@ export default new Vuex.Store({
     workList: [], //工作列表
     workIndicator: [], //指标列表
     taskList: [], //任务列表
+    taskLists: [], //通过id查看任务列表
 
   },
   mutations: {
@@ -122,7 +123,10 @@ export default new Vuex.Store({
     setTaskList(state, data) {
       state.taskList = data
     },
-
+//通过id查看任务列表
+    setTaskById(state, data) {
+      state.taskLists = data
+    }
   },
   actions: {
     // 获取用户列表 废弃
@@ -294,6 +298,13 @@ export default new Vuex.Store({
       TaskService.getTaskList().then(res => {
         console.log('this is getTaskList work ...')
         commit('setTaskList', res)
+      })
+    },
+    //通过id查看任务列表
+    getTaskById({commit}, param) {
+      TaskService.getTaskById(param).then(res => {
+        console.log('this is getTaskById work ...')
+        commit('setTaskById', res)
       })
     }
   }

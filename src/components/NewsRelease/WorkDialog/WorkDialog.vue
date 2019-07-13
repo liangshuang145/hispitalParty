@@ -134,7 +134,7 @@
           ...mapState([
               'subjectList',
             'departList',
-            'groupList'
+            'groupList',
           ])
         },
         watch:{
@@ -193,7 +193,8 @@
             'getDepartListBySubjectId',
             'getSubjectList',
             'getWorkList',
-            'getTaskList'
+            'getTaskList',
+//            'getTaskById'
           ]),
           // 选择机构
           selectSubject(subjectId){
@@ -235,7 +236,8 @@
                   break;
                 case 2:// 修改
                   break;
-                default:
+
+                default: //查看
                   break;
               }
             });

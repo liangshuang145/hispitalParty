@@ -73,7 +73,6 @@
                     this.$message.error(res.message)
                 }
             });
-
           },
           // 添加工作
           addWork(){
