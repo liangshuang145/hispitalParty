@@ -65,21 +65,21 @@ const addTask = (param = {}) => {
  * @param param
  * @returns {Promise}
  */
-const getTaskById = (param = {}) => {
-  return new Promise((resolve) => {
-    param={
-      id:param.id,
+const getTaskById = (param = {}) =>{
+  return new Promise((resolve) =>{
+    param = {
+      id: param.id
     };
     http.post({
-      url:'task/view',
-      method:'post',
-      data:param
-    }).then((res) => {
+      url: 'task/view',
+      method: 'post',
+      data: param
+    }).then((res) =>{
+      console.log('获取到的id为：', id)
       resolve(res)
     })
   })
-};
-
+}
 /**
  * 根据id删除任务
  * @param param
